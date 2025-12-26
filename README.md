@@ -45,7 +45,8 @@ leo-claude-skills/
 │   └── references/
 │       └── output-template.md
 └── scripts/
-    └── sync-to-claude-code.sh
+    ├── sync-to-claude-code.sh
+    └── skill-manager.sh
 ```
 
 ## 🔧 새 스킬 추가
@@ -70,6 +71,21 @@ EOF
 ./scripts/sync-to-claude-code.sh
 ```
 
+## 🔘 스킬 활성화/비활성화
+
+```bash
+# 스킬 상태 보기
+./scripts/skill-manager.sh list
+
+# 스킬 비활성화
+./scripts/skill-manager.sh disable coding-problem-solver
+
+# 스킬 활성화
+./scripts/skill-manager.sh enable coding-problem-solver
+```
+
+비활성화된 스킬은 `~/.claude/skills-disabled/`에 보관됩니다.
+
 ## 📋 스킬 작성 가이드
 
 ### SKILL.md 필수 요소
@@ -89,4 +105,5 @@ description: ...          # 200자 이내, 트리거 조건 포함
 
 ## 📝 변경 이력
 
+- 2025-12-26: skill-manager.sh 추가 (스킬 활성화/비활성화)
 - 2025-12-26: python-project, coding-problem-solver 초기 추가

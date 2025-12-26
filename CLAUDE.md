@@ -14,7 +14,8 @@ leo-claude-skills/
 │   ├── SKILL.md           # Required - skill definition with YAML frontmatter
 │   └── references/        # Optional - additional context files
 └── scripts/
-    └── sync-to-claude-code.sh
+    ├── sync-to-claude-code.sh
+    └── skill-manager.sh
 ```
 
 ## Skill Definition Format
@@ -33,13 +34,20 @@ description: ...          # 200 chars max, include trigger conditions
 - **python-project**: Python project setup with uv + ruff + ty + pytest (Astral Toolchain)
 - **coding-problem-solver**: Structured coding interview problem solving for Staff-level preparation
 
-## Sync to Claude Code
+## Scripts
 
 ```bash
+# Sync skills to Claude Code
 ./scripts/sync-to-claude-code.sh
+
+# Manage skills (list/enable/disable)
+./scripts/skill-manager.sh list
+./scripts/skill-manager.sh disable <skill-name>
+./scripts/skill-manager.sh enable <skill-name>
 ```
 
-Creates symlinks from this repo to `~/.claude/skills/` for each skill folder containing SKILL.md.
+- `sync-to-claude-code.sh`: Creates symlinks from this repo to `~/.claude/skills/`
+- `skill-manager.sh`: Moves skills between `~/.claude/skills/` and `~/.claude/skills-disabled/`
 
 ## Adding a New Skill
 
