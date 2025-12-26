@@ -53,6 +53,8 @@ uv run ty check
 
 ## pyproject.toml Template
 
+> Full template available at `assets/pyproject-template.toml`
+
 ```toml
 [project]
 name = "project-name"
@@ -74,7 +76,7 @@ target-version = "py311"
 exclude = [".venv", "venv", "__pycache__", "build", "dist"]
 
 [tool.ruff.lint]
-select = ["E", "F", "B", "I", "UP", "SIM", "ASYNC", "RUF"]
+select = ["E", "W", "F", "B", "I", "C4", "UP", "SIM", "TCH", "PTH", "ASYNC", "RUF"]
 ignore = ["E501", "B008"]
 fixable = ["ALL"]
 
