@@ -100,7 +100,7 @@ gh api repos/{owner}/{repo}/branches/main/protection -X PUT \
   --input - <<'EOF'
 {
   "required_status_checks": null,
-  "enforce_admins": false,
+  "enforce_admins": true,
   "required_pull_request_reviews": {
     "dismiss_stale_reviews": false,
     "require_code_owner_reviews": false,
