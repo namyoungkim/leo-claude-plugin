@@ -97,11 +97,18 @@ Settings > Branches > Add rule:
 ```bash
 gh api repos/{owner}/{repo}/branches/main/protection -X PUT \
   -H "Accept: application/vnd.github+json" \
-  -f "required_pull_request_reviews[dismiss_stale_reviews]=false" \
-  -f "required_pull_request_reviews[require_code_owner_reviews]=false" \
-  -f "required_pull_request_reviews[required_approving_review_count]=0" \
-  -f "enforce_admins=false" \
-  -f "restrictions=null"
+  --input - <<'EOF'
+{
+  "required_status_checks": null,
+  "enforce_admins": false,
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": false,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 0
+  },
+  "restrictions": null
+}
+EOF
 ```
 
 ### 보호 규칙 확인
