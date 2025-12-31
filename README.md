@@ -8,6 +8,8 @@
 |-------|------|--------|
 | [python-project](./python-project/) | Python 프로젝트 세팅 (uv + ruff + ty) | "파이썬 프로젝트 만들어줘" |
 | [coding-problem-solver](./coding-problem-solver/) | 코딩 인터뷰 문제 풀이 정리 | LeetCode 링크, "문제 풀어줘" |
+| [git-workflow](./git-workflow/) | GitHub Flow 브랜치 전략, 커밋 컨벤션 | "브랜치 전략", "커밋 메시지" |
+| [git-worktree](./git-worktree/) | Git worktree 병렬 개발 가이드 | "worktree", "병렬 Claude" |
 
 ## 🚀 사용 방법
 
@@ -48,6 +50,10 @@ leo-claude-skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── output-template.md
+├── git-workflow/
+│   └── SKILL.md
+├── git-worktree/
+│   └── SKILL.md
 └── scripts/
     ├── sync-to-claude-code.sh
     └── skill-manager.sh
@@ -109,6 +115,7 @@ description: ...          # 200자 이내, 트리거 조건 포함
 
 ## 📝 변경 이력
 
+- 2025-12-31: git-workflow, git-worktree 스킬 추가
 - 2025-12-26: python-project에 references/, assets/ 추가
 - 2025-12-26: skill-manager.sh 추가 (스킬 활성화/비활성화)
 - 2025-12-26: python-project, coding-problem-solver 초기 추가
