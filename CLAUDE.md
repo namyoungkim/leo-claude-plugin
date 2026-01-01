@@ -12,6 +12,7 @@ Personal Claude Skills repository for use with Claude Code, Claude.ai, and API. 
 leo-claude-skills/
 ├── <skill-name>/
 │   ├── SKILL.md           # Required - skill definition with YAML frontmatter
+│   ├── scripts/           # Optional - executable code
 │   ├── references/        # Optional - additional context files
 │   └── assets/            # Optional - templates, config files
 └── scripts/
@@ -36,6 +37,8 @@ description: ...          # 200 chars max, include trigger conditions
 - **coding-problem-solver**: Structured coding interview problem solving for Staff-level preparation
 - **git-workflow**: GitHub Flow branching strategy, commit message conventions, PR workflows
 - **git-worktree**: Git worktree for parallel Claude development, multiple instances
+- **opensearch-client**: OpenSearch Python client library for hybrid search with Korean support
+- **opensearch-server**: Docker-based OpenSearch server setup and management
 
 ## Scripts
 
