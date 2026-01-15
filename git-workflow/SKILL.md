@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: GitHub Flow guide. MUST invoke before starting any feature/fix implementation. Triggers: branch, commit, PR, implement, 구현, 새 기능
+description: "GitHub Flow guide. MUST invoke before starting any feature/fix implementation. Triggers: branch, commit, PR, implement, 구현, 새 기능"
 ---
 
 # Git Workflow (GitHub Flow)
