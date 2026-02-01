@@ -44,10 +44,24 @@ my-marketplace/
 ```json
 {
   "name": "my-plugins-marketplace",
-  "description": "Plugin collection",
+  "owner": {
+    "name": "User",
+    "url": "https://github.com/user"
+  },
+  "metadata": {
+    "description": "Plugin collection",
+    "version": "1.0.0"
+  },
   "plugins": [
-    {"name": "python-tools", "url": "https://github.com/user/python-tools"},
-    {"name": "git-helpers", "url": "https://github.com/user/git-helpers"}
+    {
+      "name": "python-tools",
+      "source": {
+        "source": "github",
+        "repo": "user/python-tools"
+      },
+      "description": "Python development tools",
+      "version": "1.0.0"
+    }
   ]
 }
 ```
