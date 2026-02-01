@@ -7,5 +7,6 @@
     "url": "https://github.com/namyoungkim"
   },
   "repository": "https://github.com/namyoungkim/leo-claude-plugin",
-  "license": "MIT"
+  "license": "MIT",
+  "hooks": "./hooks/hooks.json"
 }

@@ -7,7 +7,8 @@ Claude Code Plugin 저장소 가이드.
 ```
 leo-claude-plugin/
 ├── .claude-plugin/
-│   └── plugin.json          # 필수: 플러그인 메타데이터
+│   ├── plugin.json          # 필수: 플러그인 메타데이터
+│   └── marketplace.json     # 선택: 마켓플레이스 카탈로그
 ├── skills/                   # 스킬 (8개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
@@ -17,9 +18,12 @@ leo-claude-plugin/
 │   └── <agent-name>.md
 ├── commands/                 # 슬래시 명령어 (2개)
 │   └── <command-name>.md
-├── hooks.json               # 훅 설정
+├── hooks/                   # 훅 설정
+│   └── hooks.json
+├── docs/                    # 설계 문서
+│   └── architecture.md      # 플러그인 구조, 마켓플레이스 패턴
 └── scripts/
-    └── validate-skills.sh   # 개발용 검증
+    └── validate.sh          # 개발용 검증 (skills, agents, commands, hooks)
 ```
 
 ## 스킬 정의 형식
@@ -78,8 +82,8 @@ allowed-tools: Bash, Read, Edit
 ## 스크립트
 
 ```bash
-# 스킬 YAML frontmatter 검증
-./scripts/validate-skills.sh
+# 전체 검증 (skills, agents, commands, hooks)
+./scripts/validate.sh
 ```
 
 ## 새 스킬 추가
@@ -87,4 +91,4 @@ allowed-tools: Bash, Read, Edit
 1. `skills/new-skill/SKILL.md` 생성
 2. YAML frontmatter 작성 (name, description 필수)
 3. 500줄 이내로 유지 (초과 시 `references/` 사용)
-4. `./scripts/validate-skills.sh`로 검증
+4. `./scripts/validate.sh`로 검증
