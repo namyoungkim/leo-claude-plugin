@@ -11,7 +11,10 @@
   "plugins": [
     {
       "name": "leo-claude-plugin",
-      "source": "../",
+      "source": {
+        "source": "github",
+        "repo": "namyoungkim/leo-claude-plugin"
+      },
       "description": "Python, Git, OpenSearch workflows",
       "version": "1.0.0",
       "keywords": ["python", "git", "opensearch"],
