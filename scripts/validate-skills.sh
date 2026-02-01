@@ -5,22 +5,17 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILLS_REPO="$(dirname "$SCRIPT_DIR")"
+SKILLS_DIR="$(dirname "$SCRIPT_DIR")/skills"
 
-echo "🔍 Validating SKILL.md files"
+echo "Validating SKILL.md files"
 echo "================================"
 
 errors=0
 checked=0
 
-for skill_dir in "$SKILLS_REPO"/*/; do
+for skill_dir in "$SKILLS_DIR"/*/; do
     skill_name=$(basename "$skill_dir")
     skill_file="$skill_dir/SKILL.md"
-
-    # scripts, .git 등 제외
-    if [[ "$skill_name" == "scripts" ]] || [[ "$skill_name" == .* ]]; then
-        continue
-    fi
 
     # SKILL.md가 있는 폴더만 처리
     if [[ -f "$skill_file" ]]; then
@@ -31,9 +26,9 @@ for skill_dir in "$SKILLS_REPO"/*/; do
 
         # Ruby로 YAML 검증 (macOS 기본 설치)
         if echo "$frontmatter" | ruby -ryaml -e 'YAML.safe_load(STDIN.read)' 2>/dev/null; then
-            echo "✅ $skill_name"
+            echo "[OK] $skill_name"
         else
-            echo "❌ $skill_name - YAML syntax error"
+            echo "[FAIL] $skill_name - YAML syntax error"
             echo "   File: $skill_file"
             echo "   Tip: Check for unquoted colons in description"
             errors=$((errors + 1))

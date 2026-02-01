@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.py ]] && ruff format \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ruff check . --fix 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

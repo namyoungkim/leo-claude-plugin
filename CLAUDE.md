@@ -1,70 +1,90 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Claude Code Plugin 저장소 가이드.
 
-## Repository Purpose
-
-Personal Claude Skills repository for use with Claude Code, Claude.ai, and API. Skills are reusable instruction sets that trigger based on user requests.
-
-## Repository Structure
+## 구조
 
 ```
-leo-claude-skills/
-├── <skill-name>/
-│   ├── SKILL.md           # Required - skill definition with YAML frontmatter
-│   ├── scripts/           # Optional - executable code
-│   ├── references/        # Optional - additional context files
-│   └── assets/            # Optional - templates, config files
+leo-claude-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # 필수: 플러그인 메타데이터
+├── skills/                   # 스킬 (8개)
+│   └── <skill-name>/
+│       ├── SKILL.md         # 필수: 스킬 정의
+│       ├── references/      # 선택: 참조 문서
+│       └── assets/          # 선택: 템플릿
+├── agents/                   # 커스텀 에이전트 (2개)
+│   └── <agent-name>.md
+├── commands/                 # 슬래시 명령어 (2개)
+│   └── <command-name>.md
+├── hooks.json               # 훅 설정
 └── scripts/
-    ├── sync-to-claude-code.sh
-    ├── skill-manager.sh
-    └── validate-skills.sh
+    └── validate-skills.sh   # 개발용 검증
 ```
 
-## Skill Definition Format
+## 스킬 정의 형식
 
-Each skill folder must contain a `SKILL.md` with YAML frontmatter:
+YAML frontmatter 필수:
 
 ```yaml
 ---
-name: skill-name          # 64 chars max
-description: ...          # 200 chars max, include trigger conditions
+name: skill-name          # 64자 이내
+description: ...          # 200자 이내, 트리거 조건 포함
+---
+```
+
+## 에이전트 정의 형식
+
+```yaml
+---
+name: agent-name
+description: "에이전트 설명"
+tools: Read, Grep, Glob
+disallowedTools: Write, Edit
+model: sonnet
+---
+```
+
+## 명령어 정의 형식
+
+```yaml
+---
+description: "명령어 설명"
+allowed-tools: Bash, Read, Edit
 ---
 ```
 
 ## Available Skills
 
-- **python-project**: Python project setup with uv + ruff + ty + pytest (Astral Toolchain)
-- **coding-problem-solver**: Structured coding interview problem solving for Staff-level preparation
-- **git-master**: Atomic commits, rebase/squash, history search (blame, bisect)
-- **git-workflow**: GitHub Flow branching strategy, commit message conventions, PR workflows
-- **git-worktree**: Git worktree for parallel Claude development, multiple instances
-- **opensearch-client**: OpenSearch Python client library for hybrid search with Korean support
-- **opensearch-server**: Docker-based OpenSearch server setup and management
-- **product-planning**: 인터뷰 기반 제품/프로젝트 기획 (Impact Mapping, User Story Mapping, C4 Model, ADR)
+- **python-project**: Python 프로젝트 (uv + ruff + ty + pytest)
+- **coding-problem-solver**: 코딩 인터뷰 문제 풀이
+- **git-master**: Atomic commits, rebase/squash, history search
+- **git-workflow**: GitHub Flow, 커밋 컨벤션, PR 워크플로우
+- **git-worktree**: Git worktree 병렬 개발
+- **opensearch-client**: OpenSearch Python 클라이언트
+- **opensearch-server**: Docker 기반 OpenSearch 서버
+- **product-planning**: Impact Mapping, User Story Mapping, C4 Model, ADR
 
-## Scripts
+## Available Agents
+
+- **code-reviewer**: 코드 리뷰 (읽기 전용)
+- **refactor-assistant**: 리팩토링 도우미
+
+## Available Commands
+
+- **/setup**: 개발 환경 초기 설정
+- **/doctor**: 환경 진단
+
+## 스크립트
 
 ```bash
-# Sync skills to Claude Code
-./scripts/sync-to-claude-code.sh
-
-# Manage skills (list/enable/disable)
-./scripts/skill-manager.sh list
-./scripts/skill-manager.sh disable <skill-name>
-./scripts/skill-manager.sh enable <skill-name>
-
-# Validate YAML frontmatter
+# 스킬 YAML frontmatter 검증
 ./scripts/validate-skills.sh
 ```
 
-- `sync-to-claude-code.sh`: Creates symlinks from this repo to `~/.claude/skills/`
-- `skill-manager.sh`: Moves skills between `~/.claude/skills/` and `~/.claude/skills-disabled/`
-- `validate-skills.sh`: Validates YAML frontmatter in all SKILL.md files
+## 새 스킬 추가
 
-## Adding a New Skill
-
-1. Create folder: `mkdir new-skill`
-2. Create `new-skill/SKILL.md` with required YAML frontmatter
-3. Keep SKILL.md under 500 lines; use `references/` for additional content
-4. Run sync script
+1. `skills/new-skill/SKILL.md` 생성
+2. YAML frontmatter 작성 (name, description 필수)
+3. 500줄 이내로 유지 (초과 시 `references/` 사용)
+4. `./scripts/validate-skills.sh`로 검증

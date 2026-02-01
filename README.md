@@ -1,74 +1,109 @@
-# Leo's Claude Skills
+# Leo's Claude Plugin
 
-개인 Claude Skills 저장소. Claude Code, Claude.ai, API에서 사용.
+Claude Code 플러그인. Skills, Agents, Commands, Hooks 포함.
 
-## 📦 Skills 목록
-
-| Skill | 설명 | 트리거 |
-|-------|------|--------|
-| [python-project](./python-project/) | Python 프로젝트 세팅 (uv + ruff + ty) | "파이썬 프로젝트 만들어줘" |
-| [coding-problem-solver](./coding-problem-solver/) | 코딩 인터뷰 문제 풀이 정리 | LeetCode 링크, "문제 풀어줘" |
-| [git-workflow](./git-workflow/) | GitHub Flow 브랜치 전략, 커밋 컨벤션 | "브랜치 전략", "커밋 메시지" |
-| [git-worktree](./git-worktree/) | Git worktree 병렬 개발 가이드 | "worktree", "병렬 Claude" |
-| [opensearch-client](./opensearch-client/) | OpenSearch Python 클라이언트 (하이브리드 검색) | "OpenSearch 쿼리", "벡터 검색" |
-| [opensearch-server](./opensearch-server/) | Docker 기반 OpenSearch 서버 관리 | "OpenSearch 시작", "Docker 설정" |
-
-## 🚀 사용 방법
-
-### Claude Code (권장)
+## 설치
 
 ```bash
-# 1. 저장소 클론
-git clone https://github.com/namyoungkim/leo-claude-skills.git ~/leo-claude-skills
-
-# 2. 심볼릭 링크 생성 (초기 1회)
-./scripts/sync-to-claude-code.sh
-
-# 3. 업데이트 시
-cd ~/leo-claude-skills && git pull
+/plugin install namyoungkim/leo-claude-plugin
 ```
 
-### Claude.ai
+## 구성 요소
+
+### Skills (8개)
+
+| Skill | 설명 |
+|-------|------|
+| python-project | Python 프로젝트 세팅 (uv + ruff + ty) |
+| coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
+| git-workflow | GitHub Flow 브랜치 전략, 커밋 컨벤션 |
+| git-master | Atomic commits, rebase/squash, history search |
+| git-worktree | Git worktree 병렬 개발 가이드 |
+| opensearch-client | OpenSearch Python 클라이언트 |
+| opensearch-server | Docker 기반 OpenSearch 서버 관리 |
+| product-planning | 인터뷰 기반 제품/프로젝트 기획 |
+
+### Agents (2개)
+
+| Agent | 설명 |
+|-------|------|
+| code-reviewer | 코드 리뷰 전문가 (읽기 전용) |
+| refactor-assistant | 리팩토링 도우미 |
+
+### Commands (2개)
+
+| Command | 설명 |
+|---------|------|
+| /setup | 개발 환경 초기 설정 |
+| /doctor | 환경 진단 및 문제 해결 |
+
+### Hooks
+
+- Python 파일 편집 시 자동 포맷팅 (ruff)
+- Git commit 전 린트 체크
+
+## 사용 예시
 
 ```bash
-# 1. 스킬 폴더를 ZIP으로 압축
-zip -r python-project.zip python-project/
+# 스킬 호출
+/leo-claude-plugin:python-project
+/leo-claude-plugin:git-workflow
 
-# 2. Claude.ai > Settings > Features > Skills > Upload skill
+# 명령어 실행
+/leo-claude-plugin:setup
+/leo-claude-plugin:doctor
 ```
 
-## 📂 구조
+## 구조
 
 ```
-leo-claude-skills/
-├── README.md
-├── <skill-name>/
-│   ├── SKILL.md           # Required
-│   ├── scripts/           # Optional - 실행 가능한 스크립트
-│   ├── references/        # Optional - 참조 문서
-│   └── assets/            # Optional - 템플릿, 리소스
-├── python-project/
-├── coding-problem-solver/
-├── git-workflow/
-├── git-worktree/
-├── opensearch-client/
-├── opensearch-server/
+leo-claude-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # 플러그인 메타데이터
+├── skills/                   # 스킬 (8개)
+│   ├── python-project/
+│   ├── coding-problem-solver/
+│   ├── git-master/
+│   ├── git-workflow/
+│   ├── git-worktree/
+│   ├── opensearch-client/
+│   ├── opensearch-server/
+│   └── product-planning/
+├── agents/                   # 에이전트 (2개)
+│   ├── code-reviewer.md
+│   └── refactor-assistant.md
+├── commands/                 # 슬래시 명령어 (2개)
+│   ├── setup.md
+│   └── doctor.md
+├── hooks.json                # 훅 설정
 └── scripts/
-    ├── sync-to-claude-code.sh
-    └── skill-manager.sh
+    └── validate-skills.sh   # 개발용 검증 스크립트
 ```
 
-## 🔧 새 스킬 추가
+## 개발
+
+```bash
+# 스킬 YAML frontmatter 검증
+./scripts/validate-skills.sh
+
+# plugin.json 유효성 검사
+cat .claude-plugin/plugin.json | jq .
+
+# 로컬 테스트
+# ~/.claude/plugins/ 에 심볼릭 링크 생성 후 Claude Code 재시작
+```
+
+## 새 스킬 추가
 
 ```bash
 # 1. 폴더 생성
-mkdir new-skill
+mkdir skills/new-skill
 
 # 2. SKILL.md 작성
-cat > new-skill/SKILL.md << 'EOF'
+cat > skills/new-skill/SKILL.md << 'EOF'
 ---
 name: new-skill
-description: 스킬 설명. 트리거 조건 포함.
+description: "스킬 설명. 트리거 조건 포함."
 ---
 
 # New Skill
@@ -76,46 +111,10 @@ description: 스킬 설명. 트리거 조건 포함.
 내용...
 EOF
 
-# 3. 동기화
-./scripts/sync-to-claude-code.sh
+# 3. 검증
+./scripts/validate-skills.sh
 ```
 
-## 🔘 스킬 활성화/비활성화
+## 라이센스
 
-```bash
-# 스킬 상태 보기
-./scripts/skill-manager.sh list
-
-# 스킬 비활성화
-./scripts/skill-manager.sh disable coding-problem-solver
-
-# 스킬 활성화
-./scripts/skill-manager.sh enable coding-problem-solver
-```
-
-비활성화된 스킬은 `~/.claude/skills-disabled/`에 보관됩니다.
-
-## 📋 스킬 작성 가이드
-
-### SKILL.md 필수 요소
-
-```yaml
----
-name: skill-name          # 64자 이내
-description: ...          # 200자 이내, 트리거 조건 포함
----
-```
-
-### 권장 사항
-
-- **Progressive Disclosure**: 핵심만 SKILL.md에, 상세는 references/로
-- **구체적 트리거**: "파이썬 프로젝트" 대신 "파이썬 프로젝트 만들어줘", "Python 세팅" 등
-- **500줄 이내**: 넘으면 references/로 분리
-
-## 📝 변경 이력
-
-- 2026-01-01: opensearch-client, opensearch-server 스킬 추가
-- 2025-12-31: git-workflow, git-worktree 스킬 추가
-- 2025-12-26: python-project에 references/, assets/ 추가
-- 2025-12-26: skill-manager.sh 추가 (스킬 활성화/비활성화)
-- 2025-12-26: python-project, coding-problem-solver 초기 추가
+MIT

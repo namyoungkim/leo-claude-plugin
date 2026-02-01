@@ -1,0 +1,11 @@
+{
+  "name": "leo-claude-plugin",
+  "description": "Leo's Claude Code plugin: Python, Git, OpenSearch workflows",
+  "version": "1.0.0",
+  "author": {
+    "name": "Leo",
+    "url": "https://github.com/namyoungkim"
+  },
+  "repository": "https://github.com/namyoungkim/leo-claude-plugin",
+  "license": "MIT"
+}
