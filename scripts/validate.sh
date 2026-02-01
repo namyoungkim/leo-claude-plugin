@@ -42,18 +42,26 @@ if [[ -f "$plugin_file" ]]; then
             plugin_valid=false
         fi
 
-        # skills 필드 형식 검증 (배열이어야 함)
+        # skills 필드 형식 검증 (string 또는 array)
         skills_type=$(jq -r 'if .skills then (.skills | type) else "missing" end' "$plugin_file" 2>/dev/null)
-        if [[ "$skills_type" != "missing" && "$skills_type" != "array" ]]; then
-            echo "[FAIL] plugin.json - skills must be an array, got: $skills_type"
+        if [[ "$skills_type" != "missing" && "$skills_type" != "array" && "$skills_type" != "string" ]]; then
+            echo "[FAIL] plugin.json - skills must be string or array, got: $skills_type"
             errors=$((errors + 1))
             plugin_valid=false
         fi
 
-        # agents 필드 형식 검증 (배열이어야 함)
+        # agents 필드 형식 검증 (string 또는 array)
         agents_type=$(jq -r 'if .agents then (.agents | type) else "missing" end' "$plugin_file" 2>/dev/null)
-        if [[ "$agents_type" != "missing" && "$agents_type" != "array" ]]; then
-            echo "[FAIL] plugin.json - agents must be an array, got: $agents_type"
+        if [[ "$agents_type" != "missing" && "$agents_type" != "array" && "$agents_type" != "string" ]]; then
+            echo "[FAIL] plugin.json - agents must be string or array, got: $agents_type"
+            errors=$((errors + 1))
+            plugin_valid=false
+        fi
+
+        # commands 필드 형식 검증 (string 또는 array)
+        commands_type=$(jq -r 'if .commands then (.commands | type) else "missing" end' "$plugin_file" 2>/dev/null)
+        if [[ "$commands_type" != "missing" && "$commands_type" != "array" && "$commands_type" != "string" ]]; then
+            echo "[FAIL] plugin.json - commands must be string or array, got: $commands_type"
             errors=$((errors + 1))
             plugin_valid=false
         fi

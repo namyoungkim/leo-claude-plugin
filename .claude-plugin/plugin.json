@@ -8,9 +8,5 @@
   },
   "repository": "https://github.com/namyoungkim/leo-claude-plugin",
   "license": "MIT",
-  "skills": ["./skills/", "./commands/"],
-  "agents": [
-    "./agents/code-reviewer.md",
-    "./agents/refactor-assistant.md"
-  ]
+  "keywords": ["python", "git", "opensearch", "workflow"]
 }

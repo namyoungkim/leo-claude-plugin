@@ -35,21 +35,27 @@ my-plugin/
     "name": "Author",
     "url": "https://github.com/author"
   },
-  "skills": ["./skills/", "./commands/"],
-  "agents": [
-    "./agents/agent-1.md",
-    "./agents/agent-2.md"
-  ]
+  "keywords": ["keyword1", "keyword2"]
 }
 ```
 
-**⚠️ 중요: 필드 형식**
+**⚠️ 중요: 디폴트 디렉토리 자동 로드**
 
-| 필드 | 형식 | 설명 |
-|------|------|------|
-| `skills` | **배열** | 디렉토리 경로 목록. commands도 여기 포함 |
-| `agents` | **배열** | 개별 .md 파일 경로 목록 |
-| `hooks` | 명시 안함 | v2.1+에서 `hooks/hooks.json` 자동 로드 |
+| 디렉토리 | 용도 | 자동 로드 |
+|----------|------|-----------|
+| `commands/` | 슬래시 명령어 | ✅ |
+| `agents/` | 커스텀 에이전트 | ✅ |
+| `skills/` | 스킬 | ✅ |
+| `hooks/hooks.json` | 훅 설정 | ✅ |
+
+**커스텀 경로 (선택):** 디폴트 외 추가 경로 필요시만 명시
+```json
+{
+  "commands": ["./custom/cmd.md"],
+  "agents": "./custom/agents/",
+  "skills": "./custom/skills/"
+}
+```
 
 **설치**: `/plugin add <url>`
 

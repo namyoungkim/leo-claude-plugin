@@ -37,17 +37,25 @@ leo-claude-plugin/
     "name": "Author",
     "url": "https://github.com/author"
   },
-  "skills": ["./skills/", "./commands/"],
-  "agents": [
-    "./agents/agent-name.md"
-  ]
+  "keywords": ["keyword1", "keyword2"]
 }
 ```
 
-**주의사항:**
-- `skills`, `agents` 필드는 **배열** 형식 필수
-- `commands`는 `skills` 배열에 포함
-- `hooks`는 Claude Code v2.1+에서 자동 로드 (명시 불필요)
+**디폴트 디렉토리 (자동 로드):**
+- `commands/` - 슬래시 명령어
+- `agents/` - 커스텀 에이전트
+- `skills/` - 스킬
+- `hooks/hooks.json` - 훅 설정
+
+**커스텀 경로 (선택):**
+```json
+{
+  "commands": ["./custom/cmd.md"],
+  "agents": "./custom/agents/",
+  "skills": "./custom/skills/"
+}
+```
+> 커스텀 경로는 디폴트 디렉토리에 **추가**됨 (대체 아님)
 
 ## 스킬 정의 형식
 
