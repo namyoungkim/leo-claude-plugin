@@ -96,7 +96,7 @@ echo ""
 # hooks.json 검증
 echo "Hooks"
 echo "--------------------------------"
-hooks_file="$ROOT_DIR/hooks.json"
+hooks_file="$ROOT_DIR/hooks/hooks.json"
 if [[ -f "$hooks_file" ]]; then
     total_checked=$((total_checked + 1))
     # jq 또는 ruby로 JSON 검증
