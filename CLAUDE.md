@@ -9,7 +9,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 필수: 플러그인 메타데이터
 │   └── marketplace.json     # 선택: 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (9개)
+├── skills/                   # 스킬 (8개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
 │       ├── references/      # 선택: 참조 문서
@@ -99,7 +99,6 @@ allowed-tools: Bash, Read, Edit
 - **opensearch-server**: Docker 기반 OpenSearch 서버
 - **product-planning**: Impact Mapping, User Story Mapping, C4 Model, ADR
 - **python-project**: Python 프로젝트 (uv + ruff + ty + pytest)
-- **visor**: Claude Code efficiency dashboard statusline
 
 ## Available Agents
 
