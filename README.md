@@ -18,7 +18,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks 포함.
 
 ## 구성 요소
 
-### Skills (9개)
+### Skills (8개)
 
 | Skill | 설명 |
 |-------|------|
@@ -30,7 +30,6 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks 포함.
 | opensearch-server | Docker 기반 OpenSearch 서버 관리 |
 | product-planning | 인터뷰 기반 제품/프로젝트 기획 |
 | python-project | Python 프로젝트 세팅 (uv + ruff + ty) |
-| visor | Claude Code 효율성 대시보드 statusline |
 
 ### Agents (2개)
 
@@ -70,7 +69,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (9개)
+├── skills/                   # 스킬 (8개)
 │   ├── coding-problem-solver/
 │   ├── git-master/
 │   ├── git-workflow/
@@ -78,8 +77,7 @@ leo-claude-plugin/
 │   ├── opensearch-client/
 │   ├── opensearch-server/
 │   ├── product-planning/
-│   ├── python-project/
-│   └── visor/
+│   └── python-project/
 ├── agents/                   # 에이전트 (2개)
 │   ├── code-reviewer.md
 │   └── refactor-assistant.md
