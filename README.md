@@ -18,18 +18,19 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks 포함.
 
 ## 구성 요소
 
-### Skills (8개)
+### Skills (9개)
 
 | Skill | 설명 |
 |-------|------|
-| python-project | Python 프로젝트 세팅 (uv + ruff + ty) |
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
-| git-workflow | GitHub Flow 브랜치 전략, 커밋 컨벤션 |
 | git-master | Atomic commits, rebase/squash, history search |
+| git-workflow | GitHub Flow 브랜치 전략, 커밋 컨벤션 |
 | git-worktree | Git worktree 병렬 개발 가이드 |
 | opensearch-client | OpenSearch Python 클라이언트 |
 | opensearch-server | Docker 기반 OpenSearch 서버 관리 |
 | product-planning | 인터뷰 기반 제품/프로젝트 기획 |
+| python-project | Python 프로젝트 세팅 (uv + ruff + ty) |
+| visor | Claude Code 효율성 대시보드 statusline |
 
 ### Agents (2개)
 
@@ -69,15 +70,16 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (8개)
-│   ├── python-project/
+├── skills/                   # 스킬 (9개)
 │   ├── coding-problem-solver/
 │   ├── git-master/
 │   ├── git-workflow/
 │   ├── git-worktree/
 │   ├── opensearch-client/
 │   ├── opensearch-server/
-│   └── product-planning/
+│   ├── product-planning/
+│   ├── python-project/
+│   └── visor/
 ├── agents/                   # 에이전트 (2개)
 │   ├── code-reviewer.md
 │   └── refactor-assistant.md
