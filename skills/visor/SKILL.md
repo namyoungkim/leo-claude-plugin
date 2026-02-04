@@ -1,12 +1,12 @@
 ---
 name: visor
-description: Claude Code 효율성 대시보드 statusline 설치 및 설정. 캐시 히트율, API 지연시간, 번레이트 표시. Triggers on "visor 설치", "statusline 설정", "효율성 대시보드".
+description: Claude Code efficiency dashboard statusline installation and configuration. Displays cache hit rate, API latency, burn rate. Triggers on "install visor", "setup statusline", "efficiency dashboard", "visor setup".
 allowed-tools: Bash, Read, Edit
 ---
 
 # visor
 
-Claude Code 효율성 대시보드 statusline.
+Claude Code efficiency dashboard statusline.
 
 ```
 Opus | Ctx: 42% ████░░░░░░ | Cache: 80% | API: 2.5s | $0.15 | main ↑1
@@ -15,8 +15,10 @@ Opus | Ctx: 42% ████░░░░░░ | Cache: 80% | API: 2.5s | $0.15 
 ## Quick Start
 
 ```bash
-# 1. Install
-go install github.com/namyoungkim/visor@latest
+# 1. Install (see Installation section for options)
+VERSION=0.9.0
+curl -sL "https://github.com/namyoungkim/visor/releases/download/v${VERSION}/visor_${VERSION}_darwin_arm64.tar.gz" | tar xz
+sudo mv visor /usr/local/bin/
 
 # 2. Generate config
 visor --init
@@ -31,19 +33,33 @@ visor --init
 echo '{"model":{"display_name":"Opus"}}' | visor
 ```
 
-## Prerequisites
-
-```bash
-# Check Go version (1.22+)
-go version
-
-# Check git (for git widget)
-git --version
-```
-
 ## Installation
 
-### Go install (권장)
+### Binary Download (Recommended)
+
+No Go installation required.
+
+```bash
+# 1. Set version (check latest at https://github.com/namyoungkim/visor/releases)
+VERSION=0.9.0
+
+# 2. Download binary for your platform
+curl -sL "https://github.com/namyoungkim/visor/releases/download/v${VERSION}/visor_${VERSION}_darwin_arm64.tar.gz" | tar xz   # macOS Apple Silicon
+curl -sL "https://github.com/namyoungkim/visor/releases/download/v${VERSION}/visor_${VERSION}_darwin_amd64.tar.gz" | tar xz   # macOS Intel
+curl -sL "https://github.com/namyoungkim/visor/releases/download/v${VERSION}/visor_${VERSION}_linux_amd64.tar.gz" | tar xz    # Linux x64
+curl -sL "https://github.com/namyoungkim/visor/releases/download/v${VERSION}/visor_${VERSION}_linux_arm64.tar.gz" | tar xz    # Linux ARM64
+
+# 3. Install to PATH
+sudo mv visor /usr/local/bin/
+
+# Without sudo:
+mkdir -p ~/.local/bin && mv visor ~/.local/bin/
+# Add to PATH if needed: export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Go install
+
+If Go 1.22+ is installed:
 
 ```bash
 go install github.com/namyoungkim/visor@latest
@@ -55,33 +71,32 @@ go install github.com/namyoungkim/visor@latest
 git clone https://github.com/namyoungkim/visor.git
 cd visor
 go build -o visor ./cmd/visor
-# Move to PATH
 sudo mv visor /usr/local/bin/
 ```
 
 ## Presets
 
-| 프리셋 | 설명 | 위젯 |
-|--------|------|------|
-| `minimal` | 필수 정보만 (4개) | model, context, cost, git |
-| `default` | 균형 잡힌 기본값 (6개) | model, context, cache_hit, api_latency, cost, git |
-| `efficiency` | 비용 최적화 중심 (6개) | model, context, burn_rate, cache_hit, compact_eta, cost |
-| `developer` | 도구/에이전트 모니터링 (6개) | model, context, tools, agents, code_changes, git |
-| `pro` | Claude Pro 사용량 제한 (6개) | model, context, block_limit, week_limit, daily_cost, cost |
-| `full` | 모든 위젯, 멀티라인 (18개) | 카테고리별 5개 라인 |
+| Preset | Description | Widgets |
+|--------|-------------|---------|
+| `minimal` | Essential info only | 4 |
+| `default` | Balanced defaults | 6 |
+| `efficiency` | Cost optimization focus | 6 |
+| `developer` | Tool/agent monitoring | 6 |
+| `pro` | Claude Pro usage limits | 6 |
+| `full` | All widgets, multiline | 18 |
 
 ```bash
-visor --init              # default 프리셋
-visor --init minimal      # 특정 프리셋
-visor --init help         # 프리셋 목록
+visor --init              # default preset
+visor --init minimal      # specific preset
+visor --init help         # list presets
 ```
 
 ## Claude Code Integration
 
-### 방법 1: settings.json (권장)
+### Method 1: settings.json (Recommended)
 
 ```bash
-# ~/.claude/settings.json 편집
+# Edit ~/.claude/settings.json
 {
   "statusline": {
     "command": "visor"
@@ -89,7 +104,7 @@ visor --init help         # 프리셋 목록
 }
 ```
 
-### 방법 2: 환경변수
+### Method 2: Environment variable
 
 ```bash
 export CLAUDE_STATUSLINE_COMMAND="visor"
@@ -97,16 +112,16 @@ export CLAUDE_STATUSLINE_COMMAND="visor"
 
 ## CLI Commands
 
-| 명령 | 설명 |
-|------|------|
-| `visor --version` | 버전 출력 |
-| `visor --init` | 설정 파일 생성 (default) |
-| `visor --init <preset>` | 특정 프리셋으로 생성 |
-| `visor --init help` | 프리셋 목록 |
-| `visor --setup` | Claude Code 연동 가이드 |
-| `visor --check` | 설정 유효성 검사 |
-| `visor --tui` | 인터랙티브 설정 편집기 |
-| `visor --debug` | 디버그 정보 출력 |
+| Command | Description |
+|---------|-------------|
+| `visor --version` | Print version |
+| `visor --init` | Generate config (default) |
+| `visor --init <preset>` | Generate with specific preset |
+| `visor --init help` | List presets |
+| `visor --setup` | Claude Code integration guide |
+| `visor --check` | Validate config |
+| `visor --tui` | Interactive config editor |
+| `visor --debug` | Print debug info |
 
 ## Verification
 
@@ -121,8 +136,7 @@ visor --check
 # 3. Manual test
 echo '{"model":{"display_name":"Opus"},"context_window":{"used_percentage":42.5}}' | visor
 
-# 4. Restart Claude Code
-# 새 세션에서 statusline 확인
+# 4. Restart Claude Code and verify statusline
 ```
 
 ## Troubleshooting
@@ -130,11 +144,11 @@ echo '{"model":{"display_name":"Opus"},"context_window":{"used_percentage":42.5}
 ### "command not found"
 
 ```bash
-# Check Go bin in PATH
-echo $PATH | tr ':' '\n' | grep go
+# Check if visor is in PATH
+which visor
 
-# Add to shell config
-echo 'export PATH="$HOME/go/bin:$PATH"' >> ~/.zshrc
+# If installed to ~/.local/bin, add to PATH
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
@@ -160,15 +174,14 @@ echo '{"model":{"display_name":"Opus"}}' | visor --debug
 
 ## Workflow Checklist
 
-- [ ] Go 1.22+ 설치 확인
-- [ ] `go install github.com/namyoungkim/visor@latest`
-- [ ] `visor --init` 실행
-- [ ] `~/.claude/settings.json`에 statusline 설정 추가
-- [ ] Claude Code 재시작
-- [ ] statusline 표시 확인
+- [ ] Download and install visor binary
+- [ ] Run `visor --init`
+- [ ] Add statusline config to `~/.claude/settings.json`
+- [ ] Restart Claude Code
+- [ ] Verify statusline displays
 
 ## References
 
-- 위젯 상세: `references/widgets.md`
-- 기본 설정: `assets/config-default.toml`
+- Widget details: `references/widgets.md`
+- Default config: `assets/config-default.toml`
 - GitHub: https://github.com/namyoungkim/visor
