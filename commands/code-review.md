@@ -1,5 +1,5 @@
 ---
-name: review
+name: code-review
 description: "현재 변경사항 빠른 인라인 코드 리뷰. 심층 리뷰는 @code-reviewer 에이전트 사용"
 allowed-tools: Bash, Read, Grep, Glob
 argument-hint: "[branch-or-file]"
