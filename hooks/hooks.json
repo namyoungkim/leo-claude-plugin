@@ -6,19 +6,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.py ]] && ruff format \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.py ]] && command -v ruff >/dev/null 2>&1 && ruff format \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
           },
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.rs ]] && rustfmt \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.rs ]] && command -v rustfmt >/dev/null 2>&1 && rustfmt \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
           },
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.go ]] && gofmt -w \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.go ]] && command -v gofmt >/dev/null 2>&1 && gofmt -w \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
           },
           {
             "type": "command",
-            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && (command -v prettier >/dev/null 2>&1 && prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || npx --no-install prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null) || true'"
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && (command -v prettier >/dev/null 2>&1 && prettier --write \"$CLAUDE_FILE_PATH\" 2>&1 || npx --no-install prettier --write \"$CLAUDE_FILE_PATH\" 2>&1) || true'"
           }
         ]
       }
@@ -29,7 +29,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "ruff check . --fix 2>/dev/null || true"
+            "command": "bash -c 'command -v ruff >/dev/null 2>&1 && ruff check . --fix 2>&1 | head -20 || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'command -v cargo >/dev/null 2>&1 && [[ -f Cargo.toml ]] && cargo clippy --all-targets --fix --allow-dirty 2>&1 | head -20 || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'command -v golangci-lint >/dev/null 2>&1 && [[ -f go.mod ]] && golangci-lint run --fix 2>&1 | head -20 || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'command -v eslint >/dev/null 2>&1 && [[ -f package.json ]] && eslint . --fix 2>&1 | head -20 || true'"
           }
         ]
       },
