@@ -121,8 +121,39 @@ memory: user                        # 선택: user (크로스 세션 학습)
 name: command-name
 description: "명령어 설명"
 allowed-tools: Bash, Read, Edit
+argument-hint: "[인자 설명]"              # 선택: 자동완성 시 인자 힌트
+disable-model-invocation: true            # 선택: 수동 호출만 허용
 ---
 ```
+
+## 훅 정의 형식
+
+`hooks/hooks.json` 파일:
+
+```json
+{
+  "description": "훅 전체 설명",
+  "hooks": {
+    "<EventType>": [
+      {
+        "matcher": "ToolName|Pattern",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c '...'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**이벤트 타입:** `PreToolUse`, `PostToolUse`, `Stop`, `SessionStart`, `Notification` 등
+**훅 타입:** `command` (쉘 명령), `prompt` (LLM 판단), `agent` (다중 도구 조사)
+**차단:** exit 2 + JSON `{"decision": "block", "reason": "..."}`
+**에러 처리:** 도구 없으면 조용히 무시, 있으면 에러 전달 (|| true 남용 금지)
 
 ## Available Skills
 
