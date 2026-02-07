@@ -10,6 +10,7 @@ Claude Code Plugin 저장소 가이드.
 - **Proven over Trendy** — 검증된 것이 트렌디한 것보다 낫다
 
 ## 범용 규칙
+- NEVER: main/master 브랜치에 직접 커밋 (반드시 브랜치 생성 후 PR)
 - NEVER: 테스트 없는 커밋, 100줄 넘는 함수, 하드코딩된 시크릿
 - ALWAYS: 에러 핸들링 명시, 커밋 메시지 conventional commits
 - ALWAYS: 변경 전 기존 테스트 실행

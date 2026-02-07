@@ -34,6 +34,11 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash -c 'BRANCH=$(git branch --show-current 2>/dev/null); if [[ \"$BRANCH\" == \"main\" || \"$BRANCH\" == \"master\" ]]; then echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"main 브랜치 직접 커밋 금지. 브랜치를 생성하세요: git checkout -b feature/xxx\\\"}\" && exit 2; fi'",
+            "timeout": 5
+          },
+          {
+            "type": "command",
             "command": "bash -c 'if command -v ruff >/dev/null 2>&1; then ruff check . --fix 2>&1 | head -20; fi'",
             "timeout": 30
           },
