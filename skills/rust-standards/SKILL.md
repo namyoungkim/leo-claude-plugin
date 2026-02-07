@@ -1,6 +1,7 @@
 ---
 name: rust-standards
-description: Rust 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. cargo + clippy + rustfmt 기반.
+description: "Rust 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. cargo + clippy + rustfmt 기반. 트리거: Rust 프로젝트, Cargo.toml, clippy, rustfmt, Rust 코딩 표준, Rust 세팅"
+user-invocable: false
 ---
 
 # Rust 코딩 표준
@@ -86,6 +87,28 @@ pub enum AppError {
 }
 ```
 
+## VSCode settings.json (프로젝트 레벨)
+
+`.vscode/settings.json` 생성:
+
+```jsonc
+{
+    // Rust Analyzer
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.check.extraArgs": ["--all-targets", "--all-features"],
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true
+    },
+    // File exclusions
+    "files.exclude": {
+        "**/target": true
+    }
+}
+```
+
+Required Extensions: `rust-lang.rust-analyzer`
+
 ## 테스트 표준
 
 ```rust
@@ -114,3 +137,25 @@ mod tests {
     }
 }
 ```
+
+## Workflow Checklist
+
+프로젝트 생성:
+
+- [ ] `cargo init` 실행 (--lib 또는 바이너리)
+- [ ] `Cargo.toml` 린트 설정 (`[lints.clippy]`)
+- [ ] `.vscode/settings.json` 생성
+- [ ] `rust-version` 지정
+
+코드 작성:
+
+- [ ] `Result<T, E>` 사용 (`unwrap()` 금지)
+- [ ] 이터레이터 체인 활용
+- [ ] `#[derive(Debug)]` 추가
+- [ ] 함수 20-50줄 유지
+
+커밋 전:
+
+- [ ] `cargo clippy --all-targets --all-features`
+- [ ] `cargo test`
+- [ ] `cargo fmt --check`
