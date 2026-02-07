@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run lint *)",
+      "Bash(pnpm run format *)",
+      "Bash(pnpm run test *)",
+      "Bash(pnpm run build *)",
+      "Bash(pnpm run dev *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm *)"
+    ],
+    "deny": [
+      "Bash(npm install*)",
+      "Bash(yarn add*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep -E '\\.(ts|tsx|js|jsx)$'); if [ -n \"$FILE\" ]; then pnpm exec prettier --write \"$FILE\" 2>/dev/null; pnpm exec eslint --fix \"$FILE\" 2>/dev/null; fi; true",
+            "timeout": 15000
+          }
+        ]
+      }
+    ]
+  }
+}
