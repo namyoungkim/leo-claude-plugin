@@ -1,6 +1,6 @@
 ---
 name: git-worktree
-description: Git worktree guide for parallel Claude development. Use when running multiple Claude instances, parallel feature work, or avoiding branch switching. Triggers on "worktree", "parallel Claude", "multiple instances", "parallel development".
+description: "Git worktree 병렬 개발 가이드. 여러 Claude 인스턴스를 동시에 실행하거나, 브랜치 전환 없이 병렬 작업할 때 사용. 트리거: worktree, 워크트리, parallel Claude, 병렬 개발, 여러 인스턴스, 브랜치 전환 없이"
 ---
 
 # Git Worktree for Parallel Development
