@@ -2,6 +2,8 @@
 name: init-project
 description: "프로젝트 Claude Code 템플릿 초기화. docs/, CLAUDE.md, settings, 언어별 컨벤션 배포"
 allowed-tools: Bash, Read, Write, Edit, AskUserQuestion
+argument-hint: "[path] [language]"
+disable-model-invocation: true
 ---
 
 # Init Project
@@ -12,7 +14,11 @@ allowed-tools: Bash, Read, Write, Edit, AskUserQuestion
 
 ### 1단계: 정보 수집
 
-사용자에게 질문:
+인자가 주어지면 우선 사용한다:
+- `$0` → 프로젝트 경로 (없으면 현재 디렉토리)
+- `$1` → 언어 (python / rust / typescript / go)
+
+인자가 없거나 부족하면 사용자에게 질문:
 1. **프로젝트 경로**: 현재 디렉토리 또는 지정 경로
 2. **언어**: python / rust / typescript / go
 3. **프로젝트명**: 디렉토리명 기반 또는 직접 입력
