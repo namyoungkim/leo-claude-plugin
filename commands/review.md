@@ -1,13 +1,13 @@
 ---
 name: review
-description: "현재 변경사항 빠른 코드 리뷰. git diff 기반 정확성/보안/성능/품질 점검"
+description: "현재 변경사항 빠른 인라인 코드 리뷰. 심층 리뷰는 @code-reviewer 에이전트 사용"
 allowed-tools: Bash, Read, Grep, Glob
 argument-hint: "[branch-or-file]"
 ---
 
-# Code Review
+# Quick Code Review
 
-현재 변경사항을 리뷰해줘.
+현재 변경사항을 빠르게 인라인 리뷰해줘.
 
 ## 리뷰 대상
 
@@ -25,33 +25,6 @@ argument-hint: "[branch-or-file]"
 
 ## 리뷰 체크리스트
 
-### 정확성
-- 비즈니스 로직이 의도대로 동작하는가
-- 엣지 케이스를 처리하고 있는가
-- 에러 핸들링이 적절한가
+[../agents/references/review-checklist.md](../agents/references/review-checklist.md) 참조.
 
-### 코드 품질
-- 함수가 20-50줄 이내인가
-- Type hints가 모든 함수에 있는가
-- docstring이 있는가 (Google style)
-- 불필요한 복잡성이 없는가
-
-### 보안
-- 민감 정보(API 키, 비밀번호)가 하드코딩되어 있지 않은가
-- SQL 인젝션, XSS 등 보안 취약점이 없는가
-- 사용자 입력이 적절히 검증되는가
-
-### 성능
-- N+1 쿼리 패턴이 없는가
-- 불필요한 루프나 중복 연산이 없는가
-- 대용량 데이터 처리 시 메모리 사용이 적절한가
-
-### 테스트
-- 변경사항에 대한 테스트가 있는가
-- 기존 테스트가 깨지지 않는가
-
-## 출력 형식
-- 🔴 **Critical**: 반드시 수정 필요
-- 🟡 **Warning**: 수정 권장
-- 🟢 **Suggestion**: 개선 제안
-- 각 항목에 파일명:라인넘버와 구체적 수정 방법 포함
+빠른 리뷰이므로 diff에 보이는 변경사항만 집중한다. 전체 코드베이스 맥락이 필요한 심층 리뷰는 `@code-reviewer` 에이전트를 사용한다.
