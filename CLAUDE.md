@@ -34,9 +34,11 @@ leo-claude-plugin/
 │       ├── references/      # 선택: 참조 문서
 │       └── assets/          # 선택: 템플릿
 ├── agents/                   # 커스텀 에이전트 (3개)
-│   └── <agent-name>.md
+│   ├── <agent-name>.md
+│   └── references/           # 선택: 에이전트 간 공유 참조
 ├── commands/                 # 슬래시 명령어 (7개)
-│   └── <command-name>.md
+│   ├── <command-name>.md
+│   └── references/           # 선택: 명령어 간 공유 참조
 ├── hooks/                   # 훅 설정 (자동 로드)
 │   └── hooks.json
 ├── templates/               # 프로젝트 스캐폴딩 템플릿
@@ -84,10 +86,18 @@ YAML frontmatter 필수:
 
 ```yaml
 ---
-name: skill-name          # 64자 이내
-description: ...          # 200자 이내, 트리거 조건 포함
+name: skill-name                    # 64자 이내
+description: ...                    # 200자 이내, 트리거 조건 포함
+user-invocable: false               # 선택: Claude 자동 호출 전용 (배경 지식형)
+disable-model-invocation: true      # 선택: 수동 호출만 허용 (도메인 특화)
+argument-hint: "[인자 설명]"          # 선택: 자동완성 시 인자 힌트
 ---
 ```
+
+**필드 사용 가이드:**
+- `user-invocable: false` — 언어 표준처럼 Claude가 프로젝트 감지 후 자동 로딩하는 스킬
+- `disable-model-invocation: true` — OpenSearch처럼 특정 도메인에서만 사용하는 스킬
+- `argument-hint` — 코딩 문제 URL, 프로젝트명 등 인자를 받는 스킬
 
 ## 에이전트 정의 형식
 
@@ -98,6 +108,9 @@ description: "에이전트 설명"
 tools: Read, Grep, Glob
 disallowedTools: Write, Edit
 model: sonnet
+permissionMode: plan                # 선택: plan (읽기 전용), bypassPermissions, default
+maxTurns: 15                        # 선택: 최대 턴 수
+memory: user                        # 선택: user (크로스 세션 학습)
 ---
 ```
 
@@ -105,24 +118,56 @@ model: sonnet
 
 ```yaml
 ---
+name: command-name
 description: "명령어 설명"
 allowed-tools: Bash, Read, Edit
+argument-hint: "[인자 설명]"              # 선택: 자동완성 시 인자 힌트
+disable-model-invocation: true            # 선택: 수동 호출만 허용
 ---
 ```
 
+## 훅 정의 형식
+
+`hooks/hooks.json` 파일:
+
+```json
+{
+  "description": "훅 전체 설명",
+  "hooks": {
+    "<EventType>": [
+      {
+        "matcher": "ToolName|Pattern",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c '...'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**이벤트 타입:** `PreToolUse`, `PostToolUse`, `SessionStart`, `SessionEnd`, `Stop`, `SubagentStart`, `SubagentStop`, `Notification`, `PreCompact` 등
+**훅 타입:** `command` (쉘 명령), `prompt` (LLM 판단), `agent` (다중 도구 조사)
+**차단:** exit 2 + JSON `{"decision": "block", "reason": "..."}`
+**에러 처리:** 도구 없으면 조용히 무시, 있으면 에러 전달 (|| true 남용 금지)
+
 ## Available Skills
 
-- **coding-problem-solver**: 코딩 인터뷰 문제 풀이
-- **git-master**: Atomic commits, rebase/squash, history search
-- **git-workflow**: GitHub Flow, 커밋 컨벤션, PR 워크플로우
+- **coding-problem-solver**: 코딩 인터뷰 문제 풀이 (`argument-hint`)
+- **git-master**: 커밋 아키텍트 + 히스토리 전문가 (커밋/rebase/blame)
+- **git-workflow**: GitHub Flow 브랜치 전략 + PR 워크플로우
 - **git-worktree**: Git worktree 병렬 개발
-- **go-standards**: Go 코딩 표준 (go mod + golangci-lint + gofmt)
-- **opensearch-client**: OpenSearch Python 클라이언트
-- **opensearch-server**: Docker 기반 OpenSearch 서버
-- **product-planning**: Impact Mapping, User Story Mapping, C4 Model, ADR
-- **python-standards**: Python 코딩 표준 (uv + ruff + ty + pytest)
-- **rust-standards**: Rust 코딩 표준 (cargo + clippy + rustfmt)
-- **typescript-standards**: TypeScript 코딩 표준 (pnpm + eslint + prettier + vitest)
+- **go-standards**: Go 코딩 표준 (`user-invocable: false`)
+- **opensearch-client**: OpenSearch Python 클라이언트 (`disable-model-invocation`)
+- **opensearch-server**: Docker 기반 OpenSearch 서버 (`disable-model-invocation`)
+- **product-planning**: 인터뷰 기반 제품/프로젝트 기획 (`argument-hint`)
+- **python-standards**: Python 코딩 표준 (`user-invocable: false`)
+- **rust-standards**: Rust 코딩 표준 (`user-invocable: false`)
+- **typescript-standards**: TypeScript 코딩 표준 (`user-invocable: false`)
 
 ## Available Agents
 
@@ -133,7 +178,7 @@ allowed-tools: Bash, Read, Edit
 ## Available Commands
 
 - **/setup**: 개발 환경 초기 설정
-- **/doctor**: 환경 진단
+- **/checkup**: 환경 진단
 - **/reflect**: 세션 회고 + 개선 제안
 - **/harvest**: 프로젝트 간 지식 수집
 - **/prune**: CLAUDE.md 정리
@@ -152,4 +197,18 @@ allowed-tools: Bash, Read, Edit
 1. `skills/new-skill/SKILL.md` 생성
 2. YAML frontmatter 작성 (name, description 필수)
 3. 500줄 이내로 유지 (초과 시 `references/` 사용)
+4. `./scripts/validate.sh`로 검증
+
+## 새 에이전트 추가
+
+1. `agents/new-agent.md` 생성
+2. YAML frontmatter 작성 (name, description, tools 필수)
+3. 기존 에이전트와 역할 중복 확인 (중복 시 `references/`로 공유)
+4. `./scripts/validate.sh`로 검증
+
+## 새 커맨드 추가
+
+1. `commands/new-command.md` 생성
+2. YAML frontmatter 작성 (name, description, allowed-tools 필수)
+3. Claude Code 네이티브 명령어와 이름 충돌 확인 (`/help`, `/clear`, `/init`, `/doctor` 등)
 4. `./scripts/validate.sh`로 검증

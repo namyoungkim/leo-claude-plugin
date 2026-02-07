@@ -1,6 +1,7 @@
 ---
 name: opensearch-client
-description: OpenSearch Python client library for hybrid search. Use when writing OpenSearch queries, creating indexes, or implementing text/vector/hybrid search with Korean support.
+description: "OpenSearch Python 클라이언트 라이브러리. 텍스트/벡터/하이브리드 검색, 인덱스 생성, 한국어 지원. 트리거: OpenSearch 쿼리, 인덱스 생성, 벡터 검색, 하이브리드 검색, opensearch-client"
+disable-model-invocation: true
 ---
 
 # OpenSearch Client

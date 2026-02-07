@@ -152,6 +152,13 @@ for cmd_file in "$ROOT_DIR"/commands/*.md; do
         cmd_name=$(basename "$cmd_file" .md)
         if ! validate_yaml_frontmatter "$cmd_file" "$cmd_name"; then
             errors=$((errors + 1))
+        else
+            # name 필드 존재 확인
+            frontmatter=$(awk '/^---$/{if(++c==2)exit}c==1' "$cmd_file")
+            if ! echo "$frontmatter" | grep -q "^name:"; then
+                echo "[FAIL] $cmd_name - Missing required field: name"
+                errors=$((errors + 1))
+            fi
         fi
     fi
 done

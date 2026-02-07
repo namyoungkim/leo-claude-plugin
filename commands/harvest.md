@@ -1,6 +1,8 @@
 ---
+name: harvest
 description: "프로젝트 간 범용 지식 수집. 🌍 universal 항목을 글로벌 설정으로 승격"
 allowed-tools: Bash, Read, Grep, Glob, Edit, AskUserQuestion
+disable-model-invocation: true
 ---
 
 # Harvest — 프로젝트 간 범용 지식 수집

@@ -1,7 +1,7 @@
 ---
 name: opensearch-server
-description: Start and manage OpenSearch server with Docker. Use when starting OpenSearch locally, setting up development environment, or managing OpenSearch containers.
-allowed-tools: Bash
+description: "Docker 기반 OpenSearch 서버 관리. 로컬 서버 시작, 환경 설정, 한국어(Nori) 분석기. 트리거: OpenSearch 서버, Docker OpenSearch, opensearch 시작, Nori 분석기"
+disable-model-invocation: true
 ---
 
 # OpenSearch Server

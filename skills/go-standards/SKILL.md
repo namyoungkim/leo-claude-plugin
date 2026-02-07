@@ -1,6 +1,7 @@
 ---
 name: go-standards
-description: Go 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. go mod + golangci-lint + gofmt 기반.
+description: "Go 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. go mod + golangci-lint + gofmt 기반. 트리거: Go 프로젝트, go.mod, golangci-lint, Go 코딩 표준, Go 세팅"
+user-invocable: false
 ---
 
 # Go 코딩 표준
@@ -147,6 +148,31 @@ if errors.Is(err, ErrNotFound) {
 }
 ```
 
+## VSCode settings.json (프로젝트 레벨)
+
+`.vscode/settings.json` 생성:
+
+```jsonc
+{
+    // Go
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": ["--fast"],
+    "go.formatTool": "goimports",
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    // File exclusions
+    "files.exclude": {
+        "**/vendor": true
+    }
+}
+```
+
+Required Extensions: `golang.go`
+
 ## 테스트 표준
 
 ```go
@@ -188,3 +214,27 @@ func TestGetUserByEmail(t *testing.T) {
 	}
 }
 ```
+
+## Workflow Checklist
+
+프로젝트 생성:
+
+- [ ] `go mod init` 실행
+- [ ] `cmd/` + `internal/` 디렉토리 구조 생성
+- [ ] `golangci-lint` 설치
+- [ ] `.golangci.yml` 설정
+- [ ] `.vscode/settings.json` 생성
+
+코드 작성:
+
+- [ ] 에러 리턴값 명시적 체크
+- [ ] 에러에 컨텍스트 추가 (`fmt.Errorf`)
+- [ ] 함수 20줄 이내 유지
+- [ ] 테이블 주도 테스트 작성
+
+커밋 전:
+
+- [ ] `golangci-lint run ./...`
+- [ ] `go test ./...`
+- [ ] `gofmt -l .` (포맷 확인)
+- [ ] `go vet ./...`

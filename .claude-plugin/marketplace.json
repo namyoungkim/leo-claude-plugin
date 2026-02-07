@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Leo's Claude Code plugin collection",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "plugins": [
     {
@@ -15,9 +15,18 @@
         "source": "github",
         "repo": "namyoungkim/leo-claude-plugin"
       },
-      "description": "Python, Git, OpenSearch workflows",
-      "version": "1.0.0",
-      "keywords": ["python", "git", "opensearch"],
+      "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, OpenSearch workflows, self-improvement",
+      "version": "2.0.0",
+      "keywords": [
+        "python",
+        "rust",
+        "typescript",
+        "go",
+        "git",
+        "opensearch",
+        "workflow",
+        "self-improvement"
+      ],
       "category": "development"
     },
     {
@@ -28,7 +37,11 @@
       },
       "description": "Statusline setup & configuration",
       "version": "0.9.0",
-      "keywords": ["statusline", "dashboard", "efficiency"],
+      "keywords": [
+        "statusline",
+        "dashboard",
+        "efficiency"
+      ],
       "category": "tools"
     }
   ]

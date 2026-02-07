@@ -1,6 +1,8 @@
 ---
+name: prune
 description: "CLAUDE.md 정리. 50줄 이내 유지, 세부 내용을 docs/hooks/skills로 이동"
 allowed-tools: Bash, Read, Edit, Grep, Glob, AskUserQuestion
+disable-model-invocation: true
 ---
 
 # CLAUDE.md Pruning

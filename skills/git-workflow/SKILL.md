@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: "GitHub Flow guide. MUST invoke before starting any feature/fix implementation. Triggers: branch, commit, PR, implement, 구현, 새 기능"
+description: "GitHub Flow 브랜치 전략 및 PR 워크플로우. 브랜치 생성부터 PR 머지까지의 전체 플로우 관리. 트리거: branch, 브랜치, PR, pull request, merge, 머지, feature 구현, 새 기능 시작"
 ---
 
 # Git Workflow (GitHub Flow)
@@ -53,34 +53,8 @@ git branch -d feature/new-feature
 
 ## Commit Message Format
 
-```
-<type>: <subject>
-
-<body> (optional)
-```
-
-### Types
-
-| Type | Purpose |
-|------|---------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `refactor` | Refactoring (no behavior change) |
-| `docs` | Documentation only |
-| `chore` | Config, deps, build |
-| `test` | Add/modify tests |
-| `style` | Formatting, semicolons |
-| `perf` | Performance improvement |
-
-### Examples
-
-```bash
-feat: add watchlist CSV export
-fix: resolve login redirect issue
-refactor: simplify API response handler
-docs: add API documentation
-chore: update dependencies
-```
+> 커밋 메시지 형식은 **git-master** 스킬에서 관리한다.
+> Conventional Commits 기반: `<type>: <subject>`
 
 ## Branch Protection (main)
 
@@ -122,29 +96,3 @@ gh api repos/{owner}/{repo}/branches/main/protection
 - Typos, single-line fixes: ~~direct commit to `main` allowed~~ PR 필수
 - No `dev` branch needed (Preview deployment serves as staging)
 
-## Common Commands
-
-```bash
-# List branches
-git branch -a
-
-# Fetch remote
-git fetch origin
-
-# Update main
-git checkout main && git pull
-
-# Merge main into feature branch
-git checkout feature/xxx
-git merge origin/main
-
-# Stash changes
-git stash
-git stash pop
-
-# Undo commit (keep changes)
-git reset --soft HEAD~1
-
-# Discard file changes
-git checkout -- filename
-```

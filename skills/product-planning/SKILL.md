@@ -1,9 +1,12 @@
 ---
 name: product-planning
-description: "인터뷰 기반 제품/프로젝트 기획 및 설계 스킬. 사용자와 대화하며 Impact Mapping, User Story Mapping, C4 Model, ADR 순서로 근본적인 기획 문서를 생성한다. 트리거: 기획해줘, 설계해줘, 프로젝트 시작, PRD 만들어줘, 요구사항 정리, 아키텍처 설계, 제대로 기획하고 싶어, 근본적으로 설계"
+description: "인터뷰 기반 제품/프로젝트 기획 및 설계 스킬. Impact Mapping, User Story Mapping, C4 Model, ADR 순서로 기획 문서 생성. 트리거: 기획해줘, 설계해줘, 프로젝트 시작, PRD 만들어줘, 요구사항 정리, 아키텍처 설계"
+argument-hint: "[프로젝트명]"
 ---
 
 # Product Planning Skill
+
+$ARGUMENTS가 제공된 경우, 해당 프로젝트명으로 기획 프로세스를 시작한다.
 
 인터뷰 기반으로 제품/프로젝트를 근본적으로 기획하고 설계하는 스킬.
 

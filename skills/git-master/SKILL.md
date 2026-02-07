@@ -1,6 +1,6 @@
 ---
 name: git-master
-description: "MUST USE for git operations. Atomic commits, rebase/squash, history search (blame, bisect). Triggers: 'commit', 'rebase', 'squash', 'blame', 'bisect'."
+description: "커밋 아키텍트 + 히스토리 전문가. Atomic commit 분할, rebase/squash, blame/bisect 등 커밋과 히스토리 작업 전담. 트리거: commit, 커밋, rebase, squash, blame, bisect, 히스토리 검색, 커밋 분할"
 ---
 
 # Git Master Agent
@@ -38,15 +38,17 @@ Expert combining: **Commit Architect** (atomic commits), **Rebase Surgeon** (his
 
 ---
 
-## PHASE 0: Context Gathering
+## PHASE 0: Context Gathering (자동 주입)
 
-```bash
-# Execute in parallel
-git status
-git diff --staged --stat
-git log -30 --oneline
-git branch --show-current
-```
+아래 정보가 스킬 호출 시 자동으로 제공된다:
+
+!`git status --short`
+
+!`git diff --staged --stat`
+
+!`git log -30 --oneline`
+
+!`git branch --show-current`
 
 ---
 
@@ -135,3 +137,34 @@ git bisect good <known-good-commit>
 - Grouping by "related to X" (too vague)
 - Separating test from implementation
 - Default to semantic commits without checking log
+
+## Commit Message Format
+
+커밋 메시지 형식의 정의는 이 스킬이 관리한다.
+
+```
+<type>: <subject>
+
+<body> (optional)
+```
+
+### Types
+
+| Type | Purpose |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `refactor` | Refactoring (no behavior change) |
+| `docs` | Documentation only |
+| `chore` | Config, deps, build |
+| `test` | Add/modify tests |
+| `style` | Formatting, semicolons |
+| `perf` | Performance improvement |
+
+### Examples
+
+```bash
+feat: add watchlist CSV export
+fix: resolve login redirect issue
+refactor: simplify API response handler
+```

@@ -1,6 +1,7 @@
 ---
 name: typescript-standards
-description: TypeScript 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. pnpm + eslint + prettier + vitest 기반.
+description: "TypeScript 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. pnpm + eslint + prettier + vitest 기반. 트리거: TypeScript 프로젝트, tsconfig.json, eslint, prettier, vitest, TypeScript 코딩 표준, TS 세팅"
+user-invocable: false
 ---
 
 # TypeScript 코딩 표준
@@ -93,6 +94,36 @@ export class NotFoundError extends AppError {
 }
 ```
 
+## VSCode settings.json (프로젝트 레벨)
+
+`.vscode/settings.json` 생성:
+
+```jsonc
+{
+    // TypeScript + Prettier + ESLint
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit",
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    // File exclusions
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/dist": true
+    }
+}
+```
+
+Required Extensions: `esbenp.prettier-vscode`, `dbaeumer.vscode-eslint`
+
 ## 테스트 표준
 
 ```typescript
@@ -117,3 +148,27 @@ describe('getUserByEmail', () => {
   });
 });
 ```
+
+## Workflow Checklist
+
+프로젝트 생성:
+
+- [ ] `pnpm init` 실행
+- [ ] `pnpm add -D typescript @types/node eslint prettier vitest`
+- [ ] `npx tsc --init`으로 tsconfig.json 생성
+- [ ] `.vscode/settings.json` 생성
+- [ ] `src/` 디렉토리 구조 생성
+
+코드 작성:
+
+- [ ] strict 모드 타입 체크
+- [ ] 함수 파라미터/리턴 타입 명시
+- [ ] `async`/`await` 사용 (`.then()` 금지)
+- [ ] 함수 20-50줄 유지
+
+커밋 전:
+
+- [ ] `pnpm exec eslint . --fix`
+- [ ] `pnpm exec prettier --write .`
+- [ ] `pnpm exec vitest run`
+- [ ] `pnpm exec tsc --noEmit`
