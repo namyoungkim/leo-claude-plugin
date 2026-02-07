@@ -1,4 +1,5 @@
 ---
+name: init-project
 description: "프로젝트 Claude Code 템플릿 초기화. docs/, CLAUDE.md, settings, 언어별 컨벤션 배포"
 allowed-tools: Bash, Read, Write, Edit, AskUserQuestion
 ---

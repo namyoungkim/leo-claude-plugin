@@ -1,4 +1,5 @@
 ---
+name: doctor
 description: "개발 환경 진단 및 문제 해결"
 allowed-tools: Bash, Read
 ---

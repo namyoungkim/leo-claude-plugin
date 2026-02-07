@@ -1,4 +1,5 @@
 ---
+name: review
 description: "현재 변경사항 빠른 코드 리뷰. git diff 기반 정확성/보안/성능/품질 점검"
 allowed-tools: Bash, Read, Grep, Glob
 ---

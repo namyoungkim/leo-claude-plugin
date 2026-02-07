@@ -1,4 +1,5 @@
 ---
+name: setup
 description: "Leo Plugin 초기 설정 및 환경 구성"
 allowed-tools: Bash, Read, Edit, AskUserQuestion
 ---
