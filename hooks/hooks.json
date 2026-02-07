@@ -7,6 +7,18 @@
           {
             "type": "command",
             "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.py ]] && ruff format \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.rs ]] && rustfmt \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.go ]] && gofmt -w \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
           }
         ]
       }
@@ -18,6 +30,24 @@
           {
             "type": "command",
             "command": "ruff check . --fix 2>/dev/null || true"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qiE \"\\.(env|pem|key|secret|credential|token\\.json|id_rsa)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"민감 파일 수정 차단: $CLAUDE_FILE_PATH\\\"}\" && exit 2 || true'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=\"$CLAUDE_TOOL_INPUT\"; echo \"$CMD\" | grep -qE \"(rm\\s+-rf\\s+/|sudo\\s|chmod\\s+777|mkfs|:(){ :|:& };:)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"위험 명령 차단: $CMD\\\"}\" && exit 2 || true'"
           }
         ]
       }

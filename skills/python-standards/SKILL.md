@@ -1,6 +1,6 @@
 ---
-name: python-project
-description: Python project initialization and setup guide. Uses uv + ruff + ty + pytest based Astral Toolchain. Triggers on project creation, pyproject.toml configuration, VSCode settings, code conventions. Use for requests like "create Python project", "Python setup", "initialize new project".
+name: python-standards
+description: Python 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. uv + ruff + ty + pytest 기반 Astral Toolchain. Triggers on project creation, pyproject.toml configuration, VSCode settings, code conventions. Use for requests like "create Python project", "Python setup", "python-standards".
 ---
 
 # Python Project Setup
@@ -76,7 +76,7 @@ target-version = "py311"
 exclude = [".venv", "venv", "__pycache__", "build", "dist"]
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "B", "I", "C4", "UP", "SIM", "TCH", "PTH", "ASYNC", "RUF"]
+select = ["E", "W", "F", "B", "I", "N", "A", "C4", "UP", "SIM", "TCH", "PTH", "ASYNC", "RUF"]
 ignore = ["E501", "B008"]
 fixable = ["ALL"]
 
@@ -126,6 +126,77 @@ Create `.vscode/settings.json`:
 ```
 
 Required Extensions: `ms-python.python`, `ms-python.vscode-pylance`, `charliermarsh.ruff`
+
+## Async 패턴
+
+```python
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy import select
+
+async def get_user_by_email(
+    session: AsyncSession,
+    email: str,
+) -> User | None:
+    """이메일로 사용자를 조회한다.
+
+    Args:
+        session: DB 세션
+        email: 조회할 이메일 주소
+
+    Returns:
+        사용자 객체 또는 None
+    """
+    stmt = select(User).where(User.email == email)
+    result = await session.execute(stmt)
+    return result.scalar_one_or_none()
+```
+
+## Error Handling
+
+```python
+# ✅ 명시적 에러 타입 + from e 체이닝
+try:
+    result = await service.process(data)
+except ValidationError as e:
+    logger.warning("Validation failed: %s", e)
+    raise HTTPException(status_code=422, detail=str(e)) from e
+except DatabaseError as e:
+    logger.error("DB error: %s", e)
+    raise HTTPException(status_code=500, detail="Internal error") from e
+
+# ❌ 절대 금지
+try:
+    result = await service.process(data)
+except Exception:
+    pass
+```
+
+## Test Standards
+
+```python
+import pytest
+from my_project.service import UserService
+
+@pytest.fixture
+def user_service(db_session: AsyncSession) -> UserService:
+    return UserService(session=db_session)
+
+async def test_get_user_by_email_returns_user(
+    user_service: UserService,
+    sample_user: User,
+) -> None:
+    """존재하는 이메일로 조회 시 사용자를 반환한다."""
+    result = await user_service.get_by_email(sample_user.email)
+    assert result is not None
+    assert result.id == sample_user.id
+
+async def test_get_user_by_email_returns_none_for_unknown(
+    user_service: UserService,
+) -> None:
+    """존재하지 않는 이메일로 조회 시 None을 반환한다."""
+    result = await user_service.get_by_email("unknown@example.com")
+    assert result is None
+```
 
 ## Code Philosophy
 

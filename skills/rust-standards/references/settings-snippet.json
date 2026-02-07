@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo clippy *)",
+      "Bash(cargo fmt *)",
+      "Bash(cargo test *)",
+      "Bash(cargo build *)",
+      "Bash(cargo add *)",
+      "Bash(cargo *)"
+    ],
+    "deny": [
+      "Bash(cargo publish*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.rs$'); if [ -n \"$FILE\" ]; then rustfmt \"$FILE\" 2>/dev/null; fi; true",
+            "timeout": 15000
+          },
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.rs$'); if [ -n \"$FILE\" ]; then cargo clippy --quiet 2>&1 | head -20; fi; true",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  }
+}

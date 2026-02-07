@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go test *)",
+      "Bash(go build *)",
+      "Bash(go run *)",
+      "Bash(go mod *)",
+      "Bash(go get *)",
+      "Bash(golangci-lint run *)",
+      "Bash(go *)"
+    ],
+    "deny": [
+      "Bash(go install *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.go$'); if [ -n \"$FILE\" ]; then gofmt -w \"$FILE\" 2>/dev/null; fi; true",
+            "timeout": 15000
+          },
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.go$'); if [ -n \"$FILE\" ]; then golangci-lint run --quiet \"$FILE\" 2>&1 | head -20; fi; true",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  }
+}
