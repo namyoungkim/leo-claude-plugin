@@ -8,7 +8,9 @@ allowed-tools: Bash, Read, Grep, Glob, Edit, AskUserQuestion
 여러 프로젝트의 docs/에서 🌍 universal로 태깅된 항목을 수집하고, 글로벌 설정 레포에 반영할 제안을 만들어줘.
 
 ## 전제 조건
-- `~/.claude/projects.json`에 등록된 프로젝트 목록이 필요
+- 프로젝트 목록 파일이 필요. 다음 순서로 탐색:
+  1. `$CLAUDE_CONFIG_DIR/projects.json` (환경변수 설정 시)
+  2. `~/.claude/projects.json` (기본 경로)
 - 등록 방법: 수동으로 경로 추가하거나 `/init-project`가 등록
 
 ## 수집 대상
@@ -81,10 +83,10 @@ allowed-tools: Bash, Read, Grep, Glob, Edit, AskUserQuestion
 - harvested: true인 항목은 절대 중복 수집하지 않음
 
 ## 프로젝트 등록 안내
-등록된 프로젝트가 없거나 `~/.claude/projects.json`이 없으면:
+등록된 프로젝트가 없거나 projects.json이 없으면:
 ```
 ⚠️ 등록된 프로젝트가 없습니다.
-~/.claude/projects.json에 프로젝트 경로를 등록하세요:
+${CLAUDE_CONFIG_DIR:-~/.claude}/projects.json에 프로젝트 경로를 등록하세요:
 
 {
   "projects": [
