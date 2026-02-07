@@ -1,7 +1,6 @@
 ---
 name: opensearch-server
 description: Start and manage OpenSearch server with Docker. Use when starting OpenSearch locally, setting up development environment, or managing OpenSearch containers.
-allowed-tools: Bash
 ---
 
 # OpenSearch Server
