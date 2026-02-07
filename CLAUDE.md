@@ -182,7 +182,7 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 - **/reflect**: 세션 회고 + 개선 제안
 - **/harvest**: 프로젝트 간 지식 수집
 - **/prune**: CLAUDE.md 정리
-- **/review**: 빠른 코드 리뷰
+- **/code-review**: 빠른 코드 리뷰
 - **/init-project**: 프로젝트 템플릿 배포
 
 ## 스크립트
