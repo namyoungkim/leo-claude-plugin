@@ -104,6 +104,20 @@ git commit -m "message" \
 
 ---
 
+## PHASE 4: Verification
+
+커밋 완료 후 반드시 확인:
+
+```bash
+git log --oneline main..HEAD
+git status
+```
+
+각 커밋이 계획대로 생성되었는지, working tree가 clean한지 검증.
+잘못된 커밋 발견 시 `git reset --soft HEAD~1`로 되돌리고 재실행.
+
+---
+
 ## REBASE MODE
 
 ```bash
