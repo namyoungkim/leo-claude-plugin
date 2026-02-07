@@ -150,7 +150,7 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 }
 ```
 
-**이벤트 타입:** `PreToolUse`, `PostToolUse`, `Stop`, `SessionStart`, `Notification` 등
+**이벤트 타입:** `PreToolUse`, `PostToolUse`, `SessionStart`, `SessionEnd`, `Stop`, `SubagentStart`, `SubagentStop`, `Notification`, `PreCompact` 등
 **훅 타입:** `command` (쉘 명령), `prompt` (LLM 판단), `agent` (다중 도구 조사)
 **차단:** exit 2 + JSON `{"decision": "block", "reason": "..."}`
 **에러 처리:** 도구 없으면 조용히 무시, 있으면 에러 전달 (|| true 남용 금지)
@@ -197,4 +197,18 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 1. `skills/new-skill/SKILL.md` 생성
 2. YAML frontmatter 작성 (name, description 필수)
 3. 500줄 이내로 유지 (초과 시 `references/` 사용)
+4. `./scripts/validate.sh`로 검증
+
+## 새 에이전트 추가
+
+1. `agents/new-agent.md` 생성
+2. YAML frontmatter 작성 (name, description, tools 필수)
+3. 기존 에이전트와 역할 중복 확인 (중복 시 `references/`로 공유)
+4. `./scripts/validate.sh`로 검증
+
+## 새 커맨드 추가
+
+1. `commands/new-command.md` 생성
+2. YAML frontmatter 작성 (name, description, allowed-tools 필수)
+3. Claude Code 네이티브 명령어와 이름 충돌 확인 (`/help`, `/clear`, `/init`, `/doctor` 등)
 4. `./scripts/validate.sh`로 검증

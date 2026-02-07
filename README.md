@@ -2,7 +2,9 @@
 
 Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
-## 설치
+## 사용 가이드
+
+### 1. 설치
 
 ```bash
 # 방법 1: 단일 플러그인으로 설치
@@ -15,14 +17,6 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 > **Plugin vs Marketplace**
 > - **Plugin**: 1개 저장소 = 1개 플러그인 (직접 설치)
 > - **Marketplace**: 플러그인 카탈로그에서 선택 설치
-
-## 사용 가이드
-
-### 1. 설치
-
-```bash
-/plugin add https://github.com/namyoungkim/leo-claude-plugin
-```
 
 ### 2. 프로젝트 초기화
 
@@ -76,8 +70,8 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | Skill | 설명 |
 |-------|------|
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
-| git-master | Atomic commits, rebase/squash, history search |
-| git-workflow | GitHub Flow 브랜치 전략, 커밋 컨벤션 |
+| git-master | 커밋 아키텍트 + 히스토리 전문가 (커밋/rebase/blame) |
+| git-workflow | GitHub Flow 브랜치 전략 + PR 워크플로우 |
 | git-worktree | Git worktree 병렬 개발 가이드 |
 | go-standards | Go 코딩 표준 (go mod + golangci-lint + gofmt) |
 | opensearch-client | OpenSearch Python 클라이언트 |
@@ -136,7 +130,8 @@ leo-claude-plugin/
 ├── agents/                   # 에이전트 (3개)
 │   ├── code-reviewer.md
 │   ├── refactor-assistant.md
-│   └── reflector.md
+│   ├── reflector.md
+│   └── references/           # 에이전트 간 공유 참조
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md
 │   ├── checkup.md
@@ -144,7 +139,8 @@ leo-claude-plugin/
 │   ├── harvest.md
 │   ├── prune.md
 │   ├── review.md
-│   └── init-project.md
+│   ├── init-project.md
+│   └── references/           # 명령어 간 공유 참조
 ├── hooks/                    # 훅 설정
 │   └── hooks.json
 ├── templates/                # 프로젝트 스캐폴딩 템플릿
