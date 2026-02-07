@@ -100,7 +100,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | Command | 설명 |
 |---------|------|
 | /setup | 개발 환경 초기 설정 |
-| /doctor | 환경 진단 및 문제 해결 |
+| /checkup | 환경 진단 및 문제 해결 |
 | /reflect | 세션 회고 + 개선 제안 |
 | /harvest | 프로젝트 간 지식 수집 |
 | /prune | CLAUDE.md 정리 |
@@ -112,7 +112,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 - **PostToolUse (포맷팅)**: Python(ruff), Rust(rustfmt), Go(gofmt), TypeScript(prettier) 자동 포맷
 - **PreToolUse (보호)**: 민감 파일(.env, .pem, credentials) 편집 차단
 - **PreToolUse (안전)**: 위험 명령(rm -rf /, sudo, chmod 777) 차단
-- **PreToolUse (린트)**: git commit 전 ruff check 실행
+- **PreToolUse (린트)**: git commit 전 언어별 린트 실행 (ruff, clippy, golangci-lint, eslint)
 
 ## 구조
 
@@ -139,7 +139,7 @@ leo-claude-plugin/
 │   └── reflector.md
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md
-│   ├── doctor.md
+│   ├── checkup.md
 │   ├── reflect.md
 │   ├── harvest.md
 │   ├── prune.md

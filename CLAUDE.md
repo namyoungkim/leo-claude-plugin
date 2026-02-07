@@ -105,6 +105,7 @@ model: sonnet
 
 ```yaml
 ---
+name: command-name
 description: "명령어 설명"
 allowed-tools: Bash, Read, Edit
 ---
@@ -133,7 +134,7 @@ allowed-tools: Bash, Read, Edit
 ## Available Commands
 
 - **/setup**: 개발 환경 초기 설정
-- **/doctor**: 환경 진단
+- **/checkup**: 환경 진단
 - **/reflect**: 세션 회고 + 개선 제안
 - **/harvest**: 프로젝트 간 지식 수집
 - **/prune**: CLAUDE.md 정리
