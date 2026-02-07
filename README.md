@@ -39,7 +39,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ```bash
 # 빠른 리뷰 (커맨드)
-/review
+/code-review
 
 # 깊은 리뷰 (에이전트)
 @code-reviewer
@@ -98,7 +98,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | /reflect | 세션 회고 + 개선 제안 |
 | /harvest | 프로젝트 간 지식 수집 |
 | /prune | CLAUDE.md 정리 |
-| /review | 빠른 코드 리뷰 |
+| /code-review | 빠른 코드 리뷰 |
 | /init-project | 프로젝트 템플릿 배포 |
 
 ### Hooks
@@ -138,7 +138,7 @@ leo-claude-plugin/
 │   ├── reflect.md
 │   ├── harvest.md
 │   ├── prune.md
-│   ├── review.md
+│   ├── code-review.md
 │   ├── init-project.md
 │   └── references/           # 명령어 간 공유 참조
 ├── hooks/                    # 훅 설정
