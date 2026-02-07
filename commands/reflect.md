@@ -2,6 +2,7 @@
 name: reflect
 description: "세션 회고 및 자기 개선. 실수/패턴 분석 후 CLAUDE.md, hooks, docs/ 개선안 제안"
 allowed-tools: Bash, Read, Edit, Grep, Glob, AskUserQuestion
+disable-model-invocation: true
 ---
 
 # Session Reflection
