@@ -18,7 +18,7 @@
           },
           {
             "type": "command",
-            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true'"
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && (command -v prettier >/dev/null 2>&1 && prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || npx --no-install prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null) || true'"
           }
         ]
       }
@@ -38,7 +38,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qiE \"\\.(env|pem|key|secret|credential|token\\.json|id_rsa)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"민감 파일 수정 차단: $CLAUDE_FILE_PATH\\\"}\" && exit 2 || true'"
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qiE \"(\\.env($|\\.)|\\.pem$|\\.key$|secrets/|credentials|token\\.json$|id_rsa)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"민감 파일 수정 차단: $CLAUDE_FILE_PATH\\\"}\" && exit 2 || true'"
           }
         ]
       },
@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'CMD=\"$CLAUDE_TOOL_INPUT\"; echo \"$CMD\" | grep -qE \"(rm\\s+-rf\\s+/|sudo\\s|chmod\\s+777|mkfs|:(){ :|:& };:)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"위험 명령 차단: $CMD\\\"}\" && exit 2 || true'"
+            "command": "bash -c 'CMD=\"$CLAUDE_BASH_COMMAND\"; echo \"$CMD\" | grep -qE \"(rm\\s+-rf\\s+/|sudo\\s|chmod\\s+777|mkfs|:(){ :|:& };:)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"위험 명령 차단: $CMD\\\"}\" && exit 2 || true'"
           }
         ]
       }
