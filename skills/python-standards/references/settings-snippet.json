@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run ruff *)",
+      "Bash(uv run ty *)",
+      "Bash(uv run pytest *)",
+      "Bash(uv run uvicorn *)",
+      "Bash(uv run alembic *)",
+      "Bash(uv add *)",
+      "Bash(uv *)"
+    ],
+    "deny": [
+      "Bash(pip install*)",
+      "Bash(alembic downgrade*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.py$'); if [ -n \"$FILE\" ]; then uv run ruff format --quiet \"$FILE\" 2>/dev/null; uv run ruff check --fix --quiet \"$FILE\" 2>/dev/null; fi; true",
+            "timeout": 15000
+          },
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && FILE=$(echo $CLAUDE_FILE_PATH 2>/dev/null | grep '\\.py$'); if [ -n \"$FILE\" ]; then uv run ty check \"$FILE\" 2>&1 | head -20; fi; true",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  }
+}
