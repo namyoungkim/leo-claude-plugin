@@ -34,3 +34,22 @@ git status                     # working tree clean 확인
 ### Notes
 - 잘못된 커밋 발견 시 즉시 `git reset --soft HEAD~1`로 되돌리고 재실행
 - 3개 이상 커밋 작업 시 반드시 적용
+
+## Hook 배치 전략 — 차단 vs 리마인더
+- **scope**: universal
+- **discovered**: 2026-02-07
+- **project**: leo-claude-plugin
+- **use-case**: Hook 설계 시 "차단할 것인가, 권장만 할 것인가" 판단
+
+### Strategy
+
+| 시나리오 | 이벤트 | 동작 | 예시 |
+|---------|--------|------|------|
+| 복구 불가능한 실수 | PreToolUse | 차단 (exit 2) | main 직접 커밋, 민감 파일 수정 |
+| 복구 가능하지만 비용 큰 실수 | PreToolUse | 경고 (stdout) | 린트 에러, 테스트 실패 |
+| 학습/개선 기회 | Stop | 리마인더 (info) | /reflect 안내 |
+
+### Notes
+- `exit 2` 차단은 신중하게 (false positive 가능성 고려)
+- 리마인더는 강제하지 않음 (사용자 판단 존중)
+- 사용자 자율성 vs 안전성 균형이 핵심
