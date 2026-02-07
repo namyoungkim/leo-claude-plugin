@@ -2,14 +2,26 @@
 name: review
 description: "현재 변경사항 빠른 코드 리뷰. git diff 기반 정확성/보안/성능/품질 점검"
 allowed-tools: Bash, Read, Grep, Glob
+argument-hint: "[branch-or-file]"
 ---
 
 # Code Review
 
 현재 변경사항을 리뷰해줘.
 
-## 리뷰 범위
-`git diff`로 현재 스테이징되지 않은 변경사항, 또는 지정된 브랜치/커밋과의 차이를 리뷰한다.
+## 리뷰 대상
+
+인자가 주어지면 해당 대상을 리뷰한다:
+- `$ARGUMENTS`가 파일 경로면 → 해당 파일만 리뷰
+- `$ARGUMENTS`가 브랜치명이면 → 해당 브랜치와의 diff 리뷰
+- 인자가 없으면 → `git diff`로 현재 변경사항 리뷰
+
+## 컨텍스트 수집
+
+```
+현재 브랜치: !`git branch --show-current`
+변경 파일 목록: !`git diff --staged --name-only 2>/dev/null; git diff --name-only 2>/dev/null`
+```
 
 ## 리뷰 체크리스트
 
