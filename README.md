@@ -112,7 +112,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 - **PostToolUse (포맷팅)**: Python(ruff), Rust(rustfmt), Go(gofmt), TypeScript(prettier) 자동 포맷
 - **PreToolUse (보호)**: 민감 파일(.env, .pem, credentials) 편집 차단
 - **PreToolUse (안전)**: 위험 명령(rm -rf /, sudo, chmod 777) 차단
-- **PreToolUse (린트)**: git commit 전 언어별 린트 실행 (ruff, clippy, golangci-lint, eslint)
+- **PreToolUse (린트)**: git commit 전 언어별 린트+자동수정 (ruff, clippy, golangci-lint, eslint)
 
 ## 구조
 

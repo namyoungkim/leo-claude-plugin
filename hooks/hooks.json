@@ -1,4 +1,5 @@
 {
+  "description": "자동 포맷팅, 커밋 전 린트, 민감 파일 보호, 위험 명령 차단, 세션 종료 시 회고 제안",
   "hooks": {
     "PostToolUse": [
       {
@@ -6,19 +7,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.py ]] && command -v ruff >/dev/null 2>&1 && ruff format \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.py ]]; then command -v ruff >/dev/null 2>&1 && ruff format \"$CLAUDE_FILE_PATH\"; fi'",
+            "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.rs ]] && command -v rustfmt >/dev/null 2>&1 && rustfmt \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.rs ]]; then command -v rustfmt >/dev/null 2>&1 && rustfmt \"$CLAUDE_FILE_PATH\"; fi'",
+            "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash -c '[[ \"$CLAUDE_FILE_PATH\" == *.go ]] && command -v gofmt >/dev/null 2>&1 && gofmt -w \"$CLAUDE_FILE_PATH\" 2>&1 || true'"
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.go ]]; then command -v gofmt >/dev/null 2>&1 && gofmt -w \"$CLAUDE_FILE_PATH\"; fi'",
+            "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\" && (command -v prettier >/dev/null 2>&1 && prettier --write \"$CLAUDE_FILE_PATH\" 2>&1 || npx --no-install prettier --write \"$CLAUDE_FILE_PATH\" 2>&1) || true'"
+            "command": "bash -c 'if echo \"$CLAUDE_FILE_PATH\" | grep -qE \"\\.(ts|tsx|js|jsx)$\"; then if command -v prettier >/dev/null 2>&1; then prettier --write \"$CLAUDE_FILE_PATH\"; elif command -v npx >/dev/null 2>&1; then npx --no-install prettier --write \"$CLAUDE_FILE_PATH\"; fi; fi'",
+            "timeout": 10
           }
         ]
       }
@@ -29,19 +34,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'command -v ruff >/dev/null 2>&1 && ruff check . --fix 2>&1 | head -20 || true'"
+            "command": "bash -c 'if command -v ruff >/dev/null 2>&1; then ruff check . --fix 2>&1 | head -20; fi'",
+            "timeout": 30
           },
           {
             "type": "command",
-            "command": "bash -c 'command -v cargo >/dev/null 2>&1 && [[ -f Cargo.toml ]] && cargo clippy --all-targets --fix --allow-dirty 2>&1 | head -20 || true'"
+            "command": "bash -c 'if command -v cargo >/dev/null 2>&1 && [[ -f Cargo.toml ]]; then cargo clippy --all-targets --fix --allow-dirty 2>&1 | head -20; fi'",
+            "timeout": 30
           },
           {
             "type": "command",
-            "command": "bash -c 'command -v golangci-lint >/dev/null 2>&1 && [[ -f go.mod ]] && golangci-lint run --fix 2>&1 | head -20 || true'"
+            "command": "bash -c 'if command -v golangci-lint >/dev/null 2>&1 && [[ -f go.mod ]]; then golangci-lint run --fix 2>&1 | head -20; fi'",
+            "timeout": 30
           },
           {
             "type": "command",
-            "command": "bash -c 'command -v eslint >/dev/null 2>&1 && [[ -f package.json ]] && eslint . --fix 2>&1 | head -20 || true'"
+            "command": "bash -c 'if command -v eslint >/dev/null 2>&1 && [[ -f package.json ]]; then eslint . --fix 2>&1 | head -20; fi'",
+            "timeout": 30
           }
         ]
       },
