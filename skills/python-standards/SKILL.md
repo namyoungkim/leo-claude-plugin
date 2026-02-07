@@ -1,6 +1,7 @@
 ---
 name: python-standards
-description: Python 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. uv + ruff + ty + pytest 기반 Astral Toolchain. Triggers on project creation, pyproject.toml configuration, VSCode settings, code conventions. Use for requests like "create Python project", "Python setup", "python-standards".
+description: "Python 프로젝트의 코딩 표준, 프로젝트 세팅, 패턴 가이드. uv + ruff + ty + pytest 기반 Astral Toolchain. 트리거: Python 프로젝트, pyproject.toml, ruff 설정, pytest 설정, src 레이아웃, 파이썬 코딩 표준"
+user-invocable: false
 ---
 
 # Python Project Setup
