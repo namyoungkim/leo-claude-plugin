@@ -74,9 +74,11 @@ disable-model-invocation: true
 
 1. `docs/archive/` 디렉토리가 없으면 생성
 2. 현재 분기 기준 아카이브 파일에 append:
+   - 분기 계산: 1-3월=Q1, 4-6월=Q2, 7-9월=Q3, 10-12월=Q4
    - `docs/archive/PATTERNS-YYYY-QN.md`
    - `docs/archive/MISTAKES-YYYY-QN.md`
 3. 원본 파일에서 해당 항목 제거
+   - 항목 수 계산 기준: `grep -cE '^(## |### \[)' <파일>` (reflector와 동일)
 4. 원본 파일의 `# 제목` 헤더와 빈 항목 구조는 유지
 
 ```
