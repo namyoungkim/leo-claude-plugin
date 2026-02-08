@@ -118,6 +118,28 @@ git status
 
 ---
 
+## 커밋 재구성 (Soft Reset Pattern)
+
+이미 커밋했지만 논리적 분할이 아쉬울 때:
+
+```bash
+git log --oneline -3                  # 현재 커밋 구조 확인
+git reset --soft HEAD~N               # N개 커밋을 unstage (작업 내용 유지)
+git status                            # 변경사항 확인
+# 새로운 논리 단위로 재분할
+git add <files-for-commit-1>
+git commit -m "..."
+git add <files-for-commit-2>
+git commit -m "..."
+```
+
+**사용 시나리오:**
+- 커밋 메시지가 모호할 때
+- 하나의 큰 커밋을 논리적 단위로 분리할 때
+- PR 리뷰어 피드백 반영 시
+
+---
+
 ## REBASE MODE
 
 ```bash
