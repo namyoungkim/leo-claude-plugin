@@ -37,6 +37,32 @@ memory: user
 4. `docs/PATTERNS.md` (있다면)
 5. `.claude/settings.json`의 hooks와 permissions
 
+## 파일 크기 관리 (항목 추가 전 필수)
+
+docs/MISTAKES.md 또는 docs/PATTERNS.md에 항목을 추가하기 **전에** 반드시 현재 크기를 확인:
+
+```bash
+wc -l docs/MISTAKES.md docs/PATTERNS.md 2>/dev/null
+```
+
+### 임계값
+| 파일 | soft cap | hard cap |
+|------|----------|----------|
+| MISTAKES.md | 15항목 (≈120줄) | 25항목 (≈200줄) |
+| PATTERNS.md | 15항목 (≈150줄) | 25항목 (≈250줄) |
+
+### 대응
+- **soft cap 도달**: 항목 추가 후 아카이브 권고 메시지 출력
+  ```
+  ⚠️ docs/PATTERNS.md가 {N}항목에 도달했습니다. `/harvest`로 승격된 항목을 아카이브하세요.
+  ```
+- **hard cap 도달**: 새 항목 추가를 보류하고, 아카이브를 먼저 수행하도록 안내
+  ```
+  🚫 docs/MISTAKES.md가 {N}항목으로 hard cap에 도달했습니다.
+  `/harvest`를 먼저 실행하여 harvested 항목을 아카이브한 후 다시 시도하세요.
+  ```
+- 항목 수 계산: `## ` (h2) 또는 `### [` (h3 with date) 헤더 수로 판단
+
 ## 분석 프레임워크
 
 ### 실수 감지 신호
