@@ -53,3 +53,30 @@ git status                     # working tree clean 확인
 - `exit 2` 차단은 신중하게 (false positive 가능성 고려)
 - 리마인더는 강제하지 않음 (사용자 판단 존중)
 - 사용자 자율성 vs 안전성 균형이 핵심
+
+## 공유 참조 패턴 (references/)
+- **scope**: universal
+- **discovered**: 2026-02-08
+- **project**: leo-claude-plugin
+- **use-case**: 여러 스킬/명령어에서 반복되는 가이드라인/명령어
+
+### Pattern
+```
+commands/
+├── references/
+│   └── shared-knowledge.md
+├── cmd-a.md                     # [참조](references/shared-knowledge.md)
+└── cmd-b.md                     # [참조](references/shared-knowledge.md)
+```
+
+### Benefits
+- 중복 제거로 유지보수 포인트 감소 (Single Source of Truth)
+- 업데이트 시 단일 지점 수정
+- 각 파일 500줄 제한 준수 용이
+
+### Example
+PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `commands/references/plugin-path.md`로 통합.
+
+### Notes
+- `skills/`, `agents/`, `commands/` 모두 `references/` 서브디렉토리 사용 가능
+- 공유 범위에 따라 적절한 위치 선택
