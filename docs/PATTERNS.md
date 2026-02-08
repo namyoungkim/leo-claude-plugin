@@ -80,3 +80,25 @@ PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `commands/references/pl
 ### Notes
 - `skills/`, `agents/`, `commands/` 모두 `references/` 서브디렉토리 사용 가능
 - 공유 범위에 따라 적절한 위치 선택
+
+## Graceful Degradation for Agent Edge Cases
+- **scope**: 🌍 universal
+- **discovered**: 2026-02-08
+- **project**: leo-claude-plugin
+- **use-case**: 에이전트가 전제 조건이 충족되지 않은 상태에서 호출될 때
+
+### Pattern
+에이전트는 핵심 전제가 성립하지 않을 때를 감지해야 한다:
+- Reflector: 세션에 분석할 활동이 있는지 확인
+- Code-reviewer: git diff가 존재하는지 확인
+- Refactor-assistant: 대상 코드가 존재하는지 확인
+
+### Implementation
+1. 전제 조건 확인 (tool 호출 횟수, 파일 변경 여부 등)
+2. 미충족 시: graceful하게 인지 + 대안 제안
+3. 강제 실행 대신 조기 종료
+
+### Benefits
+- 빈 세션/누락된 의존성에 대한 더 나은 UX
+- 에이전트 목적의 명확한 전달
+- 허위 제안(false-positive suggestions) 감소
