@@ -10,6 +10,10 @@ disable-model-invocation: true
 
 프로젝트에 Claude Code 템플릿을 배포합니다.
 
+## 플러그인 경로
+
+[플러그인 경로 확인](references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
+
 ## 프로세스
 
 ### 1단계: 정보 수집
@@ -25,28 +29,28 @@ disable-model-invocation: true
 
 ### 2단계: 템플릿 배포
 
-플러그인의 `templates/project/` 디렉토리에서 다음 파일을 프로젝트로 복사:
+플러그인의 `PLUGIN_ROOT/templates/project/` 디렉토리에서 다음 파일을 프로젝트로 복사:
 
 ```
 프로젝트/
-├── CLAUDE.md                    ← templates/project/CLAUDE.md 복사 후 프로젝트명 치환
+├── CLAUDE.md                    ← PLUGIN_ROOT/templates/project/CLAUDE.md
 ├── .claude/
-│   └── settings.json            ← templates/project/settings.json 복사
-├── .mcp.json                    ← templates/project/.mcp.json 복사
+│   └── settings.json            ← PLUGIN_ROOT/templates/project/settings.json
+├── .mcp.json                    ← PLUGIN_ROOT/templates/project/.mcp.json
 └── docs/
-    ├── CONVENTIONS.md            ← templates/project/docs/CONVENTIONS.md 복사
-    ├── MISTAKES.md               ← templates/project/docs/MISTAKES.md 복사
-    ├── PATTERNS.md               ← templates/project/docs/PATTERNS.md 복사
-    ├── ARCHITECTURE.md           ← templates/project/docs/ARCHITECTURE.md 복사
-    └── AGENT_TEAM_TEMPLATES.md   ← templates/project/docs/AGENT_TEAM_TEMPLATES.md 복사
+    ├── CONVENTIONS.md            ← PLUGIN_ROOT/templates/project/docs/CONVENTIONS.md
+    ├── MISTAKES.md               ← PLUGIN_ROOT/templates/project/docs/MISTAKES.md
+    ├── PATTERNS.md               ← PLUGIN_ROOT/templates/project/docs/PATTERNS.md
+    ├── ARCHITECTURE.md           ← PLUGIN_ROOT/templates/project/docs/ARCHITECTURE.md
+    └── AGENT_TEAM_TEMPLATES.md   ← PLUGIN_ROOT/templates/project/docs/AGENT_TEAM_TEMPLATES.md
 ```
 
 ### 3단계: 언어별 설정 병합
 
 선택한 언어의 snippet을 프로젝트 파일에 병합:
-- `skills/{언어}-standards/references/claude-snippet.md` → `CLAUDE.md`에 추가
-- `skills/{언어}-standards/references/conventions-snippet.md` → `docs/CONVENTIONS.md`에 추가
-- `skills/{언어}-standards/references/settings-snippet.json` → `.claude/settings.json`에 병합
+- `PLUGIN_ROOT/skills/{언어}-standards/references/claude-snippet.md` → `CLAUDE.md`에 추가
+- `PLUGIN_ROOT/skills/{언어}-standards/references/conventions-snippet.md` → `docs/CONVENTIONS.md`에 추가
+- `PLUGIN_ROOT/skills/{언어}-standards/references/settings-snippet.json` → `.claude/settings.json`에 병합
 
 ### 4단계: .gitignore 업데이트
 
