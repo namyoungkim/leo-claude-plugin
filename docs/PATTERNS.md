@@ -81,6 +81,33 @@ PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `commands/references/pl
 - `skills/`, `agents/`, `commands/` 모두 `references/` 서브디렉토리 사용 가능
 - 공유 범위에 따라 적절한 위치 선택
 
+## Hook Exit Code 보장 패턴
+- **scope**: 🌍 universal
+- **discovered**: 2026-02-08
+- **project**: leo-claude-plugin
+- **use-case**: Claude Code hook에서 non-blocking 명령이 의도치 않게 exit 1을 반환하는 버그 방지
+
+### Problem
+`command -v tool && tool <args>` 패턴은 tool이 미설치일 때 `command -v`의 exit 1이 스크립트 종료 코드가 된다.
+Claude Code는 exit 0 = 성공, exit 2 = 차단, 그 외 = 에러로 해석한다.
+
+### Pattern
+
+| 의도 | 나쁜 패턴 | 좋은 패턴 |
+|------|----------|----------|
+| 미설치 무시, 실패 전달 | `command -v tool && tool <args>` | `if command -v tool; then tool <args>; fi` |
+| 미설치 무시, 실패도 무시 | `command -v tool && tool <args>; exit 0` | `command -v tool && tool <args> \|\| true` |
+| 조건부 출력 (마지막이 false) | `[[ -n "$VAR" ]] && echo "$VAR"` | `[[ -n "$VAR" ]] && echo "$VAR"; exit 0` |
+
+### Rule
+- ALWAYS: non-blocking hook은 정상 경로에서 exit 0을 보장해야 함
+- ALWAYS: 차단 hook만 exit 2를 사용, 그 외 non-zero는 전부 에러 취급
+
+### Notes
+- `if/fi` 구조가 `&& \|\| true`보다 의도가 명확
+- `; exit 0`은 포맷터 실패도 삼키므로 주의 (SessionStart처럼 출력만 하는 경우에 적합)
+- validate.sh에 exit code smoke test 추가하여 회귀 방지
+
 ## Graceful Degradation for Agent Edge Cases
 - **scope**: 🌍 universal
 - **discovered**: 2026-02-08
