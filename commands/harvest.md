@@ -78,7 +78,7 @@ disable-model-invocation: true
    - `docs/archive/PATTERNS-YYYY-QN.md`
    - `docs/archive/MISTAKES-YYYY-QN.md`
 3. 원본 파일에서 해당 항목 제거
-   - 항목 수 계산 기준: `grep -cE '^(## |### \[)' <파일>` (reflector와 동일)
+   - 항목 수 계산: [항목 수 계산 기준](../agents/references/item-counting.md) 참조
 4. 원본 파일의 `# 제목` 헤더와 빈 항목 구조는 유지
 
 ```
