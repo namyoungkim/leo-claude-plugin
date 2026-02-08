@@ -8,14 +8,18 @@ disable-model-invocation: true
 
 Docker-based OpenSearch server with Korean (Nori) analyzer.
 
+## 플러그인 경로
+
+[플러그인 경로 확인](../../commands/references/plugin-path.md) 참조. 아래 명령어의 `PLUGIN_ROOT`는 확인된 실제 경로로 치환하여 실행한다.
+
 ## Quick Start (docker-compose)
 
 ```bash
 # 1. Copy .env and set PROJECT_NAME
-cp .claude/skills/opensearch-server/assets/.env.example .env
+cp PLUGIN_ROOT/skills/opensearch-server/assets/.env.example .env
 
 # 2. Start server
-docker compose -f .claude/skills/opensearch-server/assets/docker-compose.yml up -d
+docker compose -f PLUGIN_ROOT/skills/opensearch-server/assets/docker-compose.yml up -d
 
 # 3. Verify
 curl -s http://localhost:9200
@@ -40,7 +44,7 @@ docker run -d --name opensearch \
 
 ```bash
 # docker-compose
-docker compose -f .claude/skills/opensearch-server/assets/docker-compose.yml down
+docker compose -f PLUGIN_ROOT/skills/opensearch-server/assets/docker-compose.yml down
 
 # docker run
 docker stop opensearch && docker rm opensearch
@@ -91,7 +95,7 @@ docker logs ${PROJECT_NAME:-opensearch}-dev
 lsof -i :9200
 
 # Reset data (remove volumes)
-docker compose -f .claude/skills/opensearch-server/assets/docker-compose.yml down -v
+docker compose -f PLUGIN_ROOT/skills/opensearch-server/assets/docker-compose.yml down -v
 ```
 
 ## Links

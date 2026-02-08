@@ -7,7 +7,11 @@ disable-model-invocation: true
 
 # Harvest — 프로젝트 간 범용 지식 수집
 
-여러 프로젝트의 docs/에서 🌍 universal로 태깅된 항목을 수집하고, 글로벌 설정 레포에 반영할 제안을 만들어줘.
+여러 프로젝트의 docs/에서 🌍 universal로 태깅된 항목을 수집하고, 이 플러그인에 반영할 제안을 만들어줘.
+
+## 플러그인 경로
+
+[플러그인 경로 확인](references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
 
 ## 전제 조건
 - 프로젝트 목록 파일이 필요. 다음 순서로 탐색:
@@ -41,10 +45,10 @@ disable-model-invocation: true
 
 | 분류 | 반영 대상 | 예시 |
 |------|----------|------|
-| 📘 Skill 추가 | `skills/{언어}/SKILL.md` | 코드 패턴, 설정 가이드 |
-| 📋 규칙 추가 | `CLAUDE.md` (글로벌) | NEVER/ALWAYS 규칙 |
-| ⚙️ Hook 전환 | `settings.json` 템플릿 | 자동화 가능한 규칙 |
-| 📄 템플릿 개선 | `project/docs/` 템플릿 | 문서 구조 개선 |
+| 📘 Skill 추가 | `PLUGIN_ROOT/skills/{언어}/SKILL.md` | 코드 패턴, 설정 가이드 |
+| 📋 규칙 추가 | `PLUGIN_ROOT/CLAUDE.md` | NEVER/ALWAYS 규칙 |
+| ⚙️ Hook 전환 | `PLUGIN_ROOT/templates/project/settings.json` | 자동화 가능한 규칙 |
+| 📄 템플릿 개선 | `PLUGIN_ROOT/templates/project/docs/` | 문서 구조 개선 |
 | 🗑️ 해당 없음 | 반영 불필요 | 재검토 후 project-only로 전환 |
 
 ### 4단계: 제안 출력
@@ -53,7 +57,7 @@ disable-model-invocation: true
 ## [분류 이모지] 항목 제목
 - **원본**: 프로젝트명, 발견일
 - **현재 위치**: project-a/docs/PATTERNS.md
-- **반영 대상**: skills/{언어}/SKILL.md
+- **반영 대상**: PLUGIN_ROOT/skills/{언어}/SKILL.md
 - **내용 요약**: (1-2줄)
 - **구체적 변경**:
   (파일 경로와 추가/수정할 내용)
@@ -71,7 +75,7 @@ disable-model-invocation: true
 ## DB 세션 관리 패턴
 - **scope**: 🌍 universal
 - **harvested**: true ← 이 줄이 추가됨
-- **harvested_to**: skills/{언어}/SKILL.md ← 반영 위치
+- **harvested_to**: PLUGIN_ROOT/skills/{언어}/SKILL.md ← 반영 위치
 - **harvested_date**: 2026-02-15 ← 반영 일자
 - **발견일**: 2026-02-10
 ...
