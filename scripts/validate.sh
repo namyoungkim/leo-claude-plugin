@@ -196,6 +196,75 @@ else
 fi
 echo ""
 
+# Hooks Exit Code 검증
+echo "Hooks Exit Code"
+echo "--------------------------------"
+hooks_exit_checked=0
+if [[ -f "$hooks_file" ]] && command -v jq &> /dev/null; then
+    # SessionStart: clean working tree에서 exit 0
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        hooks_exit_checked=$((hooks_exit_checked + 1))
+        session_cmd=$(jq -r '.hooks.SessionStart[0].hooks[0].command' "$hooks_file")
+        if bash -c "$session_cmd" >/dev/null 2>&1; then
+            echo "[OK] SessionStart - exit 0"
+        else
+            echo "[FAIL] SessionStart - non-zero exit code"
+            errors=$((errors + 1))
+        fi
+    fi
+
+    # PostToolUse: 매칭되지 않는 확장자에서 exit 0
+    post_count=$(jq -r '.hooks.PostToolUse[0].hooks | length' "$hooks_file" 2>/dev/null)
+    if [[ -n "$post_count" && "$post_count" -gt 0 ]]; then
+        for i in $(seq 0 $((post_count - 1))); do
+            hooks_exit_checked=$((hooks_exit_checked + 1))
+            cmd=$(jq -r ".hooks.PostToolUse[0].hooks[$i].command" "$hooks_file")
+            if CLAUDE_FILE_PATH="test.txt" bash -c "$cmd" >/dev/null 2>&1; then
+                echo "[OK] PostToolUse[$i] - exit 0 (non-matching ext)"
+            else
+                echo "[FAIL] PostToolUse[$i] - non-zero exit code (non-matching ext)"
+                errors=$((errors + 1))
+            fi
+        done
+    fi
+
+    # PreToolUse: 안전한 입력에서 exit 0
+    pre_groups=$(jq -r '.hooks.PreToolUse | length' "$hooks_file" 2>/dev/null)
+    if [[ -n "$pre_groups" && "$pre_groups" -gt 0 ]]; then
+        for g in $(seq 1 $((pre_groups - 1))); do  # 0번(git commit)은 브랜치 의존적이라 스킵
+            pre_count=$(jq -r ".hooks.PreToolUse[$g].hooks | length" "$hooks_file" 2>/dev/null)
+            matcher=$(jq -r ".hooks.PreToolUse[$g].matcher" "$hooks_file" 2>/dev/null)
+            for i in $(seq 0 $((pre_count - 1))); do
+                hooks_exit_checked=$((hooks_exit_checked + 1))
+                cmd=$(jq -r ".hooks.PreToolUse[$g].hooks[$i].command" "$hooks_file")
+                if CLAUDE_FILE_PATH="safe.txt" CLAUDE_BASH_COMMAND="echo hello" bash -c "$cmd" >/dev/null 2>&1; then
+                    echo "[OK] PreToolUse[$g][$i] ($matcher) - exit 0 (safe input)"
+                else
+                    echo "[FAIL] PreToolUse[$g][$i] ($matcher) - non-zero exit code (safe input)"
+                    errors=$((errors + 1))
+                fi
+            done
+        done
+    fi
+
+    # Stop: exit 0
+    stop_cmd=$(jq -r '.hooks.Stop[0].hooks[0].command // empty' "$hooks_file" 2>/dev/null)
+    if [[ -n "$stop_cmd" ]]; then
+        hooks_exit_checked=$((hooks_exit_checked + 1))
+        if bash -c "$stop_cmd" >/dev/null 2>&1; then
+            echo "[OK] Stop - exit 0"
+        else
+            echo "[FAIL] Stop - non-zero exit code"
+            errors=$((errors + 1))
+        fi
+    fi
+else
+    echo "[SKIP] jq required for exit code validation"
+fi
+echo "Checked: $hooks_exit_checked"
+total_checked=$((total_checked + hooks_exit_checked))
+echo ""
+
 # 결과 출력
 echo "================================"
 echo "Total checked: $total_checked"
