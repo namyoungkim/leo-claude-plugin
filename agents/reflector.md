@@ -19,6 +19,13 @@ memory: user
 - 효과적인 패턴을 `docs/PATTERNS.md`에 기록
 - **기록 시 scope를 판단하여 🌍 universal / 📌 project-only 태깅**
 
+## 사전 조건 확인 (빈 세션 처리)
+- 세션의 tool 호출이 5회 미만이고 파일 변경이 없으면:
+  1. 시스템 상태 확인 (최근 커밋, hook 동작 여부)
+  2. 최근 PR이 있으면 리뷰 제안
+  3. 다음 생산적 행동 안내
+  4. 강제 분석 없이 graceful exit
+
 ## 분석 대상
 1. 이번 세션의 채팅 히스토리
 2. 현재 CLAUDE.md (글로벌 + 프로젝트)
