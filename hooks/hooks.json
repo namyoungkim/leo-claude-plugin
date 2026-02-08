@@ -19,17 +19,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.py ]]; then command -v ruff >/dev/null 2>&1 && ruff format \"$CLAUDE_FILE_PATH\"; fi; exit 0'",
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.py ]]; then if command -v ruff >/dev/null 2>&1; then ruff format \"$CLAUDE_FILE_PATH\"; fi; fi'",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.rs ]]; then command -v rustfmt >/dev/null 2>&1 && rustfmt \"$CLAUDE_FILE_PATH\"; fi; exit 0'",
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.rs ]]; then if command -v rustfmt >/dev/null 2>&1; then rustfmt \"$CLAUDE_FILE_PATH\"; fi; fi'",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.go ]]; then command -v gofmt >/dev/null 2>&1 && gofmt -w \"$CLAUDE_FILE_PATH\"; fi; exit 0'",
+            "command": "bash -c 'if [[ \"$CLAUDE_FILE_PATH\" == *.go ]]; then if command -v gofmt >/dev/null 2>&1; then gofmt -w \"$CLAUDE_FILE_PATH\"; fi; fi'",
             "timeout": 10
           },
           {
