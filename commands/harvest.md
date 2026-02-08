@@ -68,6 +68,37 @@ disable-model-invocation: true
 - 승인된 항목만 반영
 - 반영 후 원본 프로젝트의 해당 항목에 `harvested: true` 마킹
 
+### 6단계: 아카이브 (harvested 항목 정리)
+
+반영 완료 후 원본 파일에서 `harvested: true` 항목을 아카이브로 이동:
+
+1. `docs/archive/` 디렉토리가 없으면 생성
+2. 현재 분기 기준 아카이브 파일에 append:
+   - `docs/archive/PATTERNS-YYYY-QN.md`
+   - `docs/archive/MISTAKES-YYYY-QN.md`
+3. 원본 파일에서 해당 항목 제거
+4. 원본 파일의 `# 제목` 헤더와 빈 항목 구조는 유지
+
+```
+예시: 2026년 1분기 harvest 실행 후
+docs/
+├── MISTAKES.md              ← harvested 항목 제거됨 (활성 항목만)
+├── PATTERNS.md              ← harvested 항목 제거됨 (활성 항목만)
+└── archive/
+    ├── MISTAKES-2026-Q1.md  ← 아카이브된 항목 (출처·날짜 보존)
+    └── PATTERNS-2026-Q1.md
+```
+
+아카이브 파일 헤더 형식:
+```markdown
+# Archived Patterns — 2026 Q1
+> Harvested on YYYY-MM-DD from {프로젝트명}
+
+(원본 항목 그대로 복사)
+```
+
+**아카이브도 사람의 승인 후에만 실행한다.**
+
 ## 마킹 형식
 
 반영 완료 후 원본 항목에 추가되는 메타데이터:
