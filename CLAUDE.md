@@ -15,6 +15,7 @@ Claude Code Plugin 저장소 가이드.
 - ALWAYS: 에러 핸들링 명시, 커밋 메시지 conventional commits
 - ALWAYS: 변경 전 기존 테스트 실행
 - ALWAYS: 새 스킬/명령어 작성 전 references/ 디렉토리 확인 (중복 방지)
+- ALWAYS: Hook/Skill/Command 제안 전 기존 설정 확인 (중복 방지)
 - ALWAYS: 3개 이상 파일에서 동일 가이드라인 반복 시 references/로 추출
 - 함수는 짧게 (20-50줄), 모듈은 200-400줄 목표
 - Type/타입 힌트 필수, 테스트 먼저 구현 나중
