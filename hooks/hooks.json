@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then echo \"Branch: $(git branch --show-current)\"; echo \"Recent:\"; git log --oneline -3; CHANGES=$(git status -s | head -5); [[ -n \"$CHANGES\" ]] && echo \"Changes:\" && echo \"$CHANGES\"; fi'",
+            "command": "bash -c 'if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then echo \"Branch: $(git branch --show-current)\"; echo \"Recent:\"; git log --oneline -3; CHANGES=$(git status -s | head -5); [[ -n \"$CHANGES\" ]] && echo \"Changes:\" && echo \"$CHANGES\"; fi; exit 0'",
             "timeout": 5
           }
         ]
