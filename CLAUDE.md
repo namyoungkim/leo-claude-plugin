@@ -35,12 +35,12 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (11개)
+├── skills/                   # 스킬 (12개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
 │       ├── references/      # 선택: 참조 문서
 │       └── assets/          # 선택: 템플릿
-├── agents/                   # 커스텀 에이전트 (3개)
+├── agents/                   # 커스텀 에이전트 (4개)
 │   ├── <agent-name>.md
 │   └── references/           # 선택: 에이전트 간 공유 참조
 ├── commands/                 # 슬래시 명령어 (7개)
@@ -175,12 +175,14 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 - **python-standards**: Python 코딩 표준 (`user-invocable: false`)
 - **rust-standards**: Rust 코딩 표준 (`user-invocable: false`)
 - **typescript-standards**: TypeScript 코딩 표준 (`user-invocable: false`)
+- **langgraph**: LangGraph 지식 베이스 검색 (`disable-model-invocation`, `argument-hint`)
 
 ## Available Agents
 
 - **code-reviewer**: 코드 리뷰 전문가 (git diff 분석)
 - **refactor-assistant**: 리팩토링 도우미
 - **reflector**: 세션 회고 및 자기 개선
+- **langgraph-master**: LangGraph 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
