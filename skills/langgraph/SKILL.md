@@ -30,13 +30,14 @@ Task(
 
 ## $ARGUMENTS가 없는 경우
 
-Bash로 `kb list -d langgraph` 를 실행하여 현재 카드 현황을 보여주고, 질문을 요청한다.
+Bash로 `kb coverage langgraph` 를 실행하여 현재 카드 현황을 보여주고, 질문을 요청한다.
 
 ```
 예시 출력:
 
 LangGraph 지식 베이스 현황:
-- Principle: N장, Pattern: N장, Fact: N장
+- 전체 N장 (Principle: N, Pattern: N, Fact: N)
+- 커버리지: N% (N/N 소스 완료)
 
 질문 예시:
 - /langgraph "state reducer란 무엇인가?"

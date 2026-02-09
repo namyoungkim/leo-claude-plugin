@@ -4,6 +4,7 @@ description: "LangGraph 지식 베이스 전문가. 축적된 카드(Principle/P
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
 model: opus
+permissionMode: plan
 maxTurns: 8
 ---
 
