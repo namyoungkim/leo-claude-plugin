@@ -65,7 +65,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (11개)
+### Skills (12개)
 
 | Skill | 설명 |
 |-------|------|
@@ -80,14 +80,16 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | python-standards | Python 코딩 표준 (uv + ruff + ty + pytest) |
 | rust-standards | Rust 코딩 표준 (cargo + clippy + rustfmt) |
 | typescript-standards | TypeScript 코딩 표준 (pnpm + eslint + prettier + vitest) |
+| langgraph | LangGraph 지식 베이스 검색 (kb CLI 기반) |
 
-### Agents (3개)
+### Agents (4개)
 
 | Agent | 설명 |
 |-------|------|
 | code-reviewer | 코드 리뷰 전문가 (git diff 분석) |
 | refactor-assistant | 리팩토링 도우미 |
 | reflector | 세션 회고 및 자기 개선 |
+| langgraph-master | LangGraph 지식 베이스 전문가 |
 
 ### Commands (7개)
 
@@ -115,7 +117,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (11개)
+├── skills/                   # 스킬 (12개)
 │   ├── coding-problem-solver/
 │   ├── git-master/
 │   ├── git-workflow/
@@ -126,9 +128,11 @@ leo-claude-plugin/
 │   ├── product-planning/
 │   ├── python-standards/
 │   ├── rust-standards/
-│   └── typescript-standards/
-├── agents/                   # 에이전트 (3개)
+│   ├── typescript-standards/
+│   └── langgraph/
+├── agents/                   # 에이전트 (4개)
 │   ├── code-reviewer.md
+│   ├── langgraph-master.md
 │   ├── refactor-assistant.md
 │   ├── reflector.md
 │   └── references/           # 에이전트 간 공유 참조
