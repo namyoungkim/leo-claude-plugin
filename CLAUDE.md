@@ -42,11 +42,10 @@ leo-claude-plugin/
 │       ├── references/      # 선택: 참조 문서
 │       └── assets/          # 선택: 템플릿
 ├── agents/                   # 커스텀 에이전트 (4개)
-│   ├── <agent-name>.md
-│   └── references/           # 선택: 에이전트 간 공유 참조
+│   └── <agent-name>.md
 ├── commands/                 # 슬래시 명령어 (7개)
-│   ├── <command-name>.md
-│   └── references/           # 선택: 명령어 간 공유 참조
+│   └── <command-name>.md
+├── references/               # 에이전트·명령어 간 공유 참조
 ├── hooks/                   # 훅 설정 (자동 로드)
 │   └── hooks.json
 ├── templates/               # 프로젝트 스캐폴딩 템플릿
@@ -223,7 +222,7 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 
 1. `agents/new-agent.md` 생성
 2. YAML frontmatter 작성 (name, description, tools 필수)
-3. 기존 에이전트와 역할 중복 확인 (중복 시 `references/`로 공유)
+3. 기존 에이전트와 역할 중복 확인 (공유 문서는 최상위 `references/`에 배치)
 4. `./scripts/validate.sh`로 검증
 
 ## 새 커맨드 추가
