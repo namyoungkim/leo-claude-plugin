@@ -61,7 +61,7 @@ wc -l docs/MISTAKES.md docs/PATTERNS.md 2>/dev/null
   🚫 docs/MISTAKES.md가 {N}항목으로 hard cap에 도달했습니다.
   `/harvest`를 먼저 실행하여 harvested 항목을 아카이브한 후 다시 시도하세요.
   ```
-- 항목 수 계산: [항목 수 계산 기준](references/item-counting.md) 참조
+- 항목 수 계산: [항목 수 계산 기준](../references/item-counting.md) 참조
 
 ## 분석 프레임워크
 

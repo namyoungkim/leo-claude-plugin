@@ -24,7 +24,7 @@ You are a senior code reviewer performing deep code reviews with full codebase c
 
 ## Review Checklist
 
-[references/review-checklist.md](references/review-checklist.md) 참조.
+[review-checklist.md](../references/review-checklist.md) 참조.
 
 ## Output Format
 
