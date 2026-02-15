@@ -108,6 +108,23 @@ Claude Code는 exit 0 = 성공, exit 2 = 차단, 그 외 = 에러로 해석한�
 - `; exit 0`은 포맷터 실패도 삼키므로 주의 (SessionStart처럼 출력만 하는 경우에 적합)
 - validate.sh에 exit code smoke test 추가하여 회귀 방지
 
+## 코드 리뷰 피드백 내용을 검토 후 작업 반영
+- **scope**: 🌍 universal
+- **discovered**: 2026-02-15
+- **project**: leo-claude-plugin
+- **use-case**: PR 작성 후 코드 리뷰 피드백을 반영할 때
+
+### Workflow
+1. PR 생성 후 `/code-review` 호출
+2. 피드백 항목별로 파일 수정 (Edit 도구 활용)
+3. 수정 커밋 → 피드백 재요청 (iterative)
+4. 최종 승인 후 squash → merge
+
+### Notes
+- 피드백 반영 시 Grep으로 동일 개념이 언급된 연관 파일을 검색하여 일괄 수정
+- 2회 이상 같은 유형의 피드백이 나오면 Hook/규칙으로 자동화 고려
+- 머지 전 squash로 히스토리 정리 (피드백 반영 커밋은 최종 커밋에 흡수)
+
 ## Graceful Degradation for Agent Edge Cases
 - **scope**: 🌍 universal
 - **discovered**: 2026-02-08
