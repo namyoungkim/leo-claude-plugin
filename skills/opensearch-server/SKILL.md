@@ -10,7 +10,7 @@ Docker-based OpenSearch server with Korean (Nori) analyzer.
 
 ## 플러그인 경로
 
-[플러그인 경로 확인](../../commands/references/plugin-path.md) 참조. 아래 명령어의 `PLUGIN_ROOT`는 확인된 실제 경로로 치환하여 실행한다.
+[플러그인 경로 확인](../../references/plugin-path.md) 참조. 아래 명령어의 `PLUGIN_ROOT`는 확인된 실제 경로로 치환하여 실행한다.
 
 ## Quick Start (docker-compose)
 

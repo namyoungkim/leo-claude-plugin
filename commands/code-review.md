@@ -25,6 +25,6 @@ argument-hint: "[branch-or-file]"
 
 ## 리뷰 체크리스트
 
-[../agents/references/review-checklist.md](../agents/references/review-checklist.md) 참조.
+[review-checklist.md](../references/review-checklist.md) 참조.
 
 빠른 리뷰이므로 diff에 보이는 변경사항만 집중한다. 전체 코드베이스 맥락이 필요한 심층 리뷰는 `@code-reviewer` 에이전트를 사용한다.

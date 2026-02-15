@@ -10,7 +10,7 @@ allowed-tools: Bash, Read
 
 ## 프로젝트 언어 감지
 
-[references/language-detection.md](references/language-detection.md) 규칙에 따라 언어를 자동 감지한다.
+[language-detection.md](../references/language-detection.md) 규칙에 따라 언어를 자동 감지한다.
 감지된 언어에 해당하는 항목만 진단한다. 감지 실패 시 전체 항목을 진단한다.
 
 ## 공통 진단 항목
