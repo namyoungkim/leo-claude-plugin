@@ -146,3 +146,22 @@ Claude Code는 exit 0 = 성공, exit 2 = 차단, 그 외 = 에러로 해석한�
 - 빈 세션/누락된 의존성에 대한 더 나은 UX
 - 에이전트 목적의 명확한 전달
 - 허위 제안(false-positive suggestions) 감소
+
+## 독립 플러그인 분리 (Visor 사례)
+- **scope**: 🌍 universal
+- **discovered**: 2026-02-15
+- **project**: leo-claude-plugin
+- **use-case**: 범용 도구를 별도 플러그인으로 분리하여 독립 버전 관리
+
+### Pattern
+- 도메인 특화 스킬 (opensearch, langgraph) → 메인 플러그인 저장소
+- 범용 도구 (visor) → 독립 플러그인 저장소 (marketplace.json에만 등록)
+
+### Benefits
+- 저장소 복잡도 감소 (각 저장소가 단일 책임)
+- 도구별 독립 버전 관리 및 릴리스 주기
+- 재사용성 증가 (메인 플러그인 없이도 독립 설치 가능)
+
+### Notes
+- marketplace.json에 메타데이터만 등록하여 검색 가능하게 유지
+- 독립 플러그인도 동일한 plugin.json 형식과 SemVer 규칙 적용

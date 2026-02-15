@@ -30,6 +30,11 @@ plugin.json의 version 필드는 SemVer를 따른다.
 - ALWAYS: PR에 컴포넌트 변경이 포함되면 version 업데이트
 - ALWAYS: 머지 후 `claude plugin update`로 캐시 갱신
 
+## Hook 관리
+- ALWAYS: Hook 추가 전 글로벌(`~/.claude/settings.json`)과 프로젝트(`hooks/hooks.json`) 중복 확인
+- ALWAYS: 프로젝트별 Hook은 프로젝트 hooks.json에, 범용 Hook은 글로벌 설정에 배치
+- NOTE: 글로벌/프로젝트 훅이 같은 이벤트+matcher에 등록되면 2중 실행됨 (성능 낭비)
+
 ## 개발 환경
 - ALWAYS: Visor 사용 시 `full` preset 권장 (최대 컨텍스트)
 
