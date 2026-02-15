@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 ## 플러그인 경로
 
-[플러그인 경로 확인](references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
+[플러그인 경로 확인](../references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
 
 ## 전제 조건
 - 프로젝트 목록 파일이 필요. 다음 순서로 탐색:
@@ -78,7 +78,7 @@ disable-model-invocation: true
    - `docs/archive/PATTERNS-YYYY-QN.md`
    - `docs/archive/MISTAKES-YYYY-QN.md`
 3. 원본 파일에서 해당 항목 제거
-   - 항목 수 계산: [항목 수 계산 기준](../agents/references/item-counting.md) 참조
+   - 항목 수 계산: [항목 수 계산 기준](../references/item-counting.md) 참조
 4. 원본 파일의 `# 제목` 헤더와 빈 항목 구조는 유지
 
 ```

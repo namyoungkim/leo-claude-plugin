@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 ## 플러그인 경로
 
-[플러그인 경로 확인](references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
+[플러그인 경로 확인](../references/plugin-path.md) 참조. 아래의 모든 경로는 PLUGIN_ROOT 기준이다.
 
 ## 프로세스
 
