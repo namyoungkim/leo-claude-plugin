@@ -35,7 +35,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (12개)
+├── skills/                   # 스킬 (13개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
 │       ├── references/      # 선택: 참조 문서
@@ -164,18 +164,28 @@ disable-model-invocation: true            # 선택: 수동 호출만 허용
 
 ## Available Skills
 
-- **coding-problem-solver**: 코딩 인터뷰 문제 풀이 (`argument-hint`)
+**언어별 표준** — `user-invocable: false`
+- **go-standards**: Go 코딩 표준 (go mod + golangci-lint + gofmt)
+- **python-standards**: Python 코딩 표준 (uv + ruff + ty + pytest)
+- **rust-standards**: Rust 코딩 표준 (cargo + clippy + rustfmt)
+- **typescript-standards**: TypeScript 코딩 표준 (pnpm + eslint + prettier + vitest)
+
+**Git 워크플로우**
 - **git-master**: 커밋 아키텍트 + 히스토리 전문가 (커밋/rebase/blame)
 - **git-workflow**: GitHub Flow 브랜치 전략 + PR 워크플로우
 - **git-worktree**: Git worktree 병렬 개발
-- **go-standards**: Go 코딩 표준 (`user-invocable: false`)
-- **opensearch-client**: OpenSearch Python 클라이언트 (`disable-model-invocation`)
-- **opensearch-server**: Docker 기반 OpenSearch 서버 (`disable-model-invocation`)
-- **product-planning**: 인터뷰 기반 제품/프로젝트 기획 (`argument-hint`)
-- **python-standards**: Python 코딩 표준 (`user-invocable: false`)
-- **rust-standards**: Rust 코딩 표준 (`user-invocable: false`)
-- **typescript-standards**: TypeScript 코딩 표준 (`user-invocable: false`)
-- **langgraph**: LangGraph 지식 베이스 검색 (`disable-model-invocation`, `argument-hint`)
+
+**인프라/도메인** — `disable-model-invocation: true`
+- **opensearch-client**: OpenSearch Python 클라이언트 (텍스트/벡터/하이브리드 검색)
+- **opensearch-server**: Docker 기반 OpenSearch 서버 (Nori 한국어 분석기)
+- **langgraph**: LangGraph 지식 베이스 검색 (`argument-hint: [질문]`)
+
+**플러그인/메타** — `user-invocable: false`
+- **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
+
+**기획/도구** — `argument-hint`
+- **product-planning**: 인터뷰 기반 제품/프로젝트 기획 (`argument-hint: [프로젝트명]`)
+- **coding-problem-solver**: 코딩 인터뷰 문제 풀이 (`argument-hint: [문제 URL 또는 이름]`)
 
 ## Available Agents
 

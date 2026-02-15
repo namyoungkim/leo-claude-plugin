@@ -120,20 +120,21 @@ my-marketplace/
 ### 선택: 단일 Plugin
 
 **결정 이유**:
-1. 스킬 수가 적절 (11개)
+1. 스킬 수가 적절 (13개)
 2. 개인용 도구 모음
 3. 관리 단순화
 
 ### 도메인 분류
 
-현재 스킬들은 4개 도메인으로 분류됨:
+현재 스킬들은 5개 도메인으로 분류됨:
 
-| 도메인 | Skills |
-|--------|--------|
-| 언어별 표준 | python-standards, rust-standards, typescript-standards, go-standards |
-| Git 워크플로우 | git-workflow, git-master, git-worktree |
-| 인프라/기획 | opensearch-client, opensearch-server, product-planning |
-| 기타 | coding-problem-solver |
+| 도메인 | Skills | 공통 속성 |
+|--------|--------|-----------|
+| 언어별 표준 | go, python, rust, typescript-standards | `user-invocable: false` |
+| Git 워크플로우 | git-master, git-workflow, git-worktree | (기본값) |
+| 인프라/도메인 | opensearch-client, opensearch-server, langgraph | `disable-model-invocation: true` |
+| 플러그인/메타 | claude-code-standards | `user-invocable: false` |
+| 기획/도구 | product-planning, coding-problem-solver | `argument-hint` |
 
 ---
 
