@@ -21,6 +21,15 @@ Claude Code Plugin 저장소 가이드.
 - 함수는 짧게 (20-50줄), 모듈은 200-400줄 목표
 - Type/타입 힌트 필수, 테스트 먼저 구현 나중
 
+## 버전 관리
+
+plugin.json의 version 필드는 SemVer를 따른다.
+- MAJOR: 스킬/에이전트/커맨드 삭제·이름 변경, 훅 동작 변경 (호환성 파괴)
+- MINOR: 새 스킬/에이전트/커맨드/훅 추가
+- PATCH: 버그 수정, 문서 수정, 내부 구조 리팩토링
+- ALWAYS: PR에 컴포넌트 변경이 포함되면 version 업데이트
+- ALWAYS: 머지 후 `claude plugin update`로 캐시 갱신
+
 ## 개발 환경
 - ALWAYS: Visor 사용 시 `full` preset 권장 (최대 컨텍스트)
 
