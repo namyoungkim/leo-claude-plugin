@@ -65,22 +65,28 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (12개)
+### Skills (13개)
 
 | Skill | 설명 |
 |-------|------|
-| coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
-| git-master | 커밋 아키텍트 + 히스토리 전문가 (커밋/rebase/blame) |
-| git-workflow | GitHub Flow 브랜치 전략 + PR 워크플로우 |
-| git-worktree | Git worktree 병렬 개발 가이드 |
+| **언어별 표준** | |
 | go-standards | Go 코딩 표준 (go mod + golangci-lint + gofmt) |
-| opensearch-client | OpenSearch Python 클라이언트 |
-| opensearch-server | Docker 기반 OpenSearch 서버 관리 |
-| product-planning | 인터뷰 기반 제품/프로젝트 기획 |
 | python-standards | Python 코딩 표준 (uv + ruff + ty + pytest) |
 | rust-standards | Rust 코딩 표준 (cargo + clippy + rustfmt) |
 | typescript-standards | TypeScript 코딩 표준 (pnpm + eslint + prettier + vitest) |
+| **Git 워크플로우** | |
+| git-master | 커밋 아키텍트 + 히스토리 전문가 (커밋/rebase/blame) |
+| git-workflow | GitHub Flow 브랜치 전략 + PR 워크플로우 |
+| git-worktree | Git worktree 병렬 개발 가이드 |
+| **인프라/도메인** | |
+| opensearch-client | OpenSearch Python 클라이언트 (텍스트/벡터/하이브리드 검색) |
+| opensearch-server | Docker 기반 OpenSearch 서버 관리 (Nori 한국어 분석기) |
 | langgraph | LangGraph 지식 베이스 검색 (kb CLI 기반) |
+| **플러그인/메타** | |
+| claude-code-standards | Claude Code 플러그인 개발 표준 (공식 문서 기반) |
+| **기획/도구** | |
+| product-planning | 인터뷰 기반 제품/프로젝트 기획 |
+| coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
 
 ### Agents (4개)
 
@@ -117,19 +123,20 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (12개)
+├── skills/                   # 스킬 (13개)
+│   ├── claude-code-standards/
 │   ├── coding-problem-solver/
 │   ├── git-master/
 │   ├── git-workflow/
 │   ├── git-worktree/
 │   ├── go-standards/
+│   ├── langgraph/
 │   ├── opensearch-client/
 │   ├── opensearch-server/
 │   ├── product-planning/
 │   ├── python-standards/
 │   ├── rust-standards/
-│   ├── typescript-standards/
-│   └── langgraph/
+│   └── typescript-standards/
 ├── agents/                   # 에이전트 (4개)
 │   ├── code-reviewer.md
 │   ├── langgraph-master.md
