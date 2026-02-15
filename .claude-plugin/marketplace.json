@@ -36,7 +36,7 @@
         "repo": "namyoungkim/visor"
       },
       "description": "Statusline setup & configuration",
-      "version": "0.9.0",
+      "version": "0.11.6",
       "keywords": [
         "statusline",
         "dashboard",
