@@ -68,6 +68,28 @@ if [[ -f "$plugin_file" ]]; then
 
         if [[ "$plugin_valid" == true ]]; then
             echo "[OK] plugin.json"
+
+            # marketplace.json 버전 일치 검증
+            marketplace_file="$ROOT_DIR/.claude-plugin/marketplace.json"
+            if [[ -f "$marketplace_file" ]]; then
+                plugin_ver=$(jq -r '.version // empty' "$plugin_file" 2>/dev/null)
+                mp_meta_ver=$(jq -r '.metadata.version // empty' "$marketplace_file" 2>/dev/null)
+                mp_plugin_ver=$(jq -r '.plugins[] | select(.name == "leo-claude-plugin") | .version // empty' "$marketplace_file" 2>/dev/null)
+
+                if [[ -n "$plugin_ver" ]]; then
+                    if [[ "$mp_meta_ver" != "$plugin_ver" ]]; then
+                        echo "[FAIL] marketplace.json metadata.version ($mp_meta_ver) != plugin.json ($plugin_ver)"
+                        errors=$((errors + 1))
+                    fi
+                    if [[ "$mp_plugin_ver" != "$plugin_ver" ]]; then
+                        echo "[FAIL] marketplace.json plugins[].version ($mp_plugin_ver) != plugin.json ($plugin_ver)"
+                        errors=$((errors + 1))
+                    fi
+                    if [[ "$mp_meta_ver" == "$plugin_ver" && "$mp_plugin_ver" == "$plugin_ver" ]]; then
+                        echo "[OK] version sync (plugin.json <-> marketplace.json)"
+                    fi
+                fi
+            fi
         fi
     fi
 else
