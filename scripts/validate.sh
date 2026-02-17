@@ -70,7 +70,7 @@ if [[ -f "$plugin_file" ]]; then
             echo "[OK] plugin.json"
 
             # marketplace.json 버전 일치 검증
-            marketplace_file="$ROOT_DIR/.claude-plugin/marketplace.json"
+            marketplace_file="$ROOT_DIR/marketplace.json"
             if [[ -f "$marketplace_file" ]]; then
                 plugin_ver=$(jq -r '.version // empty' "$plugin_file" 2>/dev/null)
                 mp_meta_ver=$(jq -r '.metadata.version // empty' "$marketplace_file" 2>/dev/null)
