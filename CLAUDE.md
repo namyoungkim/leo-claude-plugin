@@ -48,9 +48,9 @@ plugin.json의 version 필드는 SemVer를 따른다.
 ```
 leo-claude-plugin/
 ├── .claude-plugin/
-│   └── plugin.json          # 플러그인 메타데이터
+│   ├── plugin.json          # 플러그인 메타데이터
+│   └── marketplace.json     # 마켓플레이스 카탈로그
 ├── .mcp.json                # MCP 서버 설정 (향후 확장용)
-├── marketplace.json         # 마켓플레이스 카탈로그
 ├── skills/                   # 스킬 (17개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
