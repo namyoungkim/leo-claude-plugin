@@ -2,6 +2,7 @@
 name: coding-problem-solver
 description: "코딩 인터뷰 문제 풀이를 구조화된 형식으로 정리. 새 문제 풀이, 복습, 면접 준비에 사용. LeetCode, 프로그래머스, HackerRank 등 코딩 문제 링크가 포함된 경우 트리거. \"이 문제 풀어줘\", \"Two Sum 정리해줘\", \"코딩 문제 분석\", \"면접 준비용으로 정리\" 등의 요청 시에도 트리거."
 argument-hint: "[문제 URL 또는 이름]"
+context: fork
 ---
 
 # Coding Problem Solver
