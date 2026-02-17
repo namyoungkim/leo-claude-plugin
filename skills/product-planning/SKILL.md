@@ -2,6 +2,7 @@
 name: product-planning
 description: "인터뷰 기반 제품/프로젝트 기획 및 설계 스킬. Impact Mapping, User Story Mapping, C4 Model, ADR 순서로 기획 문서 생성. 트리거: 기획해줘, 설계해줘, 프로젝트 시작, PRD 만들어줘, 요구사항 정리, 아키텍처 설계"
 argument-hint: "[프로젝트명]"
+context: fork
 ---
 
 # Product Planning Skill
