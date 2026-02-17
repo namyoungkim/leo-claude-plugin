@@ -20,6 +20,7 @@
 - **python**: Python 지식 베이스 검색 (`argument-hint: [질문]`)
 - **unix**: Unix 지식 베이스 검색 (`argument-hint: [질문]`)
 - **openclaw**: OpenClaw 지식 베이스 검색 (`argument-hint: [질문]`)
+- **claude-code**: Claude Code 지식 베이스 검색 (`argument-hint: [질문]`)
 
 **플러그인/메타** — `user-invocable: false`
 - **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
@@ -37,6 +38,7 @@
 - **python-master**: Python 지식 베이스 전문가 (kb CLI 기반 검색)
 - **unix-master**: Unix 지식 베이스 전문가 (kb CLI 기반 검색)
 - **openclaw-master**: OpenClaw 지식 베이스 전문가 (kb CLI 기반 검색)
+- **claude-code-master**: Claude Code 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
