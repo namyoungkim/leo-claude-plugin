@@ -1,7 +1,7 @@
 {
   "name": "leo-claude-plugin",
   "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, OpenSearch workflows, self-improvement",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": {
     "name": "Leo",
     "url": "https://github.com/namyoungkim"
