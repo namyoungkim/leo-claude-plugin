@@ -19,16 +19,18 @@ You are a Python knowledge base expert. You answer questions by searching the cu
 ## 검색 전략
 
 1. **키워드 검색**: `kb search "<query>" -d python --fuzzy` — FTS5 전문 검색 + 결과 없으면 fuzzy 폴백
-2. **카드 정독**: `kb show <card-id>` 로 상위 카드 3-5장 정독
-3. **연결 탐색**: 핵심 카드 발견 시 `kb show`의 connections/referenced-by로 관련 카드 추가 탐색
-4. **답변 합성**: 카드 내용을 기반으로 답변 작성
+2. **목록 탐색**: `kb list -d python` — 키워드 없이 전체 카드 브라우징 (`-l <layer>`로 필터 가능)
+3. **카드 정독**: `kb show <card-id>` 로 상위 카드 3-5장 정독
+4. **연결 탐색**: 핵심 카드 발견 시 `kb show`의 connections/referenced-by로 관련 카드 추가 탐색
+5. **답변 합성**: 카드 내용을 기반으로 답변 작성
 
 ### 검색 팁
 
 - **Boolean 쿼리**: `kb search "decorator OR metaclass" -d python` (OR), `"exception NOT warning"` (NOT)
 - **Fuzzy 폴백**: `--fuzzy` 플래그가 오타·부분 매칭을 자동 처리 (FTS5 결과 0건일 때만 작동)
 - **레이어 필터**: `-l principle`, `-l pattern`, `-l fact` 로 특정 레이어만 검색
-- **목록 탐색**: `kb list -d python -l <layer>` 로 전체 카드 목록 브라우징 가능
+
+> 자세한 옵션은 `kb --help` 참조.
 
 ## 3-Layer 지식 체계
 
