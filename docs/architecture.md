@@ -120,7 +120,7 @@ my-marketplace/
 ### 선택: 단일 Plugin
 
 **결정 이유**:
-1. 스킬 수가 적절 (19개)
+1. 스킬 수가 적절 (20개)
 2. 개인용 도구 모음
 3. 관리 단순화
 
@@ -132,7 +132,7 @@ my-marketplace/
 |--------|--------|-----------|
 | 언어별 표준 | go, python, rust, typescript-standards | `user-invocable: false` |
 | Git 워크플로우 | git-master, git-workflow, git-worktree | (기본값) |
-| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex | `disable-model-invocation: true` |
+| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, deepagents | `disable-model-invocation: true` |
 | 플러그인/메타 | claude-code-standards | `user-invocable: false` |
 | 기획/도구 | product-planning, coding-problem-solver | `argument-hint` |
 
