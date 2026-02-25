@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Leo's Claude Code plugin collection",
-    "version": "2.3.1"
+    "version": "2.4.0"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "repo": "namyoungkim/leo-claude-plugin"
       },
       "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, OpenSearch workflows, self-improvement",
-      "version": "2.3.1",
+      "version": "2.4.0",
       "keywords": [
         "python",
         "rust",
@@ -24,6 +24,7 @@
         "go",
         "git",
         "opensearch",
+        "deepagents",
         "workflow",
         "self-improvement"
       ],
