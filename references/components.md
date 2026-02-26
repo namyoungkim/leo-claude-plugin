@@ -24,6 +24,8 @@
 - **codex**: OpenAI Codex 지식 베이스 검색 (`argument-hint: [질문]`)
 - **rust**: Rust 지식 베이스 검색 (`argument-hint: [질문]`)
 - **deepagents**: Deep Agents 지식 베이스 검색 (`argument-hint: [질문]`)
+- **cloudflare-tunnel**: Cloudflare Tunnel 지식 베이스 검색 (`argument-hint: [질문]`)
+- **langfuse**: Langfuse 지식 베이스 검색 (`argument-hint: [질문]`)
 
 **플러그인/메타** — `user-invocable: false`
 - **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
@@ -45,6 +47,8 @@
 - **codex-master**: OpenAI Codex 지식 베이스 전문가 (kb CLI 기반 검색)
 - **rust-master**: Rust 지식 베이스 전문가 (kb CLI 기반 검색)
 - **deepagents-master**: Deep Agents 지식 베이스 전문가 (kb CLI 기반 검색)
+- **cloudflare-tunnel-master**: Cloudflare Tunnel 지식 베이스 전문가 (kb CLI 기반 검색)
+- **langfuse-master**: Langfuse 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
