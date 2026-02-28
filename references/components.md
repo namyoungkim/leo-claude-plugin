@@ -26,6 +26,8 @@
 - **deepagents**: Deep Agents 지식 베이스 검색 (`argument-hint: [질문]`)
 - **cloudflare-tunnel**: Cloudflare Tunnel 지식 베이스 검색 (`argument-hint: [질문]`)
 - **langfuse**: Langfuse 지식 베이스 검색 (`argument-hint: [질문]`)
+- **k3s**: k3s 지식 베이스 검색 (`argument-hint: [질문]`)
+- **argocd**: Argo CD 지식 베이스 검색 (`argument-hint: [질문]`)
 
 **플러그인/메타** — `user-invocable: false`
 - **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
@@ -49,6 +51,8 @@
 - **deepagents-master**: Deep Agents 지식 베이스 전문가 (kb CLI 기반 검색)
 - **cloudflare-tunnel-master**: Cloudflare Tunnel 지식 베이스 전문가 (kb CLI 기반 검색)
 - **langfuse-master**: Langfuse 지식 베이스 전문가 (kb CLI 기반 검색)
+- **k3s-master**: k3s 지식 베이스 전문가 (kb CLI 기반 검색)
+- **argocd-master**: Argo CD 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
