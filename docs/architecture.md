@@ -67,7 +67,7 @@ my-plugin/
 **적합한 경우**:
 - 개인용 플러그인
 - 특정 프로젝트/팀 전용
-- 스킬 수 15개 미만
+- 실질 복잡도가 관리 가능한 수준
 
 ### Marketplace (마켓플레이스)
 
@@ -120,7 +120,7 @@ my-marketplace/
 ### 선택: 단일 Plugin
 
 **결정 이유**:
-1. 스킬 수가 적절 (20개)
+1. 스킬 수가 적절 (25개, 단 KB 검색 스킬은 동일 패턴의 경량 래퍼)
 2. 개인용 도구 모음
 3. 관리 단순화
 
@@ -132,7 +132,7 @@ my-marketplace/
 |--------|--------|-----------|
 | 언어별 표준 | go, python, rust, typescript-standards | `user-invocable: false` |
 | Git 워크플로우 | git-master, git-workflow, git-worktree | (기본값) |
-| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, deepagents | `disable-model-invocation: true` |
+| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-tunnel, langfuse, k3s, argocd, opentelemetry | `disable-model-invocation: true` |
 | 플러그인/메타 | claude-code-standards | `user-invocable: false` |
 | 기획/도구 | product-planning, coding-problem-solver | `argument-hint` |
 
@@ -215,7 +215,7 @@ templates/project/
 
 - [ ] 팀/조직에 배포하고 팀별로 다른 스킬 조합 필요
 - [ ] 특정 스킬만 오픈소스로 공개
-- [ ] 스킬이 20개 이상으로 증가
+- [x] ~~스킬이 20개 이상으로 증가~~ → 25개 도달. 단, KB 스킬은 경량 래퍼라 실질 복잡도 낮음
 - [ ] 스킬별 버전 관리 필요
 
 ### 전환 시 구조
@@ -250,6 +250,6 @@ leo-infra-plugin/                 ← DevOps팀용
 
 | 상황 | 권장 |
 |------|------|
-| 개인용, 스킬 < 20개 | 단일 플러그인 (현재) |
+| 개인용, 실질 스킬 < 30개 | 단일 플러그인 (현재) |
 | 팀 배포, 권한 분리 | 마켓플레이스 + 도메인별 플러그인 |
 | 커뮤니티 배포 | 마켓플레이스 (선택적 설치) |
