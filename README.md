@@ -65,7 +65,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (20개)
+### Skills (24개)
 
 | Skill | 설명 |
 |-------|------|
@@ -89,13 +89,17 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex | OpenAI Codex 지식 베이스 검색 (kb CLI 기반) |
 | rust | Rust 지식 베이스 검색 (kb CLI 기반) |
 | deepagents | Deep Agents 지식 베이스 검색 (kb CLI 기반) |
+| cloudflare-tunnel | Cloudflare Tunnel 지식 베이스 검색 (kb CLI 기반) |
+| langfuse | Langfuse 지식 베이스 검색 (kb CLI 기반) |
+| k3s | k3s 지식 베이스 검색 (kb CLI 기반) |
+| argocd | Argo CD 지식 베이스 검색 (kb CLI 기반) |
 | **플러그인/메타** | |
 | claude-code-standards | Claude Code 플러그인 개발 표준 (공식 문서 기반) |
 | **기획/도구** | |
 | product-planning | 인터뷰 기반 제품/프로젝트 기획 |
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
 
-### Agents (11개)
+### Agents (15개)
 
 | Agent | 설명 |
 |-------|------|
@@ -110,6 +114,10 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex-master | OpenAI Codex 지식 베이스 전문가 |
 | rust-master | Rust 지식 베이스 전문가 |
 | deepagents-master | Deep Agents 지식 베이스 전문가 |
+| cloudflare-tunnel-master | Cloudflare Tunnel 지식 베이스 전문가 |
+| langfuse-master | Langfuse 지식 베이스 전문가 |
+| k3s-master | k3s 지식 베이스 전문가 |
+| argocd-master | Argo CD 지식 베이스 전문가 |
 
 ### Commands (7개)
 
@@ -137,15 +145,20 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (20개)
+├── skills/                   # 스킬 (24개)
+│   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
+│   ├── cloudflare-tunnel/
 │   ├── codex/
 │   ├── coding-problem-solver/
+│   ├── deepagents/
 │   ├── git-master/
 │   ├── git-workflow/
 │   ├── git-worktree/
 │   ├── go-standards/
+│   ├── k3s/
+│   ├── langfuse/
 │   ├── langgraph/
 │   ├── openclaw/
 │   ├── opensearch-client/
@@ -153,16 +166,19 @@ leo-claude-plugin/
 │   ├── product-planning/
 │   ├── python/
 │   ├── python-standards/
-│   ├── rust-standards/
 │   ├── rust/
-│   ├── deepagents/
+│   ├── rust-standards/
 │   ├── typescript-standards/
 │   └── unix/
-├── agents/                   # 에이전트 (11개)
+├── agents/                   # 에이전트 (15개)
+│   ├── argocd-master.md
 │   ├── claude-code-master.md
+│   ├── cloudflare-tunnel-master.md
 │   ├── code-reviewer.md
 │   ├── codex-master.md
 │   ├── deepagents-master.md
+│   ├── k3s-master.md
+│   ├── langfuse-master.md
 │   ├── langgraph-master.md
 │   ├── openclaw-master.md
 │   ├── python-master.md

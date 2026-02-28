@@ -51,12 +51,12 @@ leo-claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
 ├── .mcp.json                # MCP 서버 설정 (향후 확장용)
-├── skills/                   # 스킬 (22개)
+├── skills/                   # 스킬 (24개)
 │   └── <skill-name>/
 │       ├── SKILL.md         # 필수: 스킬 정의
 │       ├── references/      # 선택: 참조 문서
 │       └── assets/          # 선택: 템플릿
-├── agents/                   # 커스텀 에이전트 (13개)
+├── agents/                   # 커스텀 에이전트 (15개)
 │   └── <agent-name>.md
 ├── commands/                 # 슬래시 명령어 (7개)
 │   └── <command-name>.md
