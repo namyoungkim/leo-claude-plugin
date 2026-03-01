@@ -65,7 +65,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (25개)
+### Skills (28개)
 
 | Skill | 설명 |
 |-------|------|
@@ -94,13 +94,17 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | k3s | k3s 지식 베이스 검색 (kb CLI 기반) |
 | argocd | Argo CD 지식 베이스 검색 (kb CLI 기반) |
 | opentelemetry | OpenTelemetry 지식 베이스 검색 (kb CLI 기반) |
+| github | GitHub 지식 베이스 검색 (kb CLI 기반) |
+| **GitHub/프로젝트 설정** | |
+| github-init | GitHub repo 초기 설정 |
+| project-scaffold | 프로젝트 초기 구조 생성 |
 | **플러그인/메타** | |
 | claude-code-standards | Claude Code 플러그인 개발 표준 (공식 문서 기반) |
 | **기획/도구** | |
 | product-planning | 인터뷰 기반 제품/프로젝트 기획 |
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
 
-### Agents (16개)
+### Agents (17개)
 
 | Agent | 설명 |
 |-------|------|
@@ -120,6 +124,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | k3s-master | k3s 지식 베이스 전문가 |
 | argocd-master | Argo CD 지식 베이스 전문가 |
 | opentelemetry-master | OpenTelemetry 지식 베이스 전문가 |
+| github-master | GitHub 지식 베이스 전문가 |
 
 ### Commands (7개)
 
@@ -147,7 +152,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (25개)
+├── skills/                   # 스킬 (28개)
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
@@ -172,8 +177,11 @@ leo-claude-plugin/
 │   ├── rust-standards/
 │   ├── typescript-standards/
 │   ├── unix/
-│   └── opentelemetry/
-├── agents/                   # 에이전트 (16개)
+│   ├── opentelemetry/
+│   ├── github/
+│   ├── github-init/
+│   └── project-scaffold/
+├── agents/                   # 에이전트 (17개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
 │   ├── cloudflare-tunnel-master.md
@@ -190,6 +198,7 @@ leo-claude-plugin/
 │   ├── rust-master.md
 │   ├── unix-master.md
 │   ├── opentelemetry-master.md
+│   ├── github-master.md
 │   └── references/           # 에이전트 간 공유 참조
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md

@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Leo's Claude Code plugin collection",
-    "version": "2.5.0"
+    "version": "2.6.0"
   },
   "plugins": [
     {
@@ -15,8 +15,8 @@
         "source": "github",
         "repo": "namyoungkim/leo-claude-plugin"
       },
-      "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, OpenSearch, k3s, Argo CD workflows, self-improvement",
-      "version": "2.5.0",
+      "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, GitHub, OpenSearch, k3s, Argo CD workflows, self-improvement",
+      "version": "2.6.0",
       "keywords": [
         "python",
         "rust",
@@ -29,6 +29,7 @@
         "langfuse",
         "k3s",
         "argocd",
+        "github",
         "workflow",
         "self-improvement"
       ],
