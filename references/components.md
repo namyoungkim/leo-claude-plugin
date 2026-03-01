@@ -29,6 +29,11 @@
 - **k3s**: k3s 지식 베이스 검색 (`argument-hint: [질문]`)
 - **argocd**: Argo CD 지식 베이스 검색 (`argument-hint: [질문]`)
 - **opentelemetry**: OpenTelemetry 지식 베이스 검색 (`argument-hint: [질문]`)
+- **github**: GitHub 지식 베이스 검색 (`argument-hint: [질문]`)
+
+**GitHub/프로젝트 설정** — `argument-hint`
+- **github-init**: GitHub repo 초기 설정 (`argument-hint: [visibility: private|public]`)
+- **project-scaffold**: 프로젝트 초기 구조 생성 (`argument-hint: [type: infra|app]`)
 
 **플러그인/메타** — `user-invocable: false`
 - **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
@@ -55,6 +60,7 @@
 - **k3s-master**: k3s 지식 베이스 전문가 (kb CLI 기반 검색)
 - **argocd-master**: Argo CD 지식 베이스 전문가 (kb CLI 기반 검색)
 - **opentelemetry-master**: OpenTelemetry 지식 베이스 전문가 (kb CLI 기반 검색)
+- **github-master**: GitHub 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
