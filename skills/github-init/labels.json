@@ -1,0 +1,32 @@
+[
+  {
+    "name": "layer-1",
+    "color": "1d76db",
+    "description": "Layer 1"
+  },
+  {
+    "name": "layer-2",
+    "color": "0e8a16",
+    "description": "Layer 2"
+  },
+  {
+    "name": "layer-3",
+    "color": "e4e669",
+    "description": "Layer 3"
+  },
+  {
+    "name": "native",
+    "color": "c5def5",
+    "description": "Native 설치"
+  },
+  {
+    "name": "docker",
+    "color": "0075ca",
+    "description": "Docker 서비스"
+  },
+  {
+    "name": "blocked",
+    "color": "b60205",
+    "description": "외부 의존으로 차단됨"
+  }
+]
