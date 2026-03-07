@@ -8,6 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 errors=0
+warnings=0
 total_checked=0
 
 # plugin.json 검증
@@ -113,6 +114,13 @@ validate_yaml_frontmatter() {
 
     # Ruby로 YAML 검증 (macOS 기본 설치)
     if echo "$frontmatter" | ruby -ryaml -e 'YAML.safe_load(STDIN.read)' 2>/dev/null; then
+        # description 길이 검증
+        desc=$(echo "$frontmatter" | ruby -ryaml -e 'd=YAML.safe_load(STDIN.read); puts d["description"].to_s')
+        desc_len=${#desc}
+        if [[ $desc_len -gt 250 ]]; then
+            echo "[WARN] $name - description exceeds 250 chars ($desc_len)"
+            warnings=$((warnings + 1))
+        fi
         echo "[OK] $name"
         return 0
     else
@@ -136,6 +144,17 @@ for skill_dir in "$ROOT_DIR"/skills/*/; do
             skills_checked=$((skills_checked + 1))
             if ! validate_yaml_frontmatter "$skill_file" "$skill_name"; then
                 errors=$((errors + 1))
+            else
+                # 필수 필드 검증: name, description
+                frontmatter=$(awk '/^---$/{if(++c==2)exit}c==1' "$skill_file")
+                if ! echo "$frontmatter" | grep -q "^name:"; then
+                    echo "[FAIL] $skill_name - Missing required field: name"
+                    errors=$((errors + 1))
+                fi
+                if ! echo "$frontmatter" | grep -q "^description:"; then
+                    echo "[FAIL] $skill_name - Missing required field: description"
+                    errors=$((errors + 1))
+                fi
             fi
         else
             echo "[FAIL] $skill_name - SKILL.md not found"
@@ -157,6 +176,21 @@ for agent_file in "$ROOT_DIR"/agents/*.md; do
         agent_name=$(basename "$agent_file" .md)
         if ! validate_yaml_frontmatter "$agent_file" "$agent_name"; then
             errors=$((errors + 1))
+        else
+            # 필수 필드 검증: name, description, tools
+            frontmatter=$(awk '/^---$/{if(++c==2)exit}c==1' "$agent_file")
+            if ! echo "$frontmatter" | grep -q "^name:"; then
+                echo "[FAIL] $agent_name - Missing required field: name"
+                errors=$((errors + 1))
+            fi
+            if ! echo "$frontmatter" | grep -q "^description:"; then
+                echo "[FAIL] $agent_name - Missing required field: description"
+                errors=$((errors + 1))
+            fi
+            if ! echo "$frontmatter" | grep -q "^tools:"; then
+                echo "[FAIL] $agent_name - Missing required field: tools"
+                errors=$((errors + 1))
+            fi
         fi
     fi
 done
@@ -175,10 +209,14 @@ for cmd_file in "$ROOT_DIR"/commands/*.md; do
         if ! validate_yaml_frontmatter "$cmd_file" "$cmd_name"; then
             errors=$((errors + 1))
         else
-            # name 필드 존재 확인
+            # 필수 필드 검증: name, allowed-tools
             frontmatter=$(awk '/^---$/{if(++c==2)exit}c==1' "$cmd_file")
             if ! echo "$frontmatter" | grep -q "^name:"; then
                 echo "[FAIL] $cmd_name - Missing required field: name"
+                errors=$((errors + 1))
+            fi
+            if ! echo "$frontmatter" | grep -q "^allowed-tools:"; then
+                echo "[FAIL] $cmd_name - Missing required field: allowed-tools"
                 errors=$((errors + 1))
             fi
         fi
@@ -290,6 +328,9 @@ echo ""
 # 결과 출력
 echo "================================"
 echo "Total checked: $total_checked"
+if [[ $warnings -gt 0 ]]; then
+    echo "Warnings: $warnings"
+fi
 
 if [[ $errors -gt 0 ]]; then
     echo "Errors: $errors"
