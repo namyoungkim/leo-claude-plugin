@@ -65,7 +65,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (28개)
+### Skills (29개)
 
 | Skill | 설명 |
 |-------|------|
@@ -103,8 +103,10 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | **기획/도구** | |
 | product-planning | 인터뷰 기반 제품/프로젝트 기획 |
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
+| **에이전트 표준** | |
+| agent-standards | Claude Code 에이전트 개발 표준 |
 
-### Agents (17개)
+### Agents (18개)
 
 | Agent | 설명 |
 |-------|------|
@@ -125,6 +127,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | argocd-master | Argo CD 지식 베이스 전문가 |
 | opentelemetry-master | OpenTelemetry 지식 베이스 전문가 |
 | github-master | GitHub 지식 베이스 전문가 |
+| agent-standards-master | 에이전트 표준 전문가 |
 
 ### Commands (7개)
 
@@ -152,7 +155,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (28개)
+├── skills/                   # 스킬 (29개)
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
@@ -181,7 +184,7 @@ leo-claude-plugin/
 │   ├── github/
 │   ├── github-init/
 │   └── project-scaffold/
-├── agents/                   # 에이전트 (17개)
+├── agents/                   # 에이전트 (18개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
 │   ├── cloudflare-tunnel-master.md
