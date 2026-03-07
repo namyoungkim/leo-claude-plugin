@@ -38,6 +38,9 @@
 **플러그인/메타** — `user-invocable: false`
 - **claude-code-standards**: Claude Code 플러그인 개발 표준 (공식 문서 기반)
 
+**에이전트 표준** — `user-invocable: false`
+- **agent-standards**: Claude Code 에이전트 개발 표준
+
 **기획/도구** — `argument-hint`
 - **product-planning**: 인터뷰 기반 제품/프로젝트 기획 (`argument-hint: [프로젝트명]`)
 - **coding-problem-solver**: 코딩 인터뷰 문제 풀이 (`argument-hint: [문제 URL 또는 이름]`)
@@ -61,6 +64,7 @@
 - **argocd-master**: Argo CD 지식 베이스 전문가 (kb CLI 기반 검색)
 - **opentelemetry-master**: OpenTelemetry 지식 베이스 전문가 (kb CLI 기반 검색)
 - **github-master**: GitHub 지식 베이스 전문가 (kb CLI 기반 검색)
+- **agent-standards-master**: 에이전트 표준 전문가
 
 ## Available Commands
 
