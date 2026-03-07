@@ -76,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qiE \"(\\.env($|\\.)|\\.pem$|\\.key$|secrets/|credentials|token\\.json$|id_rsa)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"민감 파일 수정 차단: $CLAUDE_FILE_PATH\\\"}\" && exit 2 || true'"
+            "command": "bash -c 'echo \"$CLAUDE_FILE_PATH\" | grep -qiE \"(\\.env($|\\.\\w+)|\\.pem$|\\.key$|secrets/|credentials|token\\.json$|id_rsa|\\.aws/|kubeconfig|\\.ssh/)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"민감 파일 수정 차단: $CLAUDE_FILE_PATH\\\"}\" && exit 2 || true'"
           }
         ]
       },
@@ -85,7 +85,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'CMD=\"$CLAUDE_BASH_COMMAND\"; echo \"$CMD\" | grep -qE \"(rm\\s+-rf\\s+/|sudo\\s|chmod\\s+777|mkfs|:(){ :|:& };:)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"위험 명령 차단: $CMD\\\"}\" && exit 2 || true'"
+            "command": "bash -c 'CMD=\"$CLAUDE_BASH_COMMAND\"; echo \"$CMD\" | grep -qE \"(rm\\s+-rf\\s+/|sudo\\s|chmod\\s+777|mkfs|:\\(\\)\\{|dd\\s+if=.+of=/dev/|>\\s*/dev/sd)\" && echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"위험 명령 차단: $CMD\\\"}\" && exit 2 || true'"
           }
         ]
       }
@@ -96,7 +96,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '/reflect를 실행하여 이번 세션을 회고하고 개선점을 기록할 수 있습니다.'"
+            "command": "echo '/reflect를 실행하여 이번 세션을 회고하고 개선점을 기록할 수 있습니다.'",
+            "timeout": 5
           }
         ]
       }

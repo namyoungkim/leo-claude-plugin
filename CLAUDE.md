@@ -109,7 +109,7 @@ YAML frontmatter 필수:
 ```yaml
 ---
 name: skill-name                    # 64자 이내
-description: ...                    # 200자 이내, 트리거 조건 포함
+description: ...                    # 250자 이내, 트리거 조건 포함
 user-invocable: false               # 선택: Claude 자동 호출 전용 (배경 지식형)
 disable-model-invocation: true      # 선택: 수동 호출만 허용 (도메인 특화)
 argument-hint: "[인자 설명]"          # 선택: 자동완성 시 인자 힌트
