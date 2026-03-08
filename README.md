@@ -95,6 +95,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | argocd | Argo CD 지식 베이스 검색 (kb CLI 기반) |
 | opentelemetry | OpenTelemetry 지식 베이스 검색 (kb CLI 기반) |
 | github | GitHub 지식 베이스 검색 (kb CLI 기반) |
+| agentic-engineering | Agentic Engineering 지식 베이스 검색 (kb CLI 기반) |
 | **GitHub/프로젝트 설정** | |
 | github-init | GitHub repo 초기 설정 |
 | project-scaffold | 프로젝트 초기 구조 생성 |
@@ -105,7 +106,6 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | coding-problem-solver | 코딩 인터뷰 문제 풀이 정리 |
 | **에이전트 표준** | |
 | agent-standards | Claude Code 에이전트 개발 표준 |
-| agentic-engineering | Agentic Engineering 지식 베이스 검색 (kb CLI 기반) |
 
 ### Agents (19개)
 
@@ -184,8 +184,8 @@ leo-claude-plugin/
 │   ├── unix/
 │   ├── opentelemetry/
 │   ├── github/
-│   ├── github-init/
 │   ├── agentic-engineering/
+│   ├── github-init/
 │   └── project-scaffold/
 ├── agents/                   # 에이전트 (19개)
 │   ├── argocd-master.md
