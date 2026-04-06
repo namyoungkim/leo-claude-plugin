@@ -126,7 +126,7 @@ my-marketplace/
 
 ### 도메인 분류
 
-현재 스킬들은 7개 도메인으로 분류됨:
+현재 스킬들은 8개 도메인으로 분류됨:
 
 | 도메인 | Skills | 공통 속성 |
 |--------|--------|-----------|
@@ -135,6 +135,7 @@ my-marketplace/
 | 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-tunnel, langfuse, k3s, argocd, opentelemetry, github, agentic-engineering, clean-code, obsidian | `disable-model-invocation: true` |
 | GitHub/프로젝트 설정 | github-init, project-scaffold | `argument-hint` |
 | 플러그인/메타 | claude-code-standards | `user-invocable: false` |
+| 에이전트 표준 | agent-standards | `user-invocable: false` |
 | 기획/도구 | product-planning, coding-problem-solver | `argument-hint` |
 
 ---
@@ -251,6 +252,6 @@ leo-infra-plugin/                 ← DevOps팀용
 
 | 상황 | 권장 |
 |------|------|
-| 개인용, 실질 스킬 < 30개 | 단일 플러그인 (현재) |
+| 개인용, KB 래퍼 제외 실질 복잡도 낮음 | 단일 플러그인 (현재) |
 | 팀 배포, 권한 분리 | 마켓플레이스 + 도메인별 플러그인 |
 | 커뮤니티 배포 | 마켓플레이스 (선택적 설치) |
