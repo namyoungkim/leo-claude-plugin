@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Leo's Claude Code plugin collection",
-    "version": "2.9.0"
+    "version": "2.10.0"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "repo": "namyoungkim/leo-claude-plugin"
       },
       "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, GitHub, OpenSearch, k3s, Argo CD, Clean Code workflows, self-improvement",
-      "version": "2.9.0",
+      "version": "2.10.0",
       "keywords": [
         "python",
         "rust",
@@ -32,6 +32,7 @@
         "github",
         "agentic-engineering",
         "clean-code",
+        "obsidian",
         "workflow",
         "self-improvement"
       ],
