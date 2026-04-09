@@ -52,6 +52,23 @@
         "efficiency"
       ],
       "category": "tools"
+    },
+    {
+      "name": "slide-builder",
+      "source": {
+        "source": "github",
+        "repo": "namyoungkim/slide-builder"
+      },
+      "description": "Marp slides workflow: interactive slide creation with build automation, chart templates, and research analysis",
+      "version": "0.1.0",
+      "keywords": [
+        "slides",
+        "marp",
+        "presentation",
+        "matplotlib",
+        "charts"
+      ],
+      "category": "tools"
     }
   ]
 }
