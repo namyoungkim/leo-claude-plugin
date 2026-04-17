@@ -25,7 +25,7 @@
         "git",
         "opensearch",
         "deepagents",
-        "cloudflare-tunnel",
+        "cloudflare-one",
         "langfuse",
         "k3s",
         "argocd",
