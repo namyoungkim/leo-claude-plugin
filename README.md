@@ -89,7 +89,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex | OpenAI Codex 지식 베이스 검색 (kb CLI 기반) |
 | rust | Rust 지식 베이스 검색 (kb CLI 기반) |
 | deepagents | Deep Agents 지식 베이스 검색 (kb CLI 기반) |
-| cloudflare-tunnel | Cloudflare Tunnel 지식 베이스 검색 (kb CLI 기반) |
+| cloudflare-one | Cloudflare One 지식 베이스 검색 (kb CLI 기반) |
 | langfuse | Langfuse 지식 베이스 검색 (kb CLI 기반) |
 | k3s | k3s 지식 베이스 검색 (kb CLI 기반) |
 | argocd | Argo CD 지식 베이스 검색 (kb CLI 기반) |
@@ -124,7 +124,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex-master | OpenAI Codex 지식 베이스 전문가 |
 | rust-master | Rust 지식 베이스 전문가 |
 | deepagents-master | Deep Agents 지식 베이스 전문가 |
-| cloudflare-tunnel-master | Cloudflare Tunnel 지식 베이스 전문가 |
+| cloudflare-one-master | Cloudflare One 지식 베이스 전문가 |
 | langfuse-master | Langfuse 지식 베이스 전문가 |
 | k3s-master | k3s 지식 베이스 전문가 |
 | argocd-master | Argo CD 지식 베이스 전문가 |
@@ -165,7 +165,7 @@ leo-claude-plugin/
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
-│   ├── cloudflare-tunnel/
+│   ├── cloudflare-one/
 │   ├── codex/
 │   ├── coding-problem-solver/
 │   ├── deepagents/
@@ -196,7 +196,7 @@ leo-claude-plugin/
 ├── agents/                   # 에이전트 (21개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
-│   ├── cloudflare-tunnel-master.md
+│   ├── cloudflare-one-master.md
 │   ├── code-reviewer.md
 │   ├── codex-master.md
 │   ├── deepagents-master.md
