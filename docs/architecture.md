@@ -120,7 +120,7 @@ my-marketplace/
 ### 선택: 단일 Plugin
 
 **결정 이유**:
-1. 스킬 수가 적절 (32개, 단 KB 검색 스킬은 동일 패턴의 경량 래퍼)
+1. 스킬 수가 적절 (33개, 단 KB 검색 스킬은 동일 패턴의 경량 래퍼)
 2. 개인용 도구 모음
 3. 관리 단순화
 
@@ -132,7 +132,7 @@ my-marketplace/
 |--------|--------|-----------|
 | 언어별 표준 | go, python, rust, typescript-standards | `user-invocable: false` |
 | Git 워크플로우 | git-master, git-workflow, git-worktree | (기본값) |
-| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-one, langfuse, k3s, argocd, opentelemetry, github, agentic-engineering, clean-code, obsidian | `disable-model-invocation: true` |
+| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-one, langfuse, k3s, argocd, opentelemetry, github, agentic-engineering, clean-code, obsidian, mlx | `disable-model-invocation: true` |
 | GitHub/프로젝트 설정 | github-init, project-scaffold | `argument-hint` |
 | 플러그인/메타 | claude-code-standards | `user-invocable: false` |
 | 에이전트 표준 | agent-standards | `user-invocable: false` |
@@ -217,7 +217,7 @@ templates/project/
 
 - [ ] 팀/조직에 배포하고 팀별로 다른 스킬 조합 필요
 - [ ] 특정 스킬만 오픈소스로 공개
-- [x] ~~스킬이 20개 이상으로 증가~~ → 32개 도달. 단, KB 스킬은 경량 래퍼라 실질 복잡도 낮음
+- [x] ~~스킬이 20개 이상으로 증가~~ → 33개 도달. 단, KB 스킬은 경량 래퍼라 실질 복잡도 낮음
 - [ ] 스킬별 버전 관리 필요
 
 ### 전환 시 구조
