@@ -213,8 +213,7 @@ leo-claude-plugin/
 │   ├── github-master.md
 │   ├── agentic-engineering-master.md
 │   ├── clean-code-master.md
-│   ├── obsidian-master.md
-│   └── references/           # 에이전트 간 공유 참조
+│   └── obsidian-master.md
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md
 │   ├── checkup.md
@@ -222,8 +221,8 @@ leo-claude-plugin/
 │   ├── harvest.md
 │   ├── prune.md
 │   ├── code-review.md
-│   ├── init-project.md
-│   └── references/           # 명령어 간 공유 참조
+│   └── init-project.md
+├── references/               # 에이전트·명령어·스킬 간 공유 참조 (5개 문서)
 ├── hooks/                    # 훅 설정
 │   └── hooks.json
 ├── templates/                # 프로젝트 스캐폴딩 템플릿
