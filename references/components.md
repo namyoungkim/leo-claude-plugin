@@ -33,6 +33,7 @@
 - **agentic-engineering**: Agentic Engineering 지식 베이스 검색 (`argument-hint: [질문]`)
 - **clean-code**: Clean Code 지식 베이스 검색 (`argument-hint: [질문]`)
 - **obsidian**: Obsidian 지식 베이스 검색 (`argument-hint: [질문]`)
+- **mlx**: MLX 지식 베이스 검색 (`argument-hint: [질문]`)
 
 **GitHub/프로젝트 설정** — `argument-hint`
 - **github-init**: GitHub repo 초기 설정 (`argument-hint: [visibility: private|public]`)
@@ -71,6 +72,7 @@
 - **agentic-engineering-master**: Agentic Engineering 지식 베이스 전문가 (kb CLI 기반 검색)
 - **clean-code-master**: Clean Code 지식 베이스 전문가 (kb CLI 기반 검색)
 - **obsidian-master**: Obsidian 지식 베이스 전문가 (kb CLI 기반 검색)
+- **mlx-master**: MLX 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 

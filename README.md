@@ -65,7 +65,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 
 ## 구성 요소
 
-### Skills (32개)
+### Skills (33개)
 
 | Skill | 설명 |
 |-------|------|
@@ -98,6 +98,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | agentic-engineering | Agentic Engineering 지식 베이스 검색 (kb CLI 기반) |
 | clean-code | Clean Code 지식 베이스 검색 (kb CLI 기반) |
 | obsidian | Obsidian 지식 베이스 검색 (kb CLI 기반) |
+| mlx | MLX 지식 베이스 검색 (kb CLI 기반) |
 | **GitHub/프로젝트 설정** | |
 | github-init | GitHub repo 초기 설정 |
 | project-scaffold | 프로젝트 초기 구조 생성 |
@@ -109,7 +110,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | **에이전트 표준** | |
 | agent-standards | Claude Code 에이전트 개발 표준 |
 
-### Agents (21개)
+### Agents (22개)
 
 | Agent | 설명 |
 |-------|------|
@@ -134,6 +135,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | agentic-engineering-master | Agentic Engineering 지식 베이스 전문가 |
 | clean-code-master | Clean Code 지식 베이스 전문가 |
 | obsidian-master | Obsidian 지식 베이스 전문가 |
+| mlx-master | MLX 지식 베이스 전문가 |
 
 ### Commands (7개)
 
@@ -161,7 +163,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (32개)
+├── skills/                   # 스킬 (33개)
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
@@ -191,9 +193,10 @@ leo-claude-plugin/
 │   ├── agentic-engineering/
 │   ├── clean-code/
 │   ├── obsidian/
+│   ├── mlx/
 │   ├── github-init/
 │   └── project-scaffold/
-├── agents/                   # 에이전트 (21개)
+├── agents/                   # 에이전트 (22개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
 │   ├── cloudflare-one-master.md
@@ -213,7 +216,8 @@ leo-claude-plugin/
 │   ├── github-master.md
 │   ├── agentic-engineering-master.md
 │   ├── clean-code-master.md
-│   └── obsidian-master.md
+│   ├── obsidian-master.md
+│   └── mlx-master.md
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md
 │   ├── checkup.md
