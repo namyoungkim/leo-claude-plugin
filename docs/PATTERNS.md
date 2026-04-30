@@ -79,7 +79,7 @@ skills/{name}/references/        # 단일 스킬 내부 공유
 PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `references/plugin-path.md`로 통합.
 
 ### Notes
-- 현재 인스턴스화된 사례: 플러그인 루트 `references/` (5개 공유 문서) + 7개 `skills/*-standards/references/`
+- 현재 인스턴스화된 사례: 플러그인 루트 `references/` (5개 공유 문서) + 7개 skill 의 `skills/{name}/references/` (그중 5개가 `*-standards`)
 - `agents/references/`, `commands/references/` 는 옵션이지만 현재 사용 사례 없음 — 필요 시 도입
 
 ## Hook Exit Code 보장 패턴
