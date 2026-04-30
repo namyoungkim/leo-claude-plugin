@@ -62,11 +62,12 @@ git status                     # working tree clean 확인
 
 ### Pattern
 ```
-commands/
-├── references/
-│   └── shared-knowledge.md
-├── cmd-a.md                     # [참조](references/shared-knowledge.md)
-└── cmd-b.md                     # [참조](references/shared-knowledge.md)
+references/                      # 플러그인 루트 (에이전트·명령어·스킬 간 공유)
+├── components.md
+├── plugin-path.md
+└── ...
+skills/{name}/references/        # 단일 스킬 내부 공유
+└── shared-snippet.md
 ```
 
 ### Benefits
@@ -75,11 +76,11 @@ commands/
 - 각 파일 500줄 제한 준수 용이
 
 ### Example
-PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `commands/references/plugin-path.md`로 통합.
+PR #21에서 3개 파일의 PLUGIN_ROOT 탐색 로직을 `references/plugin-path.md`로 통합.
 
 ### Notes
-- `skills/`, `agents/`, `commands/` 모두 `references/` 서브디렉토리 사용 가능
-- 공유 범위에 따라 적절한 위치 선택
+- 현재 인스턴스화된 사례: 플러그인 루트 `references/` (5개 공유 문서) + 7개 skill 의 `skills/{name}/references/` (그중 5개가 `*-standards`)
+- `agents/references/`, `commands/references/` 는 옵션이지만 현재 사용 사례 없음 — 필요 시 도입
 
 ## Hook Exit Code 보장 패턴
 - **scope**: 🌍 universal
