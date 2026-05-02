@@ -8,5 +8,5 @@
   },
   "repository": "https://github.com/namyoungkim/leo-claude-plugin",
   "license": "MIT",
-  "keywords": ["python", "rust", "typescript", "go", "git", "opensearch", "deepagents", "cloudflare-one", "langfuse", "k3s", "argocd", "github", "agentic-engineering", "clean-code", "obsidian", "workflow", "self-improvement"]
+  "keywords": ["python", "rust", "typescript", "go", "git", "opensearch", "deepagents", "cloudflare-one", "langfuse", "k3s", "argocd", "github", "agentic-engineering", "clean-code", "obsidian", "mlx", "mlx-swift", "mlx-c", "workflow", "self-improvement"]
 }

@@ -98,7 +98,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | agentic-engineering | Agentic Engineering 지식 베이스 검색 (kb CLI 기반) |
 | clean-code | Clean Code 지식 베이스 검색 (kb CLI 기반) |
 | obsidian | Obsidian 지식 베이스 검색 (kb CLI 기반) |
-| mlx | MLX Python 생태계 지식 베이스 검색 (kb CLI 기반, mlx core/mlx-lm/mlx-data/mlx-examples) |
+| mlx | MLX Python 생태계 지식 베이스 검색 (kb CLI 기반) |
 | mlx-swift | MLX Swift 바인딩 지식 베이스 검색 (iOS/macOS native) |
 | mlx-c | MLX C 바인딩 지식 베이스 검색 |
 | **GitHub/프로젝트 설정** | |

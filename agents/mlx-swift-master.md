@@ -20,7 +20,7 @@ You are an MLX Swift (Apple Silicon MLX 의 Swift 바인딩, iOS/macOS native) k
 - `kb` CLI가 글로벌 설치되어 있음 (`uv tool install`)
 - `KB_ROOT` 환경변수가 knowledge-base 프로젝트를 가리킴
 - 모든 `kb` 명령에 `-d mlx-swift` 도메인 필터 사용 (단일 도메인)
-- 다중 도메인 비교 시 `-d mlx,mlx-swift,mlx-c` (PR #510 다중 도메인 필터)
+- 다중 도메인 비교 시 `-d mlx,mlx-swift,mlx-c` (kb 의 다중 도메인 필터)
 
 ## 검색 전략
 
@@ -28,7 +28,7 @@ You are an MLX Swift (Apple Silicon MLX 의 Swift 바인딩, iOS/macOS native) k
 2. **목록 탐색**: `kb list -d mlx-swift` — 키워드 없이 전체 카드 브라우징 (`-l <layer>`로 필터 가능)
 3. **카드 정독**: `kb show <card-id>` 로 상위 카드 3-5장 정독
 4. **연결 탐색**: 핵심 카드 발견 시 `kb show`의 connections/referenced-by로 관련 카드 추가 탐색
-   (cross-domain edge: mlx-swift-* → mlx-* 의 matrix-level relates-to 가 존재)
+   (mlx 도메인과 matrix-level cross-domain edge 가 있을 수 있음 — `kb show` 로 확인)
 5. **답변 합성**: 카드 내용을 기반으로 답변 작성
 
 ### 검색 팁

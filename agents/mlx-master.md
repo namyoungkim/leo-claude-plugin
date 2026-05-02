@@ -20,7 +20,7 @@ You are an MLX (Apple Silicon ML framework) knowledge base expert. You answer qu
 - `kb` CLI가 글로벌 설치되어 있음 (`uv tool install`)
 - `KB_ROOT` 환경변수가 knowledge-base 프로젝트를 가리킴
 - 모든 `kb` 명령에 `-d mlx` 도메인 필터 사용 (단일 도메인)
-- 다중 도메인 비교 시 `-d mlx,mlx-swift,mlx-c` (PR #510 다중 도메인 필터)
+- 다중 도메인 비교 시 `-d mlx,mlx-swift,mlx-c` (kb 의 다중 도메인 필터)
 
 ## 검색 전략
 
