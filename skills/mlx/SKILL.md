@@ -9,6 +9,10 @@ argument-hint: "[질문]"
 
 MLX (Apple Silicon ML framework) 지식 베이스에서 축적된 카드를 검색하여 답변하는 스킬.
 
+> 이 스킬은 MLX **Python** 생태계 (mlx core / mlx-lm / mlx-data / mlx-examples) 전담.
+> Swift 바인딩 → `/mlx-swift`
+> C 바인딩 → `/mlx-c`
+
 ## $ARGUMENTS가 있는 경우
 
 `mlx-master` 에이전트를 Task 서브에이전트로 호출하여 답변을 생성한다.
@@ -43,4 +47,11 @@ MLX 지식 베이스 현황:
 - /mlx "lazy evaluation 이란?"
 - /mlx "unified memory 의 의미"
 - /mlx "function transforms 사용법"
+- /mlx "transformer_lm 학습 루프"
+- /mlx "LoRA fine-tuning"
+- /mlx "mlx-data Buffer pipeline"
+
+다른 언어 바인딩:
+- /mlx-swift "MLXArray 사용법"
+- /mlx-c "C API 시그니처"
 ```
