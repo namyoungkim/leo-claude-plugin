@@ -397,3 +397,43 @@ my-plugin/
 ### MCP/LSP
 - [ ] `.mcp.json`에서 `${CLAUDE_PLUGIN_ROOT}` 사용 (플러그인 번들 시)
 - [ ] `.lsp.json`에 `command`, `extensionToLanguage` 필수 필드 존재
+
+---
+
+## Pattern: Skill + Agent for Domain-Knowledge Isolation
+
+When a body of domain knowledge (a documentation set, a framework, a vendor product) should be available **only when explicitly invoked** — not loaded into every session — pair a manually-triggered Skill with a `permissionMode: plan` agent.
+
+```yaml
+# skills/<domain>/SKILL.md
+---
+name: <domain>
+description: "<domain> knowledge accessor"
+disable-model-invocation: true   # manual /<domain> only — no auto-trigger
+---
+# Body delegates: Task(subagent_type="<domain>-master", model="opus")
+
+# agents/<domain>-master.md
+---
+name: <domain>-master
+permissionMode: plan              # read-only by construction
+disallowedTools: Write, Edit
+model: opus
+---
+# Searches the knowledge corpus, synthesises answer, returns it as the agent's last message.
+```
+
+**Why this pattern**:
+- Token cost is ~zero when the skill is unused — the corpus is not in the parent context.
+- `disable-model-invocation: true` prevents the model from auto-triggering on partial keyword matches; only `/<domain>` invokes it.
+- `permissionMode: plan` + `disallowedTools` means the agent cannot accidentally mutate the corpus while answering questions.
+- The parent forwards the agent's reply unchanged — no rewriting, no summarisation that hides errors.
+
+**When to use**:
+- Vendor/framework documentation (LangGraph, OpenTelemetry, k3s, etc.).
+- Internal knowledge bases that would be too large to keep in a system prompt.
+- Read-only reference material that should never edit user files.
+
+**When NOT to use**:
+- Knowledge that the model needs in *every* response (put it in CLAUDE.md instead).
+- Domain logic that requires writing files (use a regular agent, not `permissionMode: plan`).
