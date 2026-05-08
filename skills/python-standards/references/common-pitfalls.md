@@ -111,3 +111,39 @@ def test_y(request: pytest.FixtureRequest) -> None: ...
 ```
 
 `object` typing forces `# type: ignore` on every `setenv`/`delenv` call and disables type-checker help where it matters most.
+
+## ASCII-only string validation — `isalnum()` accepts Unicode letters
+
+`str.isalnum()` returns `True` for Hangul, CJK ideographs, accented Latin, and any other Unicode letter or digit. Using it as an "ASCII identifier" check silently lets non-ASCII slugs through:
+
+```python
+# Wrong — passes for "한글slug"
+def is_valid_slug(s: str) -> bool:
+    return s.replace("-", "").isalnum()
+
+# Right — combine isascii() and isalnum()
+def is_valid_slug(s: str) -> bool:
+    cleaned = s.replace("-", "")
+    return cleaned.isascii() and cleaned.isalnum()
+```
+
+**Rule**: When validating identifiers, slugs, filenames, or any ASCII-restricted token, ALWAYS combine `isascii() and isalnum()`. NEVER rely on `isalnum()` alone to enforce ASCII. The tests will pass on the developer's input but fail in production the first time a non-ASCII string arrives.
+
+## MagicMock attribute setup — explicit values, not auto-generated
+
+`unittest.mock.MagicMock` auto-generates child Mock objects for any attribute access. This means `mock.status` returns a `MagicMock` that compares unequal to `200` (or any concrete value), silently breaking tests when production code starts checking new attributes:
+
+```python
+# Production adds: if resp.status != 200: raise
+# Test that previously passed:
+mock_resp = MagicMock()
+mock_resp.read.return_value = b"{}"
+# mock_resp.status is auto-Mock — not 200, not anything, just !=
+
+# Right — set every attribute production reads
+mock_resp = MagicMock()
+mock_resp.status = 200
+mock_resp.read.return_value = b"{}"
+```
+
+**Rule**: When production code adds an attribute or method check, audit every test that mocks the affected object and set the attribute explicitly. NEVER trust `MagicMock` auto-generation for attributes that participate in equality, comparison, or boolean tests. Auto-Mock is fine for "this method gets called once" assertions; it is unsafe for `if obj.x != Y` branches.
