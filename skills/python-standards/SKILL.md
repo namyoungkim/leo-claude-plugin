@@ -227,6 +227,10 @@ async def test_get_user_by_email_returns_none_for_unknown(
 - Core business logic: 90%+
 - Use Arrange-Act-Assert pattern
 
+## Common Pitfalls
+
+See [`references/common-pitfalls.md`](references/common-pitfalls.md) for harvested production patterns: SQLite probe side effects, HTTP error-handling checklist, YAML required-field validation, env-var-driven project root resolution, format-preserving YAML writes, and pytest fixture typing.
+
 ## Workflow Checklist
 
 Project creation:
