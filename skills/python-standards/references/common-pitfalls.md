@@ -76,6 +76,7 @@ def find_project_root(start: Path | None = None) -> Path:
 - Keep the cwd-walk fallback so existing callers keep working.
 - Always `resolve()` to absolute paths before returning.
 - When introducing a new env var, audit existing tests and add `monkeypatch.delenv("VAR_NAME")` to any test that depends on the default resolution — otherwise CI/local divergence is silent.
+- When dispatching parallel worktree-isolated agents, env vars that hold absolute paths (`KB_ROOT`, `PROJECT_ROOT`, etc.) must be re-exported per-worktree in each agent's prompt (`export KB_ROOT=<worktree_path>`). The parent's env var points at the original repo and is inherited silently by all child processes — `find_project_root` should walk cwd ancestry up to a sentinel directory (`.git`, `cards/`, etc.) as the authoritative resolution, making the env var an override hint rather than a hard-coded assumption.
 
 ## YAML format-preserving writes (text-based replacement)
 
@@ -128,6 +129,144 @@ def is_valid_slug(s: str) -> bool:
 ```
 
 **Rule**: When validating identifiers, slugs, filenames, or any ASCII-restricted token, ALWAYS combine `isascii() and isalnum()`. NEVER rely on `isalnum()` alone to enforce ASCII. The tests will pass on the developer's input but fail in production the first time a non-ASCII string arrives.
+
+## JSONL stream vs single-object JSON — verify CLI output format before parsing
+
+External CLI tools that accept a `--json` flag do not universally return a single JSON object. They may emit JSONL (one JSON object per line), SSE, or chunked envelopes. Assuming single-object format and calling `json.loads(raw)` on the full output causes silent data corruption — or worse, raw JSON being forwarded to end users.
+
+```python
+def _extract_from_jsonl(raw: str, event_type: str, item_type: str) -> str:
+    messages: list[str] = []
+    for line in raw.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        try:
+            event = json.loads(stripped)
+        except json.JSONDecodeError:
+            logger.warning("Skipping non-JSON line: %s", stripped[:200])
+            continue
+        if not isinstance(event, dict):  # guard against JSON array lines
+            continue
+        if event.get("type") != event_type:
+            continue
+        item = event.get("item", {})
+        if item.get("type") == item_type:
+            text = item.get("text", "")
+            if text:
+                messages.append(text)
+    if not messages:
+        logger.warning("No %s/%s found (%d lines)", event_type, item_type, len(raw.splitlines()))
+        return raw  # fallback — always log when falling back
+    return "\n".join(messages)
+```
+
+**Rules**:
+- ALWAYS write a unit test for the actual CLI output format before building a parser that depends on it.
+- NEVER use a silent `except` fallback that returns raw output — it hides format changes until they reach end users.
+- ALWAYS handle `FileNotFoundError` from `subprocess` (binary not installed).
+- ALWAYS log a warning when falling back to raw output so format drift is visible.
+
+## Config path injection — derive all paths from one injectable root
+
+Hardcoding a config directory (e.g., `Path.home() / ".myapp"`) makes the object untestable: injecting `tmp_path` as a workspace root does not affect the credential path, so tests accidentally read the developer's real config files and pass by coincidence.
+
+```python
+@dataclass
+class AppConfig:
+    config_dir: Path = field(default_factory=lambda: Path.home() / ".myapp")
+
+    @property
+    def credentials_dir(self) -> Path:
+        return self.config_dir / "credentials"
+
+    @property
+    def cache_dir(self) -> Path:
+        return self.config_dir / "cache"
+```
+
+In tests, inject a `tmp_path`-derived `config_dir`:
+
+```python
+def test_missing_token(tmp_path: pytest.MonkeyPatch) -> None:
+    cfg = AppConfig(config_dir=tmp_path / ".myapp")
+    # credentials_dir is now inside tmp_path — no accidental reads from ~/.myapp
+```
+
+**Rules**:
+- ALWAYS derive every path property from a single injectable root (`config_dir`, `project_root`, etc.).
+- NEVER hardcode `Path.home()` or absolute paths in path-derivation properties.
+- ALWAYS document the derivation chain in a docstring — implicit property relationships become invisible bugs after refactoring.
+- See also: "Project-root resolution with environment-variable override" above for the env-var variant of this pattern.
+
+## Signal handler cleanup — remove handlers in `finally` to prevent pytest leakage
+
+`loop.add_signal_handler()` (and `signal.signal()`) modifies **process-global** state. pytest creates a new event loop per async test but does not reset signal handlers. If `daemon.run()` registers handlers and the test ends without cleanup, the handlers remain as zombies in the next test's event loop, causing infinite hangs in unrelated tests.
+
+```python
+async def run(self) -> None:
+    loop = asyncio.get_running_loop()
+    loop.add_signal_handler(signal.SIGTERM, self._handle_shutdown)
+    loop.add_signal_handler(signal.SIGINT, self._handle_shutdown)
+    try:
+        async with asyncio.TaskGroup() as tg:
+            tg.create_task(self._main_task())
+    finally:
+        loop.remove_signal_handler(signal.SIGTERM)  # always clean up
+        loop.remove_signal_handler(signal.SIGINT)
+```
+
+**Rules**:
+- ALWAYS pair every `add_signal_handler` with a matching `remove_signal_handler` in `finally`.
+- ALWAYS treat any process-global state mutation (`signal`, `sys.path`, `os.environ`) as requiring explicit cleanup.
+- NEVER test a full `daemon.run()` entry point in a pytest async test — test individual components directly to avoid cascading signal state.
+
+## `\b` word boundary does not match across underscores in SCREAMING_SNAKE_CASE
+
+`\b` in Python regex marks a transition between `\w` (`[a-zA-Z0-9_]`) and `\W`. Because `_` is a word character, there is no boundary between the `_` and adjacent letters in `API_KEY`. A pattern like `\b(key|token|secret)\b` will never match `API_KEY` or `DB_PASSWORD`:
+
+```python
+import re
+
+# Wrong — misses SCREAMING_SNAKE keywords
+_SECRET_RE = re.compile(r"\b(token|key|secret|password)\b", re.IGNORECASE)
+print(bool(_SECRET_RE.search("API_KEY=abc")))   # False — missed
+
+# Right — use a lookbehind/lookahead to accept underscore boundaries
+_SECRET_RE = re.compile(
+    r"(?<![a-zA-Z0-9])(?:token|key|secret|password)(?![a-zA-Z0-9])",
+    re.IGNORECASE,
+)
+print(bool(_SECRET_RE.search("API_KEY=abc")))   # True
+```
+
+**Rules**:
+- NEVER rely on `\b` alone to match keywords that may appear as segments of `snake_case` or `SCREAMING_SNAKE_CASE` identifiers.
+- ALWAYS use a lookbehind/lookahead that treats `_` as a separator, or match the `KEY=` assignment pattern explicitly.
+- When the limitation is a known trade-off and fixing it would cause false positives, document it in a code comment at the regex definition site.
+
+## `logging.Filter` must be attached to a handler, not to the root logger
+
+Python's logging propagation model: a `LogRecord` is created by a child logger and propagated up to parent loggers, ultimately reaching the root logger's **handlers**. Filters attached to a logger are checked when *that logger* processes the record — but propagated records skip the parent logger's filters and go directly to its handlers.
+
+```python
+# Wrong — child loggers bypass this filter via propagation
+logging.getLogger().addFilter(RedactionFilter())
+
+# Right — attach to handler so every propagated record is filtered
+for handler in logging.getLogger().handlers:
+    handler.addFilter(RedactionFilter())
+
+# Or attach when creating the handler:
+handler = logging.StreamHandler()
+handler.addFilter(RedactionFilter())
+logging.getLogger().addHandler(handler)
+```
+
+**Rules**:
+- ALWAYS attach filters intended for global coverage to **handlers**, not to the root logger.
+- ALWAYS add the filter to a handler immediately after creating it — not as a separate later step — so no window exists where unfiltered records can escape.
+- ALWAYS add a test that emits a log line from a child logger (`logging.getLogger(__name__)`) and asserts the filter was applied.
 
 ## MagicMock attribute setup — explicit values, not auto-generated
 
