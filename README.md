@@ -167,7 +167,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (35개)
+├── skills/                   # 스킬 (36개)
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
@@ -201,8 +201,9 @@ leo-claude-plugin/
 │   ├── mlx-swift/
 │   ├── mlx-c/
 │   ├── github-init/
-│   └── project-scaffold/
-├── agents/                   # 에이전트 (24개)
+│   ├── project-scaffold/
+│   └── terraform/
+├── agents/                   # 에이전트 (25개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
 │   ├── cloudflare-one-master.md
@@ -225,7 +226,8 @@ leo-claude-plugin/
 │   ├── obsidian-master.md
 │   ├── mlx-master.md
 │   ├── mlx-swift-master.md
-│   └── mlx-c-master.md
+│   ├── mlx-c-master.md
+│   └── terraform-master.md
 ├── commands/                 # 슬래시 명령어 (7개)
 │   ├── setup.md
 │   ├── checkup.md
