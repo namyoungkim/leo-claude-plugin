@@ -132,7 +132,7 @@ my-marketplace/
 |--------|--------|-----------|
 | 언어별 표준 | go, python, rust, typescript-standards | `user-invocable: false` |
 | Git 워크플로우 | git-master, git-workflow, git-worktree | (기본값) |
-| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-one, langfuse, k3s, argocd, opentelemetry, github, agentic-engineering, clean-code, obsidian, mlx | `disable-model-invocation: true` |
+| 인프라/도메인 | opensearch-client, opensearch-server, langgraph, python, unix, openclaw, claude-code, codex, rust, deepagents, cloudflare-one, langfuse, k3s, argocd, terraform, opentelemetry, github, agentic-engineering, clean-code, obsidian, mlx | `disable-model-invocation: true` |
 | GitHub/프로젝트 설정 | github-init, project-scaffold | `argument-hint` |
 | 플러그인/메타 | claude-code-standards | `user-invocable: false` |
 | 에이전트 표준 | agent-standards | `user-invocable: false` |

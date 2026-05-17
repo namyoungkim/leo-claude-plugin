@@ -66,6 +66,7 @@
 - **langfuse-master**: Langfuse 지식 베이스 전문가 (kb CLI 기반 검색)
 - **k3s-master**: k3s 지식 베이스 전문가 (kb CLI 기반 검색)
 - **argocd-master**: Argo CD 지식 베이스 전문가 (kb CLI 기반 검색)
+- **terraform-master**: Terraform 지식 베이스 전문가 (kb CLI 기반 검색)
 - **opentelemetry-master**: OpenTelemetry 지식 베이스 전문가 (kb CLI 기반 검색)
 - **github-master**: GitHub 지식 베이스 전문가 (kb CLI 기반 검색)
 - **agent-standards-master**: 에이전트 표준 전문가
