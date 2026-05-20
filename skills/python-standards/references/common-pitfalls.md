@@ -286,3 +286,38 @@ mock_resp.read.return_value = b"{}"
 ```
 
 **Rule**: When production code adds an attribute or method check, audit every test that mocks the affected object and set the attribute explicitly. NEVER trust `MagicMock` auto-generation for attributes that participate in equality, comparison, or boolean tests. Auto-Mock is fine for "this method gets called once" assertions; it is unsafe for `if obj.x != Y` branches.
+
+## `--dry-run` must guard every mutation in the call graph, not just the wrapper
+
+A `--dry-run` flag is a read-only *promise*. If the wrapper skips its own writes but an inner helper still writes YAML, inserts DB rows, or renames files, the promise is broken — and the leak is easy to miss because the wrapper looks correct. A function named `check_*` or `list_*` can still write (e.g. caching a fetched content hash back to disk), so naming heuristics won't save you.
+
+```python
+# 1. Propagate dry_run explicitly through helper signatures (safe default False)
+def check_resources(name: str, *, dry_run: bool = False) -> list[Status]:
+    for item in items:
+        status = fetch_and_compare(item)
+        # 2. Guard at each mutation site — do NOT rely on the caller's skip
+        if status == "changed" and not dry_run:
+            _upsert_field(path, item.key, "content_hash", new_hash)
+            path.write_text(updated)
+    return statuses
+
+# 3. The wrapper only forwards dry_run; the guards live in the helpers
+def cleanup_cmd(name: str, dry_run: bool = False) -> None:
+    results = check_resources(name, dry_run=dry_run)
+    if not dry_run:
+        mark_stale(...)
+
+# 4. Regression test asserts file mtime + content hash are unchanged
+def test_dry_run_preserves_yaml(tmp_path):
+    path = tmp_path / "resource.yaml"
+    before = path.stat().st_mtime_ns, hashlib.sha256(path.read_bytes()).hexdigest()
+    cleanup_cmd("demo", dry_run=True)
+    after = path.stat().st_mtime_ns, hashlib.sha256(path.read_bytes()).hexdigest()
+    assert before == after  # mtime + content hash both unchanged
+```
+
+**Rules**:
+- When adding `--dry-run`, trace the call graph recursively from the entry point and enumerate every write site (YAML/DB write, file rename) — guard each one. Do not rely on a top-level wrapper skip.
+- NEVER assume read-only from a `check_*`/`list_*` name; verify the body.
+- Regression tests MUST assert file mtime + content hash are unchanged, not just that a skip was logged.
