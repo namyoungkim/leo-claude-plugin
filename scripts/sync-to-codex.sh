@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Sync this Claude Code plugin's skills and agents into Codex's home directory.
+#
+# Skills are copied as-is. Claude Code agents are converted from Markdown
+# frontmatter files into Codex custom-agent TOML files.
 
 set -euo pipefail
 
@@ -38,10 +41,12 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if ! command -v rsync >/dev/null 2>&1; then
-    echo "rsync is required" >&2
-    exit 1
-fi
+for required_command in rsync python3; do
+    if ! command -v "$required_command" >/dev/null 2>&1; then
+        echo "$required_command is required" >&2
+        exit 1
+    fi
+done
 
 contains_line() {
     local needle="$1"
@@ -103,12 +108,88 @@ current_agents=$'\n'
 agents_synced=0
 for agent_file in "$ROOT_DIR"/agents/*.md; do
     [[ -f "$agent_file" ]] || continue
-    agent_name="$(basename "$agent_file")"
+    agent_name="$(basename "$agent_file" .md).toml"
     current_agents+="$agent_name"$'\n'
-    if [[ "$DRY_RUN" == true && ! -d "$CODEX_HOME/agents" ]]; then
-        echo "Would sync $agent_file -> $CODEX_HOME/agents/"
+    if [[ "$DRY_RUN" == true ]]; then
+        echo "Would convert $agent_file -> $CODEX_HOME/agents/$agent_name"
     else
-        rsync "${rsync_flags[@]}" "$agent_file" "$CODEX_HOME/agents/"
+        python3 - "$agent_file" "$CODEX_HOME/agents/$agent_name" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+
+def parse_agent(path: Path) -> tuple[dict[str, str], str]:
+    text = path.read_text(encoding="utf-8")
+    match = re.match(r"\A---\n(.*?)\n---\n?(.*)\Z", text, re.S)
+    if not match:
+        raise SystemExit(f"{path}: missing YAML frontmatter")
+
+    metadata: dict[str, str] = {}
+    for line in match.group(1).splitlines():
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        key, separator, value = line.partition(":")
+        if not separator:
+            continue
+        metadata[key.strip()] = value.strip().strip('"').strip("'")
+
+    return metadata, match.group(2).strip()
+
+
+def toml_string(value: str) -> str:
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def toml_multiline(value: str) -> str:
+    escaped = value.replace('"""', '\\"\\"\\"')
+    return f'"""\n{escaped}\n"""'
+
+
+source = Path(sys.argv[1])
+target = Path(sys.argv[2])
+metadata, body = parse_agent(source)
+
+name = metadata.get("name") or source.stem
+description = metadata.get("description")
+if not description:
+    raise SystemExit(f"{source}: missing required description")
+
+claude_constraints = [
+    f"{key}: {value}"
+    for key, value in metadata.items()
+    if key not in {"name", "description"}
+]
+constraint_block = ""
+if claude_constraints:
+    constraint_block = (
+        "## Source Claude Code Agent Metadata\n\n"
+        + "\n".join(f"- {item}" for item in claude_constraints)
+        + "\n\n"
+        "These fields came from the Claude Code agent definition. Treat them as "
+        "behavioral constraints where Codex supports the equivalent capability.\n\n"
+    )
+
+developer_instructions = constraint_block + body
+
+lines = [
+    f"name = {toml_string(name)}",
+    f"description = {toml_string(description)}",
+]
+
+permission_mode = metadata.get("permissionMode")
+disallowed_tools = {
+    item.strip()
+    for item in metadata.get("disallowedTools", "").split(",")
+    if item.strip()
+}
+if permission_mode == "plan" or {"Write", "Edit"} & disallowed_tools:
+    lines.append('sandbox_mode = "read-only"')
+
+lines.append(f"developer_instructions = {toml_multiline(developer_instructions)}")
+
+target.write_text("\n".join(lines) + "\n", encoding="utf-8")
+PY
     fi
     agents_synced=$((agents_synced + 1))
 done
