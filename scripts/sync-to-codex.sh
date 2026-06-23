@@ -114,18 +114,19 @@ for agent_file in "$ROOT_DIR"/agents/*.md; do
         echo "Would convert $agent_file -> $CODEX_HOME/agents/$agent_name"
     else
         python3 - "$agent_file" "$CODEX_HOME/agents/$agent_name" <<'PY'
+import json
 import re
 import sys
 from pathlib import Path
 
 
-def parse_agent(path: Path) -> tuple[dict[str, str], str]:
+def parse_agent(path):
     text = path.read_text(encoding="utf-8")
     match = re.match(r"\A---\n(.*?)\n---\n?(.*)\Z", text, re.S)
     if not match:
         raise SystemExit(f"{path}: missing YAML frontmatter")
 
-    metadata: dict[str, str] = {}
+    metadata = {}
     for line in match.group(1).splitlines():
         if not line.strip() or line.lstrip().startswith("#"):
             continue
@@ -138,12 +139,7 @@ def parse_agent(path: Path) -> tuple[dict[str, str], str]:
 
 
 def toml_string(value: str) -> str:
-    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
-
-
-def toml_multiline(value: str) -> str:
-    escaped = value.replace('"""', '\\"\\"\\"')
-    return f'"""\n{escaped}\n"""'
+    return json.dumps(value, ensure_ascii=False)
 
 
 source = Path(sys.argv[1])
@@ -186,7 +182,7 @@ disallowed_tools = {
 if permission_mode == "plan" or {"Write", "Edit"} & disallowed_tools:
     lines.append('sandbox_mode = "read-only"')
 
-lines.append(f"developer_instructions = {toml_multiline(developer_instructions)}")
+lines.append(f"developer_instructions = {toml_string(developer_instructions)}")
 
 target.write_text("\n".join(lines) + "\n", encoding="utf-8")
 PY
