@@ -29,12 +29,15 @@
 - **langfuse**: Langfuse 지식 베이스 검색 (`argument-hint: [질문]`)
 - **k3s**: k3s 지식 베이스 검색 (`argument-hint: [질문]`)
 - **argocd**: Argo CD 지식 베이스 검색 (`argument-hint: [질문]`)
+- **terraform**: Terraform 지식 베이스 검색 (`argument-hint: [질문]`)
 - **opentelemetry**: OpenTelemetry 지식 베이스 검색 (`argument-hint: [질문]`)
 - **github**: GitHub 지식 베이스 검색 (`argument-hint: [질문]`)
 - **agentic-engineering**: Agentic Engineering 지식 베이스 검색 (`argument-hint: [질문]`)
 - **clean-code**: Clean Code 지식 베이스 검색 (`argument-hint: [질문]`)
 - **obsidian**: Obsidian 지식 베이스 검색 (`argument-hint: [질문]`)
 - **mlx**: MLX 지식 베이스 검색 (`argument-hint: [질문]`)
+- **mlx-swift**: MLX Swift 지식 베이스 검색 (`argument-hint: [질문]`)
+- **mlx-c**: MLX C 지식 베이스 검색 (`argument-hint: [질문]`)
 
 **GitHub/프로젝트 설정** — `argument-hint`
 - **github-init**: GitHub repo 초기 설정 (`argument-hint: [visibility: private|public]`)
@@ -76,6 +79,8 @@
 - **clean-code-master**: Clean Code 지식 베이스 전문가 (kb CLI 기반 검색)
 - **obsidian-master**: Obsidian 지식 베이스 전문가 (kb CLI 기반 검색)
 - **mlx-master**: MLX 지식 베이스 전문가 (kb CLI 기반 검색)
+- **mlx-swift-master**: MLX Swift 지식 베이스 전문가 (kb CLI 기반 검색)
+- **mlx-c-master**: MLX C 지식 베이스 전문가 (kb CLI 기반 검색)
 
 ## Available Commands
 
