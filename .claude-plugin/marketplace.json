@@ -25,6 +25,7 @@
         "git",
         "opensearch",
         "deepagents",
+        "hermes-agent",
         "cloudflare-one",
         "langfuse",
         "k3s",

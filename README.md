@@ -89,6 +89,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex | OpenAI Codex 지식 베이스 검색 (kb CLI 기반) |
 | rust | Rust 지식 베이스 검색 (kb CLI 기반) |
 | deepagents | Deep Agents 지식 베이스 검색 (kb CLI 기반) |
+| hermes-agent | Hermes Agent 지식 베이스 검색 (kb CLI 기반) |
 | cloudflare-one | Cloudflare One 지식 베이스 검색 (kb CLI 기반) |
 | langfuse | Langfuse 지식 베이스 검색 (kb CLI 기반) |
 | k3s | k3s 지식 베이스 검색 (kb CLI 기반) |
@@ -127,6 +128,7 @@ Claude Code 플러그인. Skills, Agents, Commands, Hooks, Templates 포함.
 | codex-master | OpenAI Codex 지식 베이스 전문가 |
 | rust-master | Rust 지식 베이스 전문가 |
 | deepagents-master | Deep Agents 지식 베이스 전문가 |
+| hermes-agent-master | Hermes Agent 지식 베이스 전문가 |
 | cloudflare-one-master | Cloudflare One 지식 베이스 전문가 |
 | langfuse-master | Langfuse 지식 베이스 전문가 |
 | k3s-master | k3s 지식 베이스 전문가 |
@@ -167,7 +169,7 @@ leo-claude-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # 플러그인 메타데이터
 │   └── marketplace.json     # 마켓플레이스 카탈로그
-├── skills/                   # 스킬 (36개)
+├── skills/                   # 스킬 (37개)
 │   ├── argocd/
 │   ├── claude-code/
 │   ├── claude-code-standards/
@@ -179,6 +181,7 @@ leo-claude-plugin/
 │   ├── git-workflow/
 │   ├── git-worktree/
 │   ├── go-standards/
+│   ├── hermes-agent/
 │   ├── k3s/
 │   ├── langfuse/
 │   ├── langgraph/
@@ -203,13 +206,14 @@ leo-claude-plugin/
 │   ├── github-init/
 │   ├── project-scaffold/
 │   └── terraform/
-├── agents/                   # 에이전트 (25개)
+├── agents/                   # 에이전트 (26개)
 │   ├── argocd-master.md
 │   ├── claude-code-master.md
 │   ├── cloudflare-one-master.md
 │   ├── code-reviewer.md
 │   ├── codex-master.md
 │   ├── deepagents-master.md
+│   ├── hermes-agent-master.md
 │   ├── k3s-master.md
 │   ├── langfuse-master.md
 │   ├── langgraph-master.md
