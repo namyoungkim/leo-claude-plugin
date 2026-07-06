@@ -70,9 +70,16 @@ if [[ -f "$plugin_file" ]]; then
         if [[ "$plugin_valid" == true ]]; then
             echo "[OK] plugin.json"
 
-            # marketplace.json 버전 일치 검증
-            marketplace_file="$ROOT_DIR/marketplace.json"
-            if [[ -f "$marketplace_file" ]]; then
+            # marketplace.json 버전 일치 검증.
+            # 필수 파일 — 부재 시 skip 이 아니라 FAIL. 이전 경로
+            # ($ROOT_DIR/marketplace.json) 는 존재하지 않아 [[ -f ]] 가드가
+            # 검사를 조용히 skip → 2.14.0/2.13.0 드리프트가 CI 를 통과했다
+            # (2026-07-06 knowledge-base 리뷰에서 발견).
+            marketplace_file="$ROOT_DIR/.claude-plugin/marketplace.json"
+            if [[ ! -f "$marketplace_file" ]]; then
+                echo "[FAIL] marketplace.json not found at .claude-plugin/marketplace.json (required)"
+                errors=$((errors + 1))
+            else
                 plugin_ver=$(jq -r '.version // empty' "$plugin_file" 2>/dev/null)
                 mp_meta_ver=$(jq -r '.metadata.version // empty' "$marketplace_file" 2>/dev/null)
                 mp_plugin_ver=$(jq -r '.plugins[] | select(.name == "leo-claude-plugin") | .version // empty' "$marketplace_file" 2>/dev/null)
@@ -196,6 +203,37 @@ for agent_file in "$ROOT_DIR"/agents/*.md; do
 done
 echo "Checked: $agents_checked"
 total_checked=$((total_checked + agents_checked))
+echo ""
+
+# KB 도메인 ↔ *-master 에이전트 동기화 검증.
+# knowledge-base 의 cards/<domain>/ 과 agents/<domain>-master.md 는 네이밍
+# 컨벤션으로만 1:1 이라 도메인 추가 시 master 누락이 조용히 통과해 왔다
+# (CHANGELOG 에 수동 정정 반복 기록). 로컬 KB checkout 이 있을 때만 diff 를
+# 검사하고, CI 처럼 KB 가 없는 환경에서는 명시적 [SKIP] 을 출력한다 —
+# 릴리스는 로컬에서 이루어지므로 로컬 게이트가 실질 방어선.
+echo "KB domain sync"
+echo "--------------------------------"
+KB_ROOT="${KB_ROOT:-$HOME/project/knowledge-base}"
+if [[ -d "$KB_ROOT/cards" ]]; then
+    total_checked=$((total_checked + 1))
+    kb_domains=$(find "$KB_ROOT/cards" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
+    master_domains=$(find "$ROOT_DIR/agents" -maxdepth 1 -name "*-master.md" -exec basename {} -master.md \; | sort)
+    missing_masters=$(comm -23 <(echo "$kb_domains") <(echo "$master_domains"))
+    orphan_masters=$(comm -13 <(echo "$kb_domains") <(echo "$master_domains"))
+    if [[ -n "$missing_masters" ]]; then
+        echo "[FAIL] KB domains without a *-master agent: $(echo $missing_masters | tr '\n' ' ')"
+        errors=$((errors + 1))
+    fi
+    if [[ -n "$orphan_masters" ]]; then
+        echo "[FAIL] *-master agents without a KB domain: $(echo $orphan_masters | tr '\n' ' ')"
+        errors=$((errors + 1))
+    fi
+    if [[ -z "$missing_masters" && -z "$orphan_masters" ]]; then
+        echo "[OK] $(echo "$kb_domains" | wc -l | tr -d ' ') KB domains <-> master agents in sync"
+    fi
+else
+    echo "[SKIP] no KB checkout at \$KB_ROOT ($KB_ROOT) — domain sync not verifiable here"
+fi
 echo ""
 
 # Commands 검증
