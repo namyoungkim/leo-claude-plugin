@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Trainer, Notebooks/Workspaces, Hub/Model Registry, Central Dashboard,
   Spark Operator, SDK, MCP Server, KCD release lineage, ecosystem), 206 KB
   cards (Principle 18 / Pattern 50 / Fact 138), following the hermes-agent
-  pattern.
+  pattern. (#85)
 
 ## [2.14.0] - 2026-06-23
 
