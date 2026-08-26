@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.15.0] - 2026-08-26
+
+### Added
+- `kubeflow` skill and `kubeflow-master` agent — Kubeflow knowledge-base
+  domain (Kubernetes-native AI/ML platform: Pipelines V2 + legacy-v1, Katib,
+  Trainer, Notebooks/Workspaces, Hub/Model Registry, Central Dashboard,
+  Spark Operator, SDK, MCP Server, KCD release lineage, ecosystem), 206 KB
+  cards (Principle 18 / Pattern 50 / Fact 138), following the hermes-agent
+  pattern. (#85)
+
 ## [2.14.0] - 2026-06-23
 
 ### Added

@@ -1,12 +1,12 @@
 {
   "name": "leo-claude-plugin",
   "description": "Leo's Claude Code plugin: Python, Rust, TypeScript, Go, Git, OpenSearch, MLX workflows, self-improvement",
-  "version": "2.14.0",
+  "version": "2.15.0",
   "author": {
     "name": "Leo",
     "url": "https://github.com/namyoungkim"
   },
   "repository": "https://github.com/namyoungkim/leo-claude-plugin",
   "license": "MIT",
-  "keywords": ["python", "rust", "typescript", "go", "git", "opensearch", "deepagents", "hermes-agent", "cloudflare-one", "langfuse", "k3s", "argocd", "terraform", "github", "agentic-engineering", "clean-code", "obsidian", "mlx", "mlx-swift", "mlx-c", "workflow", "self-improvement"]
+  "keywords": ["python", "rust", "typescript", "go", "git", "opensearch", "deepagents", "hermes-agent", "cloudflare-one", "langfuse", "k3s", "kubeflow", "argocd", "terraform", "github", "agentic-engineering", "clean-code", "obsidian", "mlx", "mlx-swift", "mlx-c", "workflow", "self-improvement"]
 }
