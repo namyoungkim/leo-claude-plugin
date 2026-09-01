@@ -128,10 +128,9 @@ argument-hint: "[인자 설명]"          # 선택: 자동완성 시 인자 힌�
 name: agent-name
 description: "에이전트 설명"
 tools: Read, Grep, Glob
-disallowedTools: Write, Edit
 model: sonnet
 permissionMode: plan                # 선택: plan (읽기 전용), bypassPermissions, default
-maxTurns: 15                        # 선택: 최대 턴 수
+maxTurns: 15                        # 선택: 쓰기 가능 에이전트의 폭주 방지 백스톱. 읽기 전용 에이전트는 생략
 memory: user                        # 선택: user (크로스 세션 학습)
 ---
 ```
