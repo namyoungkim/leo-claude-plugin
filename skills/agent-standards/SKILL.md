@@ -19,7 +19,7 @@ Agent Standards(AGENTS.md + Agent Skills) 지식 베이스에서 축적된 카�
 Task(
   subagent_type="leo-claude-plugin:agent-standards-master",
   description="Agent Standards KB 검색",
-  model="opus",
+  model="sonnet",
   prompt="다음 질문에 대해 Agent Standards 지식 베이스를 검색하여 답변해줘: $ARGUMENTS"
 )
 ```

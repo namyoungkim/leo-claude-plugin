@@ -19,7 +19,7 @@ Python 지식 베이스에서 축적된 카드를 검색하여 답변하는 스�
 Task(
   subagent_type="leo-claude-plugin:python-master",
   description="Python KB 검색",
-  model="opus",
+  model="sonnet",
   prompt="다음 질문에 대해 Python 지식 베이스를 검색하여 답변해줘: $ARGUMENTS"
 )
 ```

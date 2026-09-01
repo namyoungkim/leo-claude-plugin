@@ -155,7 +155,7 @@ my-plugin/
 | `tools` | 아니오 | 사용 가능 도구. 생략 시 전체 상속. `Task(worker, researcher)` 형태로 하위 에이전트 제한 가능 |
 | `disallowedTools` | 아니오 | 거부할 도구 |
 | `model` | 아니오 | `sonnet`, `opus`, `haiku`, `inherit` (기본: `inherit`) |
-| `permissionMode` | 아니오 | `default`, `acceptEdits`, `delegate`, `dontAsk`, `bypassPermissions`, `plan` |
+| `permissionMode` | 아니오 | `default`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions`, `plan` |
 | `maxTurns` | 아니오 | 최대 에이전트 턴 수 |
 | `skills` | 아니오 | 시작 시 컨텍스트에 사전 로딩할 스킬 |
 | `mcpServers` | 아니오 | 사용 가능 MCP 서버 |
@@ -169,7 +169,7 @@ my-plugin/
 | `default` | 표준 권한 확인 |
 | `acceptEdits` | 파일 편집 자동 승인 |
 | `dontAsk` | 권한 프롬프트 자동 거부 (명시 허용 도구만 동작) |
-| `delegate` | 에이전트 팀 리드용 조율 전용 모드 |
+| `auto` | 백그라운드 분류기가 명령과 보호 디렉토리 쓰기를 검토 (명시적 `ask` 규칙은 그대로 프롬프트) |
 | `bypassPermissions` | 모든 권한 체크 생략 |
 | `plan` | 읽기 전용 탐색 모드 |
 
@@ -380,7 +380,7 @@ my-plugin/
 - [ ] `name`, `description` 필수 필드 존재
 - [ ] `tools` 목록이 역할에 필요한 최소한으로 제한
 - [ ] `permissionMode`가 용도에 적합
-- [ ] `maxTurns` 설정 (무한 실행 방지)
+- [ ] `maxTurns` 정책 준수 — 읽기 전용 에이전트는 생략(턴 상한에 걸린 실행은 부분 결과를 완결된 답변처럼 반환할 수 있음), 쓰기 가능 에이전트는 폭주 방지용 백스톱으로 설정 가능
 
 ### Commands
 - [ ] `name` 필수 필드 존재
@@ -411,14 +411,14 @@ name: <domain>
 description: "<domain> knowledge accessor"
 disable-model-invocation: true   # manual /<domain> only — no auto-trigger
 ---
-# Body delegates: Task(subagent_type="<domain>-master", model="opus")
+# Body delegates: Task(subagent_type="<domain>-master", model="sonnet")
 
 # agents/<domain>-master.md
 ---
 name: <domain>-master
-permissionMode: plan              # read-only by construction
-disallowedTools: Write, Edit
-model: opus
+permissionMode: plan              # the read-only control (see the caveat below)
+tools: Read, Grep, Glob, Bash     # narrows the surface; `plan` is what enforces read-only
+model: sonnet
 ---
 # Searches the knowledge corpus, synthesises answer, returns it as the agent's last message.
 ```
@@ -426,7 +426,8 @@ model: opus
 **Why this pattern**:
 - Token cost is ~zero when the skill is unused — the corpus is not in the parent context.
 - `disable-model-invocation: true` prevents the model from auto-triggering on partial keyword matches; only `/<domain>` invokes it.
-- `permissionMode: plan` + `disallowedTools` means the agent cannot accidentally mutate the corpus while answering questions.
+- `permissionMode: plan` is what enforces read-only. The `tools` allowlist only narrows the surface — it omits `Write` and `Edit`, but `Bash` is in it and a shell command can write (`>`, `sed -i`, `rm`). Given `plan`, a `disallowedTools: Write, Edit` denylist adds nothing: it names the two tools the allowlist already omits.
+- **Caveat**: when the parent session runs in `auto` mode, a subagent's `permissionMode` is ignored, so `plan` is not in force (a parent in `bypassPermissions` or `acceptEdits` likewise takes precedence over it). In the `auto` case what remains is the `tools` allowlist — which still contains `Bash` — plus the parent's classifier block/allow rules. Read-only is not guaranteed by construction in that case; if it matters there, constrain `Bash` or rely on explicit deny rules in the parent's permission settings.
 - The parent forwards the agent's reply unchanged — no rewriting, no summarisation that hides errors.
 
 **When to use**:

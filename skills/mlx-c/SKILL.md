@@ -23,7 +23,7 @@ MLX C (Apple Silicon MLX 의 C 바인딩) 지식 베이스에서 축적된 카�
 Task(
   subagent_type="leo-claude-plugin:mlx-c-master",
   description="MLX C KB 검색",
-  model="opus",
+  model="sonnet",
   prompt="다음 질문에 대해 MLX C 지식 베이스를 검색하여 답변해줘: $ARGUMENTS"
 )
 ```

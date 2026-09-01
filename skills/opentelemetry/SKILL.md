@@ -19,7 +19,7 @@ OpenTelemetry 지식 베이스에서 축적된 카드를 검색하여 답변하�
 Task(
   subagent_type="leo-claude-plugin:opentelemetry-master",
   description="OpenTelemetry KB 검색",
-  model="opus",
+  model="sonnet",
   prompt="다음 질문에 대해 OpenTelemetry 지식 베이스를 검색하여 답변해줘: $ARGUMENTS"
 )
 ```
