@@ -14,8 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Removed `maxTurns` from every read-only agent (24 `*-master` agents,
   `code-reviewer`, `reflector`). A run that hits the turn cap returns a partial
-  result that the caller may consume as if it were complete; the cap bought no
-  safety these agents did not already have from `permissionMode: plan`.
+  result that the caller may consume as if it were complete. What the cap did
+  buy — a bound on runaway token spend — is outweighed by that risk for
+  read-only agents, whose worst-case damage is cost, not mutation.
   `refactor-assistant` keeps `maxTurns: 20` as a runaway backstop because it is
   write-capable.
 - Reallocated models: the 24 `*-master` knowledge-base agents moved from `opus`

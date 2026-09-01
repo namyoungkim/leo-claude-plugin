@@ -427,7 +427,7 @@ model: sonnet
 - Token cost is ~zero when the skill is unused — the corpus is not in the parent context.
 - `disable-model-invocation: true` prevents the model from auto-triggering on partial keyword matches; only `/<domain>` invokes it.
 - `permissionMode: plan` is what enforces read-only. The `tools` allowlist only narrows the surface — it omits `Write` and `Edit`, but `Bash` is in it and a shell command can write (`>`, `sed -i`, `rm`). Given `plan`, a `disallowedTools: Write, Edit` denylist adds nothing: it names the two tools the allowlist already omits.
-- **Caveat**: when the parent session runs in `auto` mode, a subagent's `permissionMode` is ignored, so `plan` is not in force (a parent in `bypassPermissions` or `acceptEdits` likewise takes precedence over it). What remains is the `tools` allowlist — which still contains `Bash` — plus the parent's classifier block/allow rules. Read-only is not guaranteed by construction in that case; if it matters there, constrain `Bash` or rely on explicit deny rules in the parent's permission settings.
+- **Caveat**: when the parent session runs in `auto` mode, a subagent's `permissionMode` is ignored, so `plan` is not in force (a parent in `bypassPermissions` or `acceptEdits` likewise takes precedence over it). In the `auto` case what remains is the `tools` allowlist — which still contains `Bash` — plus the parent's classifier block/allow rules. Read-only is not guaranteed by construction in that case; if it matters there, constrain `Bash` or rely on explicit deny rules in the parent's permission settings.
 - The parent forwards the agent's reply unchanged — no rewriting, no summarisation that hides errors.
 
 **When to use**:
