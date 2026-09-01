@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `code-reviewer`, `reflector`). A run that hits the turn cap returns a partial
   result that the caller may consume as if it were complete. What the cap did
   buy — a bound on runaway token spend — is outweighed by that risk for
-  read-only agents, whose worst-case damage is cost, not mutation.
+  read-only agents, whose damage under `plan` is cost, not mutation.
   `refactor-assistant` keeps `maxTurns: 20` as a runaway backstop because it is
   write-capable.
 - Reallocated models: the 24 `*-master` knowledge-base agents moved from `opus`
